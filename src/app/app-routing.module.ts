@@ -2,8 +2,19 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: '', redirectTo: 'budget-balance', pathMatch: 'full' },
+  {
+    path: 'budget-balance',
+    loadChildren: () => import('./budget-balance/budget-balance.module').then( m => m.BudgetBalancePageModule)
+  },
+  {
+    path: 'budget-history',
+    loadChildren: () => import('./budget-history/budget-history.module').then( m => m.BudgetHistoryPageModule)
+  },
+  {
+    path: 'budget-faqs',
+    loadChildren: () => import('./budget-faqs/budget-faqs.module').then( m => m.BudgetFaqsPageModule)
+  },
 ];
 
 @NgModule({
