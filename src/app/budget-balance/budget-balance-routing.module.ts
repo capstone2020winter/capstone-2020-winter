@@ -14,7 +14,7 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: './fixed-expense/fixed-expense.module#FixedExpensePageModule'
+            loadChildren: '../budget-balance/fixed-expense/fixed-expense.module#FixedExpensePageModule'
           }
         ]
       },
@@ -23,7 +23,7 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: './variable-expense/variable-expense.module#VariableExpensePageModule'
+            loadChildren: '../budget-balance/variable-expense/variable-expense.module#VariableExpensePageModule'
           }
         ]
       },
@@ -32,7 +32,7 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: './income/income.module#IncomePageModule'
+            loadChildren: '../budget-balance/income/income.module#IncomePageModule'
           }
         ]
       },
@@ -41,7 +41,7 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: './summary/summary.module#SummaryPageModule'
+            loadChildren: '../budget-balance/summary/summary.module#SummaryPageModule'
           }
         ]
       },
