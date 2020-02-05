@@ -1,5 +1,7 @@
 {
   "name": "capstone2020Winter",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
