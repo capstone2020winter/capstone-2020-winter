@@ -14,7 +14,8 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: '../budget-balance/fixed-expense/fixed-expense.module#FixedExpensePageModule'
+            loadChildren: () => import('../fixed-expense/fixed-expense.module').then( m => m.FixedExpensePageModule)
+            // loadChildren: '../fixed-expense/fixed-expense.module#FixedExpensePageModule'
             // loadChildren: './fixed-expense/fixed-expense.module#FixedExpensePageModule'
           }
         ]
@@ -24,7 +25,8 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: '../budget-balance/variable-expense/variable-expense.module#VariableExpensePageModule'
+            loadChildren: () => import('../variable-expense/variable-expense.module').then( m => m.VariableExpensePageModule)
+            // loadChildren: '../variable-expense/variable-expense.module#VariableExpensePageModule'
             // loadChildren: './variable-expense/variable-expense.module#VariableExpensePageModule'
           }
         ]
@@ -34,7 +36,8 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: '../budget-balance/income/income.module#IncomePageModule'
+            loadChildren: () => import('../income/income.module').then( m => m.IncomePageModule)
+            // loadChildren: '../income/income.module#IncomePageModule'
             // loadChildren: './income/income.module#IncomePageModule'
           }
         ]
@@ -44,7 +47,8 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            loadChildren: '../budget-balance/summary/summary.module#SummaryPageModule'
+            loadChildren: () => import('../summary/summary.module').then( m => m.SummaryPageModule)
+            // loadChildren: '../summary/summary.module#SummaryPageModule'
             // loadChildren: './summary/summary.module#SummaryPageModule'
           }
         ]
@@ -55,11 +59,6 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/budget-balance/summary',
-    pathMatch: 'full'
   }
 ];
 
