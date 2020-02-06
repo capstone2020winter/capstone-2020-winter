@@ -25,7 +25,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../budget-balance/variable-expense/variable-expense.module#VariableExpensePageModule'
-            // loadChildren: './variable-expense/variable-expense.module#VariableExpensePageModule'
+          //  loadChildren: './variable-expense/variable-expense.module#VariableExpensePageModule'
           }
         ]
       },
@@ -45,7 +45,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../budget-balance/summary/summary.module#SummaryPageModule'
-            // loadChildren: './summary/summary.module#SummaryPageModule'
+            //loadChildren: './summary/summary.module#SummaryPageModule'
           }
         ]
       },
