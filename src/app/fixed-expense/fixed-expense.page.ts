@@ -9,15 +9,17 @@ import { BudgetItemModel } from '../models/BudgetItemModel';
   styleUrls: ['./fixed-expense.page.scss'],
 })
 export class FixedExpensePage implements OnInit {
-    budget = new BudgetItemModelList('fixed',
-        [
-            new BudgetItemModel('0', 'Rent', 550.00, 'M'),
-            new BudgetItemModel('1', 'Transportation', 122.00, 'M'),
-            new BudgetItemModel('2', 'Food', 50.00, 'W')
-        ]
-    );
+    budget: any
 
-  constructor() { }
+  constructor() {
+      this.budget = new BudgetItemModelList('fixed',
+          [
+              new BudgetItemModel('0', 'Rent', 550.00, 'M'),
+              new BudgetItemModel('1', 'Transportation', 122.00, 'M'),
+              new BudgetItemModel('2', 'Food', 50.00, 'W')
+          ]
+      );
+  }
 
   ngOnInit() {
   }

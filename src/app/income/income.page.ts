@@ -9,15 +9,17 @@ import { BudgetItemModel } from '../models/BudgetItemModel';
 })
 export class IncomePage implements OnInit {
 
-    budget = new BudgetItemModelList('fixed',
-        [
-            new BudgetItemModel('0', 'Checking', 550.00, '-'),
-            new BudgetItemModel('1', 'Savings', 5022.00, '-'),
-            new BudgetItemModel('2', 'PayCheck', 300.00, '2W')
-        ]
-    );
+    budget:any;
 
-  constructor() { }
+  constructor() {
+      this.budget = new BudgetItemModelList('fixed',
+          [
+              new BudgetItemModel('0', 'Checking', 550.00, '-'),
+              new BudgetItemModel('1', 'Savings', 5022.00, '-'),
+              new BudgetItemModel('2', 'PayCheck', 300.00, '2W')
+          ]
+      );
+  }
 
   ngOnInit() {
   }
