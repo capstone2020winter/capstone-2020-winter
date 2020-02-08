@@ -8,12 +8,14 @@ import { IncomePageRoutingModule } from './income-routing.module';
 
 import { IncomePage } from './income.page';
 
+import { ComponentsModule } from '../components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    IncomePageRoutingModule
+    IncomePageRoutingModule, ComponentsModule
   ],
   declarations: [IncomePage]
 })

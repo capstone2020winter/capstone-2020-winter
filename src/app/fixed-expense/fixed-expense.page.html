@@ -1,30 +1,10 @@
 <ion-content color="light" class="data-table">
     <ion-list class="data-list">
-        <ion-item-sliding>
-            <ion-item lines="full" class="data-item">
-                <ion-label slot="start" class="ion-text-wrap">Sliding Item 1</ion-label>
-                <div class="dollar-input" slot="end">
-                    <ion-input type="number" value="0.00"></ion-input>
-                    <ion-icon class="dollar-sign" name="bluetooth" color="medium"></ion-icon>
-                </div>
-            </ion-item>
+        <ion-item-sliding *ngFor="let item of budget.items">
+            <app-budget-item [theItem]=item></app-budget-item>
             <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="test()">DELETE</ion-item-option>
+                <ion-item-option color="danger" (click)="delete(item)">DELETE</ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
-
-        <ion-item-sliding>
-            <ion-item lines="full" class="data-item">
-                <ion-label slot="start" class="ion-text-wrap">Sliding 1</ion-label>
-                <div class="dollar-input" slot="end">
-                    <ion-input type="number" value="0.00"></ion-input>
-                    <ion-icon class="dollar-sign" name="bluetooth" color="medium"></ion-icon>
-                </div>
-            </ion-item>
-            <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="test()">DELETE</ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
-
     </ion-list>
 </ion-content>

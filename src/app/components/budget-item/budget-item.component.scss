@@ -1,0 +1,33 @@
+.data-item {
+  .dollar-input {
+    width: rem-calc(105);
+    display: inline-flex;
+    border: solid 1px lightgrey;
+    align-items: center;
+    border-radius: 17px;
+    padding: 0 3px;
+
+    margin-inline-start: 3px;
+    margin-inline-end: 0;
+  }
+
+  ion-input {
+    text-align: right;
+    --padding-end: 0;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+  }
+
+  ion-icon {
+    &.dollar-sign {
+      margin-inline-start: 0;
+      margin-inline-end: 0
+    }
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
