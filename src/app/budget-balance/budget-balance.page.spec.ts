@@ -9,7 +9,7 @@ describe('BudgetBalancePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BudgetBalancePage ],
+      declarations: [ BudgetBalancePage],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { VariableExpensePage } from './variable-expense.page';
+import { BudgetItemComponent } from '../components/budget-item/budget-item.component';
 
 describe('VariableExpensePage', () => {
   let component: VariableExpensePage;
@@ -9,7 +10,7 @@ describe('VariableExpensePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VariableExpensePage ],
+      declarations: [ VariableExpensePage, BudgetItemComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

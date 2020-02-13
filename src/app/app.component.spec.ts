@@ -7,6 +7,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 
+import { BudgetItemComponent } from './components/budget-item/budget-item.component';
+import { ExpandableComponent } from './components/expandable/expandable.component';
+
 describe('AppComponent', () => {
 
   let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
@@ -18,7 +21,7 @@ describe('AppComponent', () => {
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      declarations: [AppComponent, BudgetItemComponent, ExpandableComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },

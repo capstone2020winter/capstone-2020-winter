@@ -9,7 +9,7 @@ import { BudgetItemModel } from '../models/BudgetItemModel';
   styleUrls: ['./fixed-expense.page.scss'],
 })
 export class FixedExpensePage implements OnInit {
-    budget: any
+    budget: any;
 
   constructor() {
       this.budget = new BudgetItemModelList('fixed',
