@@ -21,7 +21,7 @@ export class AddpagePage implements OnInit {
 
 
     addItemToDataBase() {
-        console.log('Add budget item to DB');
+        console.log('Add budget item to Data Base');
 
         return false;
     }

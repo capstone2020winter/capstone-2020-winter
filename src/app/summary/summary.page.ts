@@ -103,5 +103,4 @@ export class SummaryPage implements OnInit {
 
         return -1;
     }
-
 }
