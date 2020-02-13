@@ -1,3 +1,68 @@
+
 <ion-content>
-Summary Code Goes Here
+    <div class="header">
+        <ion-text><h3>Budget Summary</h3></ion-text>
+    </div>
+
+    
+  <!--  Please put code for pie chat here -->
+  <!--
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+              <ion-icon name="square" class="chart-icon"></ion-icon>
+              <ion-text class="chart-text">Fixed</ion-text>
+
+              <ion-icon name="square" class="chart-icon"></ion-icon>
+              <ion-text class="chart-text">Variable</ion-text>
+
+              <ion-icon name="square" class="chart-icon"></ion-icon>
+              <ion-text class="chart-text">others</ion-text>
+            </ion-col>
+        </ion-row>
+    </ion-grid> -->
+
+
+  <!--<ion-img src="Images/pie_percent.png"></ion-img>-->
+
+  <!--displaying summary amount of current month budget and changing the color of text according to budget-->
+    <ion-text class="summary-positive" [hidden] ="budgetSummaryAmount <= 0">
+         <p class="total-balance">Budget-Balance:- ${{budgetSummaryAmount}}</p>
+    </ion-text>
+    <ion-text class="summary-negative" [hidden] = "budgetSummaryAmount > 0">
+          <p class="total-balance">Budget-Balance:- ${{budgetSummaryAmount}}</p>
+    </ion-text>
+
+
+  <!-- Displaying possible solutions for managing budget-->
+    <ion-text class="suggestion-title">
+        You can reduce the deficit by :
+    </ion-text>
+
+    
+      <ion-grid class="suggestion-text">
+        <div *ngFor="let suggestion of suggestionsArray">
+          <ion-row>
+            <ion-icon name="remove"></ion-icon><ion-text class="chart-text">{{suggestion}}</ion-text>
+          </ion-row>
+        </div>
+      </ion-grid>
+    
+  <!-- Accordian to show Income and Expenses -->
+        <ion-card (click)="expandItem(item)" *ngFor="let item of items">
+          <ion-card-header class="expand-header">
+            <ion-text>{{item.name}}</ion-text>
+          </ion-card-header>
+      
+          <ion-card-content>
+            <app-expandable expandHeight="120px" [expanded]="item.expanded" >
+              <p *ngFor="let showList of item.list">
+                {{showList}}
+              </p>
+            </app-expandable>
+          </ion-card-content>
+        </ion-card>
+
 </ion-content>
+
+ 

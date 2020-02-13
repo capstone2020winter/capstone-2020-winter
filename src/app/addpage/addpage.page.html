@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add income or expenses</ion-title>
+    <ion-list>
+      <ion-item>
+        <ion-label>Amount:($)</ion-label>
+        <ion-input type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description:</ion-label>
+        <ion-textarea type="number"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>IN/OUT</ion-label>
+        <ion-select [interfaceOptions]="IN/OUT" interface="popover" placeholder="Option">
+          <ion-select-option value="1">Income</ion-select-option>
+          <ion-select-option value="2">Expenditure</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>FREQUENCY</ion-label>
+        <ion-select [interfaceOptions]="FREQUENCY" interface="popover" placeholder="Option">
+          <ion-select-option value="1">One Time</ion-select-option>
+          <ion-select-option value="2">Weekly</ion-select-option>
+          <ion-select-option value="3">Monthly</ion-select-option>
+          <ion-select-option value="4">Annually</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item id="CATEGORY">
+        <ion-label>CATEGORY</ion-label>
+        <ion-select [interfaceOptions]="CATEGORY" interface="popover" placeholder="Option">
+          <ion-select-option value="1">Rent</ion-select-option>
+          <ion-select-option value="2">Transportation</ion-select-option>
+          <ion-select-option value="3">Food</ion-select-option>
+          <ion-select-option value="4">Shopping</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <br>
+      <ion-button expand="block" shape="round">Submit</ion-button>
+    </ion-list>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content>

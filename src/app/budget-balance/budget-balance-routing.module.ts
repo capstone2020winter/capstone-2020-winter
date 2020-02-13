@@ -54,6 +54,17 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'addpage',
+        children:[
+          {
+            path: '',
+            loadChildren: () => import('../addpage/addpage.module').then( m => m.AddpagePageModule)
+            // loadChildren: '../summary/summary.module#SummaryPageModule'
+            // loadChildren: './summary/summary.module#SummaryPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/budget-balance/summary',
         pathMatch: 'full'

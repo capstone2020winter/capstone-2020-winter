@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SummaryPageRoutingModule } from './summary-routing.module';
 
 import { SummaryPage } from './summary.page';
+import { ExpandableComponent } from "../components/expandable/expandable.component";
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SummaryPage } from './summary.page';
     IonicModule,
     SummaryPageRoutingModule
   ],
-  declarations: [SummaryPage]
+  declarations: [SummaryPage, ExpandableComponent]
 })
 export class SummaryPageModule {}
