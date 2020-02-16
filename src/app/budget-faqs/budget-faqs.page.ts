@@ -11,22 +11,34 @@ export class BudgetFaqsPage implements OnInit {
 
   constructor() {   
     this.questions = [
-    {name: "What is a budget?"},
-    {name: "why make a budget?"},
-    {name: "Importance of Managing your Income and Expenses."},
-    {name:"Things to consider before you start a Budget."},
-    {name: "Tips to help you make a Budget."}
+    {expanded: false, name: "What is a budget?", text:"this is what is a budget"},
+    {expanded: false, name: "why make a budget?"},
+    {expanded: false, name: "Importance of Managing your Income and Expenses."},
+    {expanded: false, name:"Things to consider before you start a Budget."},
+    {expanded: false, name: "Tips to help you make a Budget."}
                   
 
 ];
 
 }
 
-// // expandQuestion(question): void {
-// //   if (question.expanded) {
-// //     question.expanded = false;
-// //   }
-// }
+expandQuestion(question): void {
+  if (question.expanded) {
+    question.expanded = false;
+  }
+ 
+     else {
+        this.questions.map(listItem => {
+            if (this.questions== listItem) {
+                listItem.expanded = !listItem.expanded;
+            } else {
+                listItem.expanded = false;
+            }
+            return listItem;
+        });
+    }
+ }
+
 
   ngOnInit() {
   }
