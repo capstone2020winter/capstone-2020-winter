@@ -26,9 +26,8 @@ expandQuestion(question): void {
   if (question.expanded) {
     question.expanded = false;
   }
- 
-     else {
-        this.questions.map(listItem => {
+  else {
+this.questions.map(listItem => {
             if (this.questions== listItem) {
                 listItem.expanded = !listItem.expanded;
             } else {
