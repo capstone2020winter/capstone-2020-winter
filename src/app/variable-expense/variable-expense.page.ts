@@ -23,7 +23,7 @@ export class VariableExpensePage implements OnInit {
       this.budget = new BudgetItemModelList('fixed',this.budgetItemModel);
       for(var index in this.budgetItemModel)
       { 
-        this.addVariableExpense(this.budgetItemModel[index].id, this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
+        this.addVariableExpense(this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
       }
   }
 
@@ -31,9 +31,9 @@ export class VariableExpensePage implements OnInit {
   }
 
   //Function which calls Our firestore Service to add data to firestore cloud database
-  async addVariableExpense(id: string, name: string, value:number, badge:string){
+  async addVariableExpense(name: string, value:number, badge:string){
  
-    this.firestoreService.createVariableExpense(id,name,value,badge)
+    this.firestoreService.createVariableExpense(name,value,badge)
      .then(
        () => {
          console.log("in then");

@@ -25,7 +25,7 @@ export class IncomePage implements OnInit {
       this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
       for(var index in this.budgetItemModel)
       { 
-        this.addIncome(this.budgetItemModel[index].id, this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
+        this.addIncome(this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
       }
   }
 
@@ -33,9 +33,9 @@ export class IncomePage implements OnInit {
   }
 
 //Function which calls Our firestore Service to add data to firestore cloud database
-  async addIncome(id: string, name: string, value:number, badge:string){
+  async addIncome(name: string, value:number, badge:string){
  
-    this.firestoreService.createIncome(id,name,value,badge)
+    this.firestoreService.createIncome(name,value,badge)
      .then(
        () => {
          console.log("in then");

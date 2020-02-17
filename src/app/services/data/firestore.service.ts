@@ -16,12 +16,11 @@ export class FirestoreService {
 
   //function to add Data to Fixed Expense 
   //Id is being passed to database now but in future it will be generated automatically
-   public createFixedExpense(id: string, name: string, value:number, badge:string): Promise<void> {
-    console.log("in createFixedExpense firestore")
-    // const id = this.firestore.createId();
+   public createFixedExpense(name: string, value:number, badge:string): Promise<void> {
+     const autoId = this.firestore.createId();
 
-     var result = this.firestore.doc(`FixedExpense/${id}`).set({
-       id,
+     var result = this.firestore.doc(`FixedExpense/${autoId}`).set({
+      autoId,
        name,
        value,
        badge
@@ -31,11 +30,10 @@ export class FirestoreService {
 
    //function to add Variable Expense
    //Id is being passed to database now but in future it will be generated automatically
-   public createVariableExpense(id: string, name: string, value:number, badge:string): Promise<void> {
-    console.log("in createVariableExpense firestore")
-
-     var result = this.firestore.doc(`VariableExpense/${id}`).set({
-       id,
+   public createVariableExpense(name: string, value:number, badge:string): Promise<void> {
+    const autoId = this.firestore.createId();
+     var result = this.firestore.doc(`VariableExpense/${autoId}`).set({
+      autoId,
        name,
        value,
        badge
@@ -45,11 +43,10 @@ export class FirestoreService {
 
    //function to add Income
    //Id is being passed to database now but in future it will be generated automatically
-   public createIncome(id: string, name: string, value:number, badge:string): Promise<void> {
-    console.log("in createVariableExpense firestore")
-
-     var result = this.firestore.doc(`Income/${id}`).set({
-       id,
+   public createIncome(name: string, value:number, badge:string): Promise<void> {
+    const autoId = this.firestore.createId();
+     var result = this.firestore.doc(`Income/${autoId}`).set({
+      autoId,
        name,
        value,
        badge
