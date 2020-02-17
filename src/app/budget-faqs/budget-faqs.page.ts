@@ -1,48 +1,46 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-budget-faqs',
-  templateUrl: './budget-faqs.page.html',
-  styleUrls: ['./budget-faqs.page.scss'],
+    selector: 'app-budget-faqs',
+    templateUrl: './budget-faqs.page.html',
+    styleUrls: ['./budget-faqs.page.scss'],
 })
 export class BudgetFaqsPage implements OnInit {
-  public questions: any = [];
-  
+    public questions: any = [];
 
-  constructor() {   
-    this.questions = [
-    {expanded: false, name: "What is a budget?", text:"this is what is a budget"},
-    {expanded: false, name: "why make a budget?"},
-    {expanded: false, name: "Importance of Managing your Income and Expenses."},
-    {expanded: false, name:"Things to consider before you start a Budget."},
-    {expanded: false, name: "Tips to help you make a Budget."}
-                  
 
-];
+    constructor() {
+        this.questions = [
+            {expanded: false, name: "What is a budget?", text: "this is what is a budget, this is what is a budgetm this is what is a budgetmm this is what is a budgetm this is what is a budgetm this is what is a budget mthis is what is a budget"},
+            {expanded: false, name: "Why make a budget?", text: "this is what is a budget"},
+            {expanded: false, name: "Importance of Managing your Income and Expenses.", text: "this is what is a budget"},
+            {expanded: false, name: "Things to consider before you start a Budget.", text: "this is what is a budget"},
+            {expanded: false, name: "Tips to help you make a Budget.", text: "this is what is a budget"}
+
+        ];
+
+    }
+
+    expandQuestion(question): void {
+        console.log("Hello")
+        if (question.expanded) {
+            question.expanded = false;
+        } else {
+            this.questions.map(listItem => {
+                if (question == listItem) {
+                    listItem.expanded = !listItem.expanded;
+                } else {
+                    listItem.expanded = false;
+                }
+                return listItem;
+            });
+        }
+    }
+
+
+    ngOnInit() {
+    }
+
 
 }
-
-expandQuestion(question): void {
-  if (question.expanded) {
-    question.expanded = false;
-  }
- 
-     else {
-        this.questions.map(listItem => {
-            if (this.questions== listItem) {
-                listItem.expanded = !listItem.expanded;
-            } else {
-                listItem.expanded = false;
-            }
-            return listItem;
-        });
-    }
- }
-
-
-  ngOnInit() {
-  }
- 
-
-  }
 

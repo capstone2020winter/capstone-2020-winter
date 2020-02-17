@@ -12,12 +12,11 @@
     <ion-card-header  class="expand-header">
     <ion-text>{{question.name}}</ion-text>
     </ion-card-header>
-    <!-- <ion-card-content>
-      <app-expandable expandHeight="1200px" [expanded]="question.expanded" >
-        <p *ngFor="let showText of question.text">
-          {{showText}}
-        </p>
+<!--      class="open-{{question.expanded}}"-->
+    <ion-card-content  class="closed">
+      <app-expandable class="faq-answer" expandHeight="250px" [expanded]="question.expanded" >
+          <span>Answer: </span>  {{question.text}}
       </app-expandable>
-    </ion-card-content> -->
+    </ion-card-content>
   </ion-card>
  </ion-content>
