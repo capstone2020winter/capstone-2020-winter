@@ -11,40 +11,33 @@ import { FirestoreService } from '../services/data/firestore.service';
 })
 export class IncomePage implements OnInit {
 
-    budget:any;
-    public budgetItemModel = [
-      new BudgetItemModel('0', 'Checking', 550.00, '-'),
-      new BudgetItemModel('1', 'Savings', 5022.00, '-'),
-      new BudgetItemModel('3', 'PayCheck', 300.00, '2W')
-  ]
+    budget:any = [];
+    public budgetItemModel = [];
 
   constructor(public firestoreService: FirestoreService) {
 
-    //This code will add budgetItemModel Array to database on Pageload
-    // - Any data new which needs to be added to database has to be pushed to budgetItemModel Array 
-      this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
-      for(var index in this.budgetItemModel)
-      { 
-        this.addIncome(this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
-      }
+    //This code will add data into budgetItemModel Array on Pageload
+      this.getIncome().then(
+        () => {
+          this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
+        },
+        error => {
+          console.error("error : "+error);
+        }
+      );
   }
 
   ngOnInit() {
   }
 
-//Function which calls Our firestore Service to add data to firestore cloud database
-  async addIncome(name: string, value:number, badge:string){
- 
-    this.firestoreService.createIncome(name,value,badge)
-     .then(
-       () => {
-         console.log("in then");
-       },
-       error => {
-         console.error("in error");
-       }
-     );
+  //This function will get data from the firestore cloud database from Income Collection
+  async getIncome(){
+    this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((item) => {
+            this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value,item.badge))
+        });
+    });
+    return true
   }
-
 }
 

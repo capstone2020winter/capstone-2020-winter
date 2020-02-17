@@ -11,37 +11,31 @@ import { FirestoreService } from '../services/data/firestore.service';
   styleUrls: ['./fixed-expense.page.scss'],
 })
 export class FixedExpensePage implements OnInit {
-    budget: any;
-    public budgetItemModel = [
-      new BudgetItemModel('0', 'Rent', 550.00, 'M'),
-      new BudgetItemModel('1', 'Transportation', 122.00, 'M'),
-      new BudgetItemModel('2', 'Food', 50.00, 'W')
-  ]
+    budget: any = [];
+    public budgetItemModel = []
 
   constructor(public firestoreService: FirestoreService) {
-      //This code will add budgetItemModel Array to database on Pageload
-    // - Any data new which needs to be added to database has to be pushed to budgetItemModel Array 
-    this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
-    for(var index in this.budgetItemModel)
-    { 
-      this.addFixedExpense(this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
-    }
+    //This code will add data into budgetItemModel Array on Pageload
+    this.getFixedExpense().then(
+      () => {
+        this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
+      },
+      error => {
+        console.error("error : "+error);
+      }
+    );
   }
 
   ngOnInit() {
   }
 
-  //Function which calls Our firestore Service to add data to firestore cloud database
-  async addFixedExpense(name: string, value:number, badge:string){
- 
-    this.firestoreService.createFixedExpense(name,value,badge)
-     .then(
-       () => {
-         console.log("in then");
-       },
-       error => {
-         console.error("in error");
-       }
-     );
-  }
+    //This function will get data from the firestore cloud database from Fixed Expense Collection
+  async getFixedExpense(){
+    this.firestoreService.getFixedExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((item) => {
+            this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value,item.badge))
+        })
+    })
+}
+
 }

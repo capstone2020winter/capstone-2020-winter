@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {GenerateSuggestions} from '../models/GenerateSuggestions';
-import {FixedExpensePage} from '../fixed-expense/fixed-expense.page';
-import {VariableExpensePage} from '../variable-expense/variable-expense.page';
-import {IncomePage} from '../income/income.page'
 import * as CanvasJS from './canvasjs.min';
+import { BudgetItemModel } from '../models/BudgetItemModel';
+
 
 @Component({
     selector: 'app-summary',
@@ -17,12 +16,22 @@ export class SummaryPage implements OnInit {
     public incomeArray: any = [];
     public expenseArray: any = [];
 
-    // getting fixed Expense from fixed Expense page
-    fixedExpensesArray: any = new FixedExpensePage().budget.items;
-    // getting variable Expense from Expense income page
-    variableExpensesArray: any = new VariableExpensePage().budget.items;
-    // getting income from income page
-    addIncomeArray: any = new IncomePage().budget.items;
+    // fixed Expense
+    fixedExpensesArray: any = [
+        new BudgetItemModel('0', 'Rent', 550.00, 'M'),
+        new BudgetItemModel('1', 'Transportation', 122.00, 'M'),
+        new BudgetItemModel('2', 'Food', 50.00, 'W')
+    ]
+    // variable Expense
+    variableExpensesArray: any = [
+        new BudgetItemModel('0', 'Entertainment', 100.00, '-')
+      ]
+    // Income
+    addIncomeArray: any = [
+        new BudgetItemModel('0', 'Checking', 550.00, '-'),
+        new BudgetItemModel('1', 'Savings', 5022.00, '-'),
+        new BudgetItemModel('3', 'PayCheck', 300.00, '2W')
+    ]
     // gettings suggestions from makeSuggestions() function
     public suggestionsArray: any = new GenerateSuggestions(this.incomeArray, this.expenseArray).makeSuggestionsList();
 

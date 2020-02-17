@@ -11,37 +11,32 @@ import { FirestoreService } from '../services/data/firestore.service';
 })
 export class VariableExpensePage implements OnInit {
 
-    budget: any;
-    public budgetItemModel = [
-      new BudgetItemModel('0', 'Entertainment', 100.00, '-')
-  ]
+    budget: any = [];
+    public budgetItemModel = []
 
   constructor(public firestoreService: FirestoreService) {
-
-    //This code will add budgetItemModel Array to database on Pageload
-    // - Any data new which needs to be added to database has to be pushed to budgetItemModel Array 
-      this.budget = new BudgetItemModelList('fixed',this.budgetItemModel);
-      for(var index in this.budgetItemModel)
-      { 
-        this.addVariableExpense(this.budgetItemModel[index].name, this.budgetItemModel[index].value, this.budgetItemModel[index].badge)
-      }
+      //This code will add data into budgetItemModel Array on Pageload
+      this.getVariableExpense().then(
+        () => {
+          this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
+        },
+        error => {
+          console.error("error : "+error);
+        }
+      );
   }
 
   ngOnInit() {
   }
 
-  //Function which calls Our firestore Service to add data to firestore cloud database
-  async addVariableExpense(name: string, value:number, badge:string){
- 
-    this.firestoreService.createVariableExpense(name,value,badge)
-     .then(
-       () => {
-         console.log("in then");
-       },
-       error => {
-         console.error("in error");
-       }
-     );
+  //This function will get data from the firestore cloud database from Variable Expense Collection
+  async getVariableExpense(){
+    this.firestoreService.getVariableExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((item) => {
+            this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value,item.badge))
+        });
+    });
+    return true
   }
 
 }
