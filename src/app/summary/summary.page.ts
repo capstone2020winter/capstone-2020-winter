@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GenerateSuggestions} from '../models/GenerateSuggestions';
 import * as CanvasJS from './canvasjs.min';
 import { BudgetItemModel } from '../models/BudgetItemModel';
-
+import { FirestoreService } from '../services/data/firestore.service';
 
 @Component({
     selector: 'app-summary',
@@ -15,6 +15,9 @@ export class SummaryPage implements OnInit {
     public items: any = [];
     public incomeArray: any = [];
     public expenseArray: any = [];
+
+    public incomeArraySummary: any = [];
+    public expenseArraySummary: any = [];
 
     // fixed Expense
     fixedExpensesArray: any = [
@@ -48,7 +51,7 @@ export class SummaryPage implements OnInit {
     public entertainment: number = 0;
 
 
-    constructor() {
+    constructor(public firestoreService: FirestoreService) {
 
         // Income and Expenses Array which will come from the database in future
 
@@ -97,10 +100,36 @@ export class SummaryPage implements OnInit {
         // calculating total budget for month
         this.budgetSummaryAmount = this.incomeAmount - this.fixedExpenseAmount - this.variableExpenseAmount;
 
+
+        //get data from database to show in accordian
+        this.getIncome().then(
+            () => {
+              this.getFixedExpense().then(
+                () => {
+                  this.getVariableExpense().then(
+                    () => {
+                    },
+                    error => {
+                      console.error("error : "+error);
+                    }
+                  );
+                },
+                error => {
+                  console.error("error : "+error);
+                }
+              );
+            },
+            error => {
+              console.error("error : "+error);
+            }
+          );
+
+
+
         // Two Accordians to show Income and Expenses when expanded
         this.items = [
-            {expanded: false, name: "Income", list: this.incomeArray},
-            {expanded: false, name: "Expenses", list: this.expenseArray}];
+            {expanded: false, name: "Income", list: this.incomeArraySummary},
+            {expanded: false, name: "Expenses", list: this.expenseArraySummary}];
 
 
     }
@@ -147,6 +176,34 @@ export class SummaryPage implements OnInit {
 		
 	chart.render();
     }
+
+    //This function will get data from the firestore cloud database from Income Collection
+  async getIncome(){
+    this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((element) => {
+            this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name)
+        });
+    });
+    return true
+  }
+  //This function will get data from the firestore cloud database from Fixed Expense Collection
+  async getFixedExpense(){
+    this.firestoreService.getFixedExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((element) => {
+            this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name)
+        })
+    })
+  }
+
+    //This function will get data from the firestore cloud database from Variable Expense Collection
+  async getVariableExpense(){
+    this.firestoreService.getVariableExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((element) => {
+            this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name)
+        });
+    });
+    return true
+  }
 
     connectToDataBase() {
         console.log('Connect to Data base');
