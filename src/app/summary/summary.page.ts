@@ -3,6 +3,7 @@ import {GenerateSuggestions} from '../models/GenerateSuggestions';
 import {FixedExpensePage} from '../fixed-expense/fixed-expense.page';
 import {VariableExpensePage} from '../variable-expense/variable-expense.page';
 import {IncomePage} from '../income/income.page'
+import * as CanvasJS from './canvasjs.min';
 
 @Component({
     selector: 'app-summary',
@@ -31,6 +32,12 @@ export class SummaryPage implements OnInit {
     public variableExpenseAmount: number = 0;
     public budgetSummaryAmount: number = 0;
 
+    // pie chart item calcualate for different category
+    public rent: number = 0;
+    public transportation: number = 0;
+    public food: number = 0;
+    public entertainment: number = 0;
+
 
     constructor() {
 
@@ -40,13 +47,36 @@ export class SummaryPage implements OnInit {
         this.fixedExpensesArray.forEach((element) => {
             this.expenseArray.push('$ ' + element.value + ' - ' + element.name);
             this.fixedExpenseAmount += element.value;
-
+            if (element.name == "Rent") {
+                this.rent = this.rent + element.value;
+            };
+            if (element.name == "Transportation") {
+                this.transportation = this.transportation + element.value;
+            };
+            if (element.name == "Food") {
+                this.food = this.food + element.value;
+            };
+            if (element.name == "Entertainment") {
+                this.entertainment = this.entertainment + element.value;
+            };
         });
 
         // adding variable expenses into expenseArray and calculating total variableExpenseAmount
         this.variableExpensesArray.forEach((element) => {
             this.expenseArray.push('$ ' + element.value + ' - ' + element.name);
             this.variableExpenseAmount += element.value;
+            if (element.name == "Rent") {
+                this.rent = this.rent + element.value;
+            };
+            if (element.name == "Transportation") {
+                this.transportation = this.transportation + element.value;
+            };
+            if (element.name == "Food") {
+                this.food = this.food + element.value;
+            };
+            if (element.name == "Entertainment") {
+                this.entertainment = this.entertainment + element.value;
+            };
         });
 
         // adding income into incomeArray and calculating total incomeAmount
@@ -83,7 +113,30 @@ export class SummaryPage implements OnInit {
     }
 
 
+    //pie chart here
     ngOnInit() {
+
+	let chart = new CanvasJS.Chart("chartContainer", {
+		theme: "light2",
+		animationEnabled: true,
+        exportEnabled: true,
+        width:280,
+        //height: 300,
+		data: [{
+			type: "pie",
+			showInLegend: true,
+			toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+			//indexLabel: "{name} - #percent%",
+			dataPoints: [
+                { y: this.transportation, name: "Transportation" },
+                { y: this.food, name: "Food" },
+                { y: this.rent, name: "Rent" },
+                { y: this.entertainment, name: "Entertainment" },
+			]
+		}]
+	});
+		
+	chart.render();
     }
 
     connectToDataBase() {
