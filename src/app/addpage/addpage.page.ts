@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from '../services/data/firestore.service';
+
 
 @Component({
   selector: 'app-addpage',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddpagePage implements OnInit {
 
-  constructor() { }
+  amount: number;
+  description: string;
+  type: string;
+  duration: string;
+  //this value is not used for now
+  category:string
+
+
+  constructor(public firestoreService: FirestoreService) { 
+    
+  }
 
   ngOnInit() {
   }
@@ -18,7 +30,41 @@ export class AddpagePage implements OnInit {
     translucent: true
   };
 
-
+  //This function will add data to firestore cloud
+  sendData(){
+    //this will add data to Income 
+    if(this.type == "I"){
+      this.firestoreService.createIncome(this.description,this.amount,this.duration)
+      .then(
+        () => {
+          console.log("in then");
+        },
+        error => {
+          console.error("in error");
+        }
+      );
+    } else if(this.type == "F"){ //this will add data to Fixed Expense
+      this.firestoreService.createFixedExpense(this.description,this.amount,this.duration)
+      .then(
+        () => {
+          console.log("in then");
+        },
+        error => {
+          console.error("in error");
+        }
+      );
+    } else if(this.type == "V"){ //this will add data to Variable Expense
+      this.firestoreService.createVariableExpense(this.description,this.amount,this.duration)
+      .then(
+        () => {
+          console.log("in then");
+        },
+        error => {
+          console.error("in error");
+        }
+      );
+    }
+  }
 
     addItemToDataBase() {
         console.log('Add budget item to Data Base');
