@@ -22,7 +22,6 @@ export class BudgetFaqsPage implements OnInit {
     }
 
     expandQuestion(question): void {
-        console.log("Hello")
         if (question.expanded) {
             question.expanded = false;
         } else {
