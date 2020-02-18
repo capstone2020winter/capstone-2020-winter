@@ -30,25 +30,36 @@
       height: auto;
       font-weight: 1000;
       font-size: large;
+      font-style:bold; 
+      color:#2c2f33;
     }
-    // .question{
-    //  text-decoration-color:#2c2f33 ;
-    // }
-   
-    .faq-answer {span {
+     .question{
+       font-style:bold; 
+}
+ .closed{
+  color:#2c2f33;
+  font-style: italic;
+ }  
+    .faq-answer
+     {span {
         font-weight: 800;
-       
+        color:#2c2f33;
     }
     } 
+    .faq-answer{
+      color:#2c2f33;
+    }
     ion-text
     {
       color:#2c2f33;
       font-weight: 800;
       font-size:20 ;
     }
+    
     ion-card-content {
     padding-bottom: 0;
     --ion-text-color: #2c2f33;
+    background-color: #2c2f33;
        
        
     }
