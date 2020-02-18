@@ -6,18 +6,7 @@ import { VariableExpensePage } from './variable-expense.page';
 const routes: Routes = [
   {
     path: '',
-    component: VariableExpensePage,
-    children: [
-      {
-        path: 'addpage',
-        children:[
-          {
-            path: '',
-            loadChildren: () => import('../addpage/addpage.module').then( m => m.AddpagePageModule)
-          }
-        ]
-      }
-    ]
+    component: VariableExpensePage
   }
 ];
 

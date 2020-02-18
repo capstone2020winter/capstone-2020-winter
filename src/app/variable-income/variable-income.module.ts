@@ -10,13 +10,16 @@ import { VariableIncomePage } from './variable-income.page';
 
 import { ComponentsModule } from '../components/components.module';
 
+import { AddpagePageModule } from '../addpage/addpage.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     VariableIncomePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    AddpagePageModule
   ],
   declarations: [VariableIncomePage]
 })

@@ -10,13 +10,16 @@ import { FixedIncomePage } from './fixed-income.page';
 
 import { ComponentsModule } from '../components/components.module';
 
+import { AddpagePageModule } from '../addpage/addpage.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     FixedIncomePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    AddpagePageModule
   ],
   declarations: [FixedIncomePage]
 })

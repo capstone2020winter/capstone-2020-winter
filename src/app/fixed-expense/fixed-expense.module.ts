@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { FixedExpensePageRoutingModule } from './fixed-expense-routing.module';
 
 import { FixedExpensePage } from './fixed-expense.page';
+
+import { AddpagePageModule } from '../addpage/addpage.module';
+
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -14,7 +17,9 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    FixedExpensePageRoutingModule, ComponentsModule
+    FixedExpensePageRoutingModule,
+    ComponentsModule,
+    AddpagePageModule
   ],
   declarations: [FixedExpensePage]
 })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../services/data/firestore.service';
+import { ModalController} from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class AddpagePage implements OnInit {
   category:string
 
 
-  constructor(public firestoreService: FirestoreService) { 
+  constructor(public firestoreService: FirestoreService, public modalController: ModalController) { 
     
   }
 
@@ -38,6 +39,9 @@ export class AddpagePage implements OnInit {
       .then(
         () => {
           console.log("in then");
+          this.modalController.dismiss({
+            'dismissed': true
+          });
         },
         error => {
           console.error("in error");
@@ -48,6 +52,9 @@ export class AddpagePage implements OnInit {
       .then(
         () => {
           console.log("in then");
+          this.modalController.dismiss({
+            'dismissed': true
+          });
         },
         error => {
           console.error("in error");
@@ -58,6 +65,9 @@ export class AddpagePage implements OnInit {
       .then(
         () => {
           console.log("in then");
+          this.modalController.dismiss({
+            'dismissed': true
+          });
         },
         error => {
           console.error("in error");
@@ -72,5 +82,10 @@ export class AddpagePage implements OnInit {
         return false;
     }
 
+    dismiss() {
+      this.modalController.dismiss({
+        'dismissed': true
+      });
+    }
 }
 

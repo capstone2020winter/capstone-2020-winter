@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BudgetItemModelList} from '../models/BudgetItemModelList';
 import { BudgetItemModel } from '../models/BudgetItemModel';
 import { FirestoreService } from '../services/data/firestore.service';
+import { ModalController} from '@ionic/angular';
+import { AddpagePage} from '../addpage/addpage.page';
 
 @Component({
   selector: 'app-variable-income',
@@ -13,7 +15,7 @@ export class VariableIncomePage implements OnInit {
   budget:any = [];
   public budgetItemModel = [];
 
-  constructor(public firestoreService: FirestoreService) {
+  constructor(public firestoreService: FirestoreService, public modalController: ModalController) {
     //This code will add data into budgetItemModel Array on Pageload
     this.getIncome().then(
       () => {
@@ -36,6 +38,19 @@ export class VariableIncomePage implements OnInit {
         });
     });
     return true
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: AddpagePage
+    });
+    return await modal.present();
+  }
+
+  dismiss() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
   }
 
 }
