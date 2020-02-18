@@ -14,8 +14,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../addpage/addpage.module').then( m => m.AddpagePageModule)
-            // loadChildren: '../summary/summary.module#SummaryPageModule'
-            // loadChildren: './summary/summary.module#SummaryPageModule'
           }
         ]
       }
