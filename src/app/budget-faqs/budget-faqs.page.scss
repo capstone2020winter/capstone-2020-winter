@@ -30,16 +30,11 @@
       height: auto;
       font-weight: 1000;
       font-size: large;
-      font-style:bold; 
-      color:#2c2f33;
     }
-     .question{
-       font-style:bold; 
+    // .question{
+ text-decoration-color:#2c2f33 ;
 }
- .closed{
-  color:#2c2f33;
-  font-style: italic;
- }  
+   
     .faq-answer
      {span {
         font-weight: 800;
@@ -63,5 +58,5 @@
        
        
     }
-  }
+  
   

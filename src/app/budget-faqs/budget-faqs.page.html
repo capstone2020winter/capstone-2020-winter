@@ -10,7 +10,7 @@
 <ion-content>
   <ion-card (click)="expandQuestion(question)" *ngFor="let question of questions">
     <ion-card-header  class="expand-header">
-    <ion-text class="question"></ion-text>{{question.name}}</ion-text>
+    {{question.name}}
     </ion-card-header>
      <ion-card-content  class="closed">
       <app-expandable class="faq-answer" expandHeight="450px" [expanded]="question.expanded" >
