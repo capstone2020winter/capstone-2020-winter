@@ -32,7 +32,7 @@ export class FixedExpensePage implements OnInit {
     async getFixedExpense() {
         this.firestoreService.getFixedExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
             res.forEach((item) => {
-                this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value, item.badge));
+                this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value, item.badge));
             });
         });
     }
@@ -46,6 +46,6 @@ export class FixedExpensePage implements OnInit {
         });
 
         // console.log(`ITEM ID ${passedItem.name}`)
-        this.firestoreService.deleteItem('FixedExpense', passedItem.id);
+        this.firestoreService.deleteItem('FixedExpense', passedItem.autoId);
     }
 }
