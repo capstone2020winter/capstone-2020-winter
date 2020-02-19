@@ -34,11 +34,12 @@ export class VariableExpensePage implements OnInit {
   async getVariableExpense(){
     this.firestoreService.getVariableExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((item) => {
-            this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value,item.badge))
+            this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
         });
     });
     return true
   }
+
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -52,6 +53,18 @@ export class VariableExpensePage implements OnInit {
       'dismissed': true
     });
   }
+
+  //This function will delete item from database and from local array
+  deleteItem(passedItem: BudgetItemModel) {
+    this.budget.items.forEach((item, index) => {
+        if (item === passedItem) {
+            this.budget.items.splice(index, 1);
+        }
+    });
+
+    // console.log(`ITEM ID ${passedItem.name}`)
+    this.firestoreService.deleteItem('VariableExpense', passedItem.autoId);
+}
 
 }
 

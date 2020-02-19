@@ -1,0 +1,67 @@
+.header {
+  color: gray;
+  text-align: center;
+  padding-top: 0.5vw;
+  font-style: bold;
+  }
+
+  .total-balance {
+    text-align: center;
+    .chart-text {
+      padding-left: 2vw;
+      color: gray;
+    }
+    .chart-icon {
+      padding-left: 2vw;
+    }
+    .suggestion-text {
+      padding-left: 10vw;
+    }
+    
+    .suggestion-title {
+      color: gray;
+      margin-left: 10vw;
+    }
+    
+    .expand-header {
+      height: 15px;
+    }
+    .expand-header {
+      height: auto;
+      font-weight: 1000;
+      font-size: large;
+      font-style:bold; 
+      color:#2c2f33;
+    }
+     .question{
+       font-style:bold; 
+}
+ .closed{
+  color:#2c2f33;
+  font-style: italic;
+ }  
+    .faq-answer
+     {span {
+        font-weight: 800;
+        color:#2c2f33;
+    }
+    } 
+    .faq-answer{
+      color:#2c2f33;
+    }
+    ion-text
+    {
+      color:#2c2f33;
+      font-weight: 800;
+      font-size:20 ;
+    }
+    
+    ion-card-content {
+    padding-bottom: 0;
+    --ion-text-color: #2c2f33;
+    background-color: #2c2f33;
+       
+       
+    }
+  }
+  

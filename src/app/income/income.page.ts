@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BudgetItemModelList} from '../models/BudgetItemModelList';
 import { BudgetItemModel } from '../models/BudgetItemModel';
 import { FirestoreService } from '../services/data/firestore.service';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -34,10 +35,23 @@ export class IncomePage implements OnInit {
   async getIncome(){
     this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((item) => {
-            this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value,item.badge))
+            this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
         });
     });
     return true
   }
+
+  //This function will delete item from database and from local array
+  deleteItem(passedItem: BudgetItemModel) {
+    this.budget.items.forEach((item, index) => {
+        if (item === passedItem) {
+            this.budget.items.splice(index, 1);
+        }
+    });
+
+    // console.log(`ITEM ID ${passedItem.name}`)
+    this.firestoreService.deleteItem('Income', passedItem.autoId);
+}
+
 }
 

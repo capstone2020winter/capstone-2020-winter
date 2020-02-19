@@ -52,8 +52,13 @@ export class FirestoreService {
        badge
      });
      return result;
-   } 
-    
+   }
+
+    //function to delete an item from the passed collection
+   public deleteItem(collection: string, id: string) {
+       // console.log(`ITEM ID ${id}`)
+       this.firestore.doc(collection + '/' + id).delete();
+   }
 
    //function to receive Fixed Expense
    getFixedExpenseList(): AngularFirestoreCollection<BudgetItemModel> {
