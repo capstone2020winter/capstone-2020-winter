@@ -1,8 +1,12 @@
 .data-item {
+  --background: #c1d4f1;
+  ion-label{
+    font-weight: bold;
+  }
   .dollar-input {
     width: rem-calc(105);
     display: inline-flex;
-    border: solid 1px lightgrey;
+    border: solid 2px white;
     align-items: center;
     border-radius: 17px;
     padding: 0 3px;
@@ -21,7 +25,9 @@
   ion-icon {
     &.dollar-sign {
       margin-inline-start: 0;
-      margin-inline-end: 0
+      margin-inline-end: 0;
+      color: #467fd7 !important;
+      
     }
   }
 

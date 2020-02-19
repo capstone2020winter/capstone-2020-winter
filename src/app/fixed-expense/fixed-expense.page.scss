@@ -1,0 +1,18 @@
+.fixed-expense-view{
+    ion-list{
+        background: #ededed;
+        ion-item-sliding{
+            margin: 1em;
+            width: auto;
+            border-radius: 1em;
+        }
+    }
+    ion-fab{
+        ion-fab-button{
+            --box-shadow: none;
+            ion-icon{
+                font-size: 4.5em;
+            }
+        }
+    }
+}

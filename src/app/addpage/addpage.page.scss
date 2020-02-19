@@ -1,0 +1,22 @@
+.modal-header{ 
+    background: #ededed !important;
+    ion-toolbar{
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+        --background: #2b59a2;
+        color: white;
+    }
+}
+.modal-content{
+    --background: #ededed;
+    ion-list{
+        background: transparent;
+    }
+    ion-item{
+        --background: #ededed;
+    }
+    ion-button{
+        max-width: 15em;
+        margin: 1em auto;
+    }
+}

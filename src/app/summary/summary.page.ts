@@ -155,11 +155,16 @@ export class SummaryPage implements OnInit {
     ngOnInit() {
 
 	let chart = new CanvasJS.Chart("chartContainer", {
+        backgroundColor: "#ededed",
 		theme: "light2",
 		animationEnabled: true,
         exportEnabled: true,
         width:280,
-        //height: 300,
+        toolbar: {
+            backgroundColor: "#ebebeb",
+            color: "#467fd7"
+        },
+        height: 300,
 		data: [{
 			type: "pie",
 			showInLegend: true,

@@ -10,12 +10,16 @@ import { VariableExpensePage } from './variable-expense.page';
 
 import { ComponentsModule } from '../components/components.module';
 
+import { AddpagePageModule } from '../addpage/addpage.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VariableExpensePageRoutingModule, ComponentsModule
+    VariableExpensePageRoutingModule, 
+    ComponentsModule,
+    AddpagePageModule
   ],
   declarations: [VariableExpensePage]
 })

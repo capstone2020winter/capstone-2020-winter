@@ -1,47 +1,48 @@
-<ion-header>
+<ion-header class="modal-header" id="modalTitle" no-border>
   <ion-toolbar>
     <ion-title>Add income or expenses</ion-title>
-    <ion-list>
-      <ion-item>
-        <ion-label>Amount:($)</ion-label>
-        <ion-input type="number" [(ngModel)]="amount"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Description:</ion-label>
-        <ion-textarea type="text" [(ngModel)]="description"></ion-textarea>
-      </ion-item>
-      <ion-item>
-        <ion-label>IN/OUT</ion-label>
-        <ion-select [interfaceOptions]="IN/OUT" interface="popover" placeholder="Option" [(ngModel)]="type" >
-          <ion-select-option value="I">Income</ion-select-option>
-          <ion-select-option value="F">Fixed Expenditure</ion-select-option>
-          <ion-select-option value="V">Variable Expenditure</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>FREQUENCY</ion-label>
-        <ion-select [interfaceOptions]="FREQUENCY" interface="popover" placeholder="Option" [(ngModel)]="duration" >
-          <ion-select-option value="O">One Time</ion-select-option>
-          <ion-select-option value="W">Weekly</ion-select-option>
-          <ion-select-option value="M">Monthly</ion-select-option>
-          <ion-select-option value="A">Annually</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item id="CATEGORY">
-        <ion-label>CATEGORY</ion-label>
-        <ion-select [interfaceOptions]="CATEGORY" interface="popover" placeholder="Option" [(ngModel)]="category" >
-          <ion-select-option value="1">Rent</ion-select-option>
-          <ion-select-option value="2">Transportation</ion-select-option>
-          <ion-select-option value="3">Food</ion-select-option>
-          <ion-select-option value="4">Shopping</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <br>
-      <ion-button expand="block" shape="round" (click)="sendData()">Submit</ion-button>
-    </ion-list>
   </ion-toolbar>
+  
 </ion-header>
 
-<ion-content>
-
+<ion-content class="modal-content">
+  <ion-list>
+    <ion-item>
+      <ion-label>Amount:($)</ion-label>
+      <ion-input type="number" [(ngModel)]="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description:</ion-label>
+      <ion-textarea type="text" [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>IN/OUT</ion-label>
+      <ion-select [interfaceOptions]="IN/OUT" interface="popover" placeholder="Option" [(ngModel)]="type" >
+        <ion-select-option value="I">Income</ion-select-option>
+        <ion-select-option value="F">Fixed Expenditure</ion-select-option>
+        <ion-select-option value="V">Variable Expenditure</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>FREQUENCY</ion-label>
+      <ion-select [interfaceOptions]="FREQUENCY" interface="popover" placeholder="Option" [(ngModel)]="duration" >
+        <ion-select-option value="O">One Time</ion-select-option>
+        <ion-select-option value="W">Weekly</ion-select-option>
+        <ion-select-option value="M">Monthly</ion-select-option>
+        <ion-select-option value="A">Annually</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item id="CATEGORY">
+      <ion-label>CATEGORY</ion-label>
+      <ion-select [interfaceOptions]="CATEGORY" interface="popover" placeholder="Option" [(ngModel)]="category" >
+        <ion-select-option value="1">Rent</ion-select-option>
+        <ion-select-option value="2">Transportation</ion-select-option>
+        <ion-select-option value="3">Food</ion-select-option>
+        <ion-select-option value="4">Shopping</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <ion-button expand="block" shape="round" (click)="sendData()">Submit</ion-button>
+    <ion-button expand="block" shape="round" (click)="dismiss()" color="medium">Back</ion-button>
+  </ion-list>
 </ion-content>
