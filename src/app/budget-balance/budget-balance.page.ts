@@ -12,4 +12,10 @@ export class BudgetBalancePage implements OnInit {
   ngOnInit() {
   }
 
+  ionTabChange(budgetBalaceTabs) {
+    let selectedTabName: string = budgetBalaceTabs.getSelected();
+    let finalName: string = selectedTabName.substring(0, 1).toUpperCase() + selectedTabName.substring(1);
+    document.getElementsByTagName("ion-title")[1].innerHTML = finalName;
+  }
+
 }

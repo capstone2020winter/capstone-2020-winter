@@ -1,34 +1,34 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IncomePage } from './income.page';
+import { ExpensePage } from './expense.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: IncomePage,
+    component: ExpensePage,
     children: [
       {
-        path: 'fixed-income',
+        path: 'fixed-expense',
         children:[
           {
             path: '',
-            loadChildren: () => import('../fixed-income/fixed-income.module').then( m => m.FixedIncomePageModule)
+            loadChildren: () => import('../fixed-expense/fixed-expense.module').then( m => m.FixedExpensePageModule)
           }
         ]
       },
       {
-        path: 'variable-income',
+        path: 'variable-expense',
         children:[
           {
             path: '',
-            loadChildren: () => import('../variable-income/variable-income.module').then( m => m.VariableIncomePageModule)
+            loadChildren: () => import('../variable-expense/variable-expense.module').then( m => m.VariableExpensePageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/budget-balance/income/variable-income',
+        redirectTo: '/budget-balance/expense/variable-expense',
         pathMatch: 'full'
       }
     ]
@@ -39,4 +39,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class IncomePageRoutingModule {}
+export class ExpensePageRoutingModule {}

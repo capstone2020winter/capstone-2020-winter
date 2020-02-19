@@ -4,23 +4,23 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FixedExpensePageRoutingModule } from './fixed-expense-routing.module';
+import { VariableIncomePageRoutingModule } from './variable-income-routing.module';
 
-import { FixedExpensePage } from './fixed-expense.page';
-
-import { AddpagePageModule } from '../addpage/addpage.module';
+import { VariableIncomePage } from './variable-income.page';
 
 import { ComponentsModule } from '../components/components.module';
+
+import { AddpagePageModule } from '../addpage/addpage.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FixedExpensePageRoutingModule,
+    VariableIncomePageRoutingModule,
     ComponentsModule,
     AddpagePageModule
   ],
-  declarations: [FixedExpensePage]
+  declarations: [VariableIncomePage]
 })
-export class FixedExpensePageModule {}
+export class VariableIncomePageModule {}

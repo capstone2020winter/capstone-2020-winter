@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { BudgetItemModelList} from '../models/BudgetItemModelList';
 import { BudgetItemModel } from '../models/BudgetItemModel';
 import { FirestoreService } from '../services/data/firestore.service';
-import { stringify } from 'querystring';
-
+import { ModalController} from '@ionic/angular';
+import { AddpagePage} from '../addpage/addpage.page';
 
 @Component({
-  selector: 'app-income',
-  templateUrl: './income.page.html',
-  styleUrls: ['./income.page.scss'],
+  selector: 'app-fixed-income',
+  templateUrl: './fixed-income.page.html',
+  styleUrls: ['./fixed-income.page.scss'],
 })
-export class IncomePage implements OnInit {
+export class FixedIncomePage implements OnInit {
+  budget:any = [];
+  public budgetItemModel = [];
 
-    budget:any = [];
-    public budgetItemModel = [];
-
-  constructor(public firestoreService: FirestoreService) {
+  constructor(public firestoreService: FirestoreService, public modalController: ModalController) {
 
     //This code will add data into budgetItemModel Array on Pageload
       this.getIncome().then(
@@ -35,23 +34,23 @@ export class IncomePage implements OnInit {
   async getIncome(){
     this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((item) => {
-            this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
+            this.budgetItemModel.push(new BudgetItemModel(item.id, item.name, item.value,item.badge))
         });
     });
     return true
   }
 
-  //This function will delete item from database and from local array
-  deleteItem(passedItem: BudgetItemModel) {
-    this.budget.items.forEach((item, index) => {
-        if (item === passedItem) {
-            this.budget.items.splice(index, 1);
-        }
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: AddpagePage
     });
+    return await modal.present();
+  }
 
-    // console.log(`ITEM ID ${passedItem.name}`)
-    this.firestoreService.deleteItem('Income', passedItem.autoId);
+  dismiss() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
+
 }
-
-}
-

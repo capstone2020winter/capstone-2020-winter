@@ -1,0 +1,15 @@
+<ion-content color="light" class="data-table" class="fixed-income-view">
+  <ion-list class="data-list">
+      <ion-item-sliding *ngFor="let item of budget.items">
+          <app-budget-item [theItem]=item></app-budget-item>
+          <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="delete(item)">DELETE</ion-item-option>
+          </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-tab-button tab="addpage">
+          <ion-fab-button (click)="presentModal()"><ion-icon name="add"></ion-icon></ion-fab-button>
+      </ion-tab-button>
+  </ion-fab>
+</ion-content>

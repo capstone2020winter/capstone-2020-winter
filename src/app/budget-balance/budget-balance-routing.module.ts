@@ -10,24 +10,11 @@ const routes: Routes = [
     component: BudgetBalancePage,
     children: [
       {
-        path: 'fixed-expense',
+        path: 'expense',
         children:[
           {
             path: '',
-            loadChildren: () => import('../fixed-expense/fixed-expense.module').then( m => m.FixedExpensePageModule)
-            // loadChildren: '../fixed-expense/fixed-expense.module#FixedExpensePageModule'
-            // loadChildren: './fixed-expense/fixed-expense.module#FixedExpensePageModule'
-          }
-        ]
-      },
-      {
-        path: 'variable-expense',
-        children:[
-          {
-            path: '',
-            loadChildren: () => import('../variable-expense/variable-expense.module').then( m => m.VariableExpensePageModule)
-            // loadChildren: '../variable-expense/variable-expense.module#VariableExpensePageModule'
-            // loadChildren: './variable-expense/variable-expense.module#VariableExpensePageModule'
+            loadChildren: () => import('../expense/expense.module').then( m => m.ExpensePageModule)
           }
         ]
       },
@@ -37,8 +24,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../income/income.module').then( m => m.IncomePageModule)
-            // loadChildren: '../income/income.module#IncomePageModule'
-            // loadChildren: './income/income.module#IncomePageModule'
           }
         ]
       },
@@ -48,19 +33,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../summary/summary.module').then( m => m.SummaryPageModule)
-            // loadChildren: '../summary/summary.module#SummaryPageModule'
-            // loadChildren: './summary/summary.module#SummaryPageModule'
-          }
-        ]
-      },
-      {
-        path: 'addpage',
-        children:[
-          {
-            path: '',
-            loadChildren: () => import('../addpage/addpage.module').then( m => m.AddpagePageModule)
-            // loadChildren: '../summary/summary.module#SummaryPageModule'
-            // loadChildren: './summary/summary.module#SummaryPageModule'
           }
         ]
       },

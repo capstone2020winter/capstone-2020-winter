@@ -1,4 +1,8 @@
-.header {
+.summary-view{
+  --offset-top:-1.5em !important;
+  --background: #ededed;
+  
+  .header {
     color: gray;
     text-align: center;
     padding-top: 0.5vw;
@@ -26,6 +30,8 @@
 
   .expand-header{
     height: 15px;
+    color: white;
+    margin-bottom:0.8em;
   }
 
   .summary-positive {
@@ -35,3 +41,8 @@
   .summary-negative {
     color: red;
   }
+  ion-card{
+    --background: #467fd7;
+    color: white;
+  }
+}

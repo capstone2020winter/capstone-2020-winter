@@ -14,11 +14,11 @@ const routes: Routes = [
   {
     path: 'budget-faqs',
     loadChildren: () => import('./budget-faqs/budget-faqs.module').then( m => m.BudgetFaqsPageModule)
-  },  {
+  },
+  {
     path: 'about-us',
     loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
-  },
-
+  }
 ];
 
 @NgModule({
