@@ -1,16 +1,17 @@
-
-<ion-content color="light" class="data-table" class="income-view">
-    <ion-list class="data-list">
-        <ion-item-sliding *ngFor="let item of budget.items">
-            <app-budget-item [theItem]=item></app-budget-item>
-            <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteItem(item)">DELETE</ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-tab-button tab="addpage">
-            <ion-fab-button><ion-icon name="add"></ion-icon></ion-fab-button>
+<ion-content class="income-view">
+    <ion-tabs>
+      <ion-tab-bar slot="top">
+        <ion-tab-button tab="fixed-income">
+          <ion-icon name="card"></ion-icon>
+          <ion-label>Fixed</ion-label>
         </ion-tab-button>
-    </ion-fab>
-</ion-content>
+    
+        <ion-tab-button tab="variable-income">
+          <ion-icon name="cash"></ion-icon>
+          <ion-label>Variable</ion-label>
+        </ion-tab-button>
+  
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-content>
+
