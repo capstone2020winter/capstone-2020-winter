@@ -14,8 +14,10 @@ export class AddpagePage implements OnInit {
   description: string;
   type: string;
   duration: string;
+  collectionValue: string;
   //this value is not used for now
   category:string
+
 
 
   constructor(public firestoreService: FirestoreService, public modalController: ModalController) { 
@@ -31,49 +33,32 @@ export class AddpagePage implements OnInit {
     translucent: true
   };
 
+  getCollectionValue(){
+    if(this.type == "FI"){
+      this.collectionValue = "FixedIncome"
+    } else if(this.type == "VI"){
+      this.collectionValue = "VariableIncome"
+    } else if(this.type == "FE"){
+      this.collectionValue = "FixedExpense"
+    } else if(this.type == "VE"){
+      this.collectionValue = "VariableExpense"
+    }
+  }
+
   //This function will add data to firestore cloud
   sendData(){
-    //this will add data to Income 
-    if(this.type == "I"){
-      this.firestoreService.createIncome(this.description,this.amount,this.duration)
+      this.getCollectionValue()
+      this.firestoreService.create(this.collectionValue,this.description,this.amount,this.duration)
       .then(
         () => {
-          console.log("in then");
           this.modalController.dismiss({
             'dismissed': true
           });
         },
         error => {
-          console.error("in error");
+          console.error("Error : "+error);
         }
       );
-    } else if(this.type == "F"){ //this will add data to Fixed Expense
-      this.firestoreService.createFixedExpense(this.description,this.amount,this.duration)
-      .then(
-        () => {
-          console.log("in then");
-          this.modalController.dismiss({
-            'dismissed': true
-          });
-        },
-        error => {
-          console.error("in error");
-        }
-      );
-    } else if(this.type == "V"){ //this will add data to Variable Expense
-      this.firestoreService.createVariableExpense(this.description,this.amount,this.duration)
-      .then(
-        () => {
-          console.log("in then");
-          this.modalController.dismiss({
-            'dismissed': true
-          });
-        },
-        error => {
-          console.error("in error");
-        }
-      );
-    }
   }
 
     addItemToDataBase() {
