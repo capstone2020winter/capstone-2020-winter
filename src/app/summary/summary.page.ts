@@ -104,16 +104,8 @@ export class SummaryPage implements OnInit {
         //get data from database to show in accordian
         this.getIncome().then(
             () => {
-              this.getFixedExpense().then(
-                () => {
-                  this.getVariableExpense().then(
-                    () => {
-                    },
-                    error => {
-                      console.error("error : "+error);
-                    }
-                  );
-                },
+              this.getExpense().then(
+                () => {},
                 error => {
                   console.error("error : "+error);
                 }
@@ -184,30 +176,29 @@ export class SummaryPage implements OnInit {
 
     //This function will get data from the firestore cloud database from Income Collection
   async getIncome(){
-    this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+    this.firestoreService.getList('FixedIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((element) => {
             this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name)
         });
     });
-    return true
+    this.firestoreService.getList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((element) => {
+            this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name)
+        });
+    });
   }
   //This function will get data from the firestore cloud database from Fixed Expense Collection
-  async getFixedExpense(){
-    this.firestoreService.getFixedExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+  async getExpense(){
+    this.firestoreService.getList('FixedExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((element) => {
             this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name)
         })
     })
-  }
-
-    //This function will get data from the firestore cloud database from Variable Expense Collection
-  async getVariableExpense(){
-    this.firestoreService.getVariableExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+    this.firestoreService.getList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((element) => {
             this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name)
-        });
-    });
-    return true
+        })
+    })
   }
 
     connectToDataBase() {

@@ -1,6 +1,6 @@
 <ion-content color="light" class="data-table" class="fixed-expense-view">
     <ion-list class="data-list">
-        <ion-item-sliding *ngFor="let item of budget.items">
+        <ion-item-sliding *ngFor="let item of budgetItemModel">
             <app-budget-item [theItem]=item></app-budget-item>
             <ion-item-options side="end">
                 <ion-item-option color="danger" (click)="deleteItem(item)">DELETE</ion-item-option>

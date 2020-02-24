@@ -14,13 +14,14 @@ export class IncomePage implements OnInit {
 
     budget:any = [];
     public budgetItemModel = [];
+    collectionValue: string = "FixedIncome";
 
   constructor(public firestoreService: FirestoreService) {
 
     //This code will add data into budgetItemModel Array on Pageload
       this.getIncome().then(
         () => {
-          this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
+          this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
         },
         error => {
           console.error("error : "+error);
@@ -33,7 +34,7 @@ export class IncomePage implements OnInit {
 
   //This function will get data from the firestore cloud database from Income Collection
   async getIncome(){
-    this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+    this.firestoreService.getList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((item) => {
             this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
         });

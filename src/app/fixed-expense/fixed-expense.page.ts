@@ -14,12 +14,13 @@ import { AddpagePage} from '../addpage/addpage.page';
 export class FixedExpensePage implements OnInit {
     budget: any = [];
     public budgetItemModel = [];
+    collectionValue: string = "FixedExpense";
 
   constructor(public firestoreService: FirestoreService, public modalController: ModalController) {
     //This code will add data into budgetItemModel Array on Pageload
     this.getFixedExpense().then(
       () => {
-        this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
+        this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
       },
       error => {
         console.error("error : "+error);
@@ -45,7 +46,8 @@ export class FixedExpensePage implements OnInit {
     });
   }
     async getFixedExpense() {
-        this.firestoreService.getFixedExpenseList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+        this.firestoreService.getList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
+          this.budgetItemModel = []
             res.forEach((item) => {
                 this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value, item.badge));
             });

@@ -13,13 +13,14 @@ import { AddpagePage} from '../addpage/addpage.page';
 export class FixedIncomePage implements OnInit {
   budget:any = [];
   public budgetItemModel = [];
+  collectionValue: string = "FixedIncome";
 
   constructor(public firestoreService: FirestoreService, public modalController: ModalController) {
 
     //This code will add data into budgetItemModel Array on Pageload
       this.getIncome().then(
         () => {
-          this.budget = new BudgetItemModelList('fixed', this.budgetItemModel);
+          this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
         },
         error => {
           console.error("error : "+error);
@@ -32,7 +33,7 @@ export class FixedIncomePage implements OnInit {
 
   //This function will get data from the firestore cloud database from Income Collection
   async getIncome(){
-    this.firestoreService.getIncomeList().valueChanges().subscribe((res: BudgetItemModel[]) => {
+    this.firestoreService.getList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((item) => {
             this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
         });
@@ -55,14 +56,15 @@ export class FixedIncomePage implements OnInit {
 
   //This function will delete item from database and from local array
   deleteItem(passedItem: BudgetItemModel) {
+    this.budgetItemModel = []
     this.budget.items.forEach((item, index) => {
         if (item === passedItem) {
             this.budget.items.splice(index, 1);
         }
     });
 
-    // console.log(`ITEM ID ${passedItem.name}`)
-    this.firestoreService.deleteItem('Income', passedItem.autoId);
+    // deleting from database
+    this.firestoreService.deleteItem('FixedIncome', passedItem.autoId);
 }
 
 }
