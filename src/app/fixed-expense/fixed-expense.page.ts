@@ -33,10 +33,14 @@ export class FixedExpensePage implements OnInit {
 
     //This function will get data from the firestore cloud database from Fixed Expense Collection
 
-  async presentModal() {
+  async presentModal(pageName: string) {
     const modal = await this.modalController.create({
-      component: AddpagePage
+      component: AddpagePage,
+      componentProps: {
+        'pageTitle': pageName
+      }
     });
+    
     return await modal.present();
   }
 
