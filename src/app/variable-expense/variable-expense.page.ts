@@ -43,9 +43,12 @@ export class VariableExpensePage implements OnInit {
   }
 
 
-  async presentModal() {
+  async presentModal(pageName: string) {
     const modal = await this.modalController.create({
-      component: AddpagePage
+      component: AddpagePage,
+      componentProps: {
+        'pageTitle': pageName
+      }
     });
     return await modal.present();
   }

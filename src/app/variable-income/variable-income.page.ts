@@ -42,9 +42,12 @@ export class VariableIncomePage implements OnInit {
     return true
   }
 
-  async presentModal() {
+  async presentModal(pageName: string) {
     const modal = await this.modalController.create({
-      component: AddpagePage
+      component: AddpagePage,
+      componentProps: {
+        'pageTitle': pageName
+      }
     });
     return await modal.present();
   }
