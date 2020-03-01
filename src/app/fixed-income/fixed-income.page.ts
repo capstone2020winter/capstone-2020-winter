@@ -13,17 +13,17 @@ import { AddpagePage} from '../addpage/addpage.page';
 export class FixedIncomePage implements OnInit {
   budget:any = [];
   public budgetItemModel = [];
-  collectionValue: string = "FixedIncome";
+  collectionValue: string = 'FixedIncome';
 
   constructor(public firestoreService: FirestoreService, public modalController: ModalController) {
 
-    //This code will add data into budgetItemModel Array on Pageload
+    // This code will add data into budgetItemModel Array on Pageload
       this.getIncome().then(
         () => {
           this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
         },
         error => {
-          console.error("error : "+error);
+          console.error('error : ' + error);
         }
       );
   }
@@ -31,8 +31,8 @@ export class FixedIncomePage implements OnInit {
   ngOnInit() {
   }
 
-  //This function will get data from the firestore cloud database from Income Collection
-  async getIncome(){
+  // This function will get data from the firestore cloud database from Income Collection
+  async getIncome() {
     this.firestoreService.getList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
         res.forEach((item) => {
             this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
@@ -57,7 +57,7 @@ export class FixedIncomePage implements OnInit {
     });
   }
 
-  //This function will delete item from database and from local array
+  // This function will delete item from database and from local array
   deleteItem(passedItem: BudgetItemModel) {
     this.budgetItemModel = []
     this.budget.items.forEach((item, index) => {
