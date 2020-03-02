@@ -27,7 +27,7 @@ export class FirestoreService {
 
     // function to delete an item from the passed collection
     public deleteItem(userID: string, collection: string, id: string) {
-        this.firestore.doc('users/' + userID + collection + '/' + id).delete();
+        this.firestore.doc('users/' + userID + '/' +  collection + '/' + id).delete();
     }
 
     // function to receive data from the database according to collection
