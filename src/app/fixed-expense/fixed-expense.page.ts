@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { BudgetItemModelList} from '../models/BudgetItemModelList';
-import { BudgetItemModel } from '../models/BudgetItemModel';
-import { FirestoreService } from '../services/data/firestore.service';
-import { ModalController} from '@ionic/angular';
-import { AddpagePage} from '../addpage/addpage.page';
+import {Component, OnInit} from '@angular/core';
+import {BudgetItemModelList} from '../models/BudgetItemModelList';
+import {BudgetItemModel} from '../models/BudgetItemModel';
+import {FirestoreService} from '../services/data/firestore.service';
+import {ModalController} from '@ionic/angular';
+import {AddpagePage} from '../addpage/addpage.page';
+import {AuthService} from '../services/auth/auth.service';
 
 
 @Component({
@@ -14,51 +15,58 @@ import { AddpagePage} from '../addpage/addpage.page';
 export class FixedExpensePage implements OnInit {
     budget: any = [];
     public budgetItemModel = [];
-    collectionValue: string = "FixedExpense";
+    collectionValue: string = 'FixedExpense';
 
-  constructor(public firestoreService: FirestoreService, public modalController: ModalController) {
-    //This code will add data into budgetItemModel Array on Pageload
-    this.getFixedExpense().then(
-      () => {
-        this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
-      },
-      error => {
-        console.error("error : "+error);
-      }
-    );
-  }
+    constructor(public firestoreService: FirestoreService,
+                public modalController: ModalController,
+                public authService: AuthService) {
+
+        const userID = this.authService.getUserId();
+        if (userID != null) {
+            // This code will add data into budgetItemModel Array on Pageload
+            this.getFixedExpense(userID).then(
+                () => {
+                    this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
+                },
+                error => {
+                    console.error('error : ' + error);
+                }
+            );
+        }
+    }
 
     ngOnInit() {
     }
 
     //This function will get data from the firestore cloud database from Fixed Expense Collection
 
-  async presentModal(pageName: string) {
-    const modal = await this.modalController.create({
-      component: AddpagePage,
-      componentProps: {
-        'pageTitle': pageName
-      }
-    });
-    
-    return await modal.present();
-  }
+    async presentModal(pageName: string) {
+        const modal = await this.modalController.create({
+            component: AddpagePage,
+            componentProps: {
+                'pageTitle': pageName
+            }
+        });
 
-  dismiss() {
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-  }
-    async getFixedExpense() {
-        this.firestoreService.getList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
-          this.budgetItemModel = []
+        return await modal.present();
+    }
+
+    dismiss() {
+        this.modalController.dismiss({
+            'dismissed': true
+        });
+    }
+
+    async getFixedExpense(userID: string) {
+        this.firestoreService.getList(userID, this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
+            this.budgetItemModel = [];
             res.forEach((item) => {
                 this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value, item.badge));
             });
         });
     }
 
-    //This function will delete item from database and from local array
+    // This function will delete item from database and from local array
     deleteItem(passedItem: BudgetItemModel) {
         this.budget.items.forEach((item, index) => {
             if (item === passedItem) {

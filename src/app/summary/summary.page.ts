@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {GenerateSuggestions} from '../models/GenerateSuggestions';
 import * as CanvasJS from './canvasjs.min';
-import { BudgetItemModel } from '../models/BudgetItemModel';
-import { FirestoreService } from '../services/data/firestore.service';
+import {BudgetItemModel} from '../models/BudgetItemModel';
+import {FirestoreService} from '../services/data/firestore.service';
+import {AuthService} from '../services/auth/auth.service';
 
 @Component({
     selector: 'app-summary',
@@ -28,7 +29,7 @@ export class SummaryPage implements OnInit {
     // variable Expense
     variableExpensesArray: any = [
         new BudgetItemModel('0', 'Entertainment', 100.00, '-')
-      ]
+    ]
     // Income
     addIncomeArray: any = [
         new BudgetItemModel('0', 'Checking', 550.00, '-'),
@@ -51,7 +52,7 @@ export class SummaryPage implements OnInit {
     public entertainment: number = 0;
 
 
-    constructor(public firestoreService: FirestoreService) {
+    constructor(public firestoreService: FirestoreService, public authService: AuthService) {
 
         // Income and Expenses Array which will come from the database in future
 
@@ -61,16 +62,20 @@ export class SummaryPage implements OnInit {
             this.fixedExpenseAmount += element.value;
             if (element.name == "Rent") {
                 this.rent = this.rent + element.value;
-            };
+            }
+
             if (element.name == "Transportation") {
                 this.transportation = this.transportation + element.value;
-            };
+            }
+
             if (element.name == "Food") {
                 this.food = this.food + element.value;
-            };
+            }
+
             if (element.name == "Entertainment") {
                 this.entertainment = this.entertainment + element.value;
-            };
+            }
+
         });
 
         // adding variable expenses into expenseArray and calculating total variableExpenseAmount
@@ -79,16 +84,19 @@ export class SummaryPage implements OnInit {
             this.variableExpenseAmount += element.value;
             if (element.name == "Rent") {
                 this.rent = this.rent + element.value;
-            };
+            }
+
             if (element.name == "Transportation") {
                 this.transportation = this.transportation + element.value;
-            };
+            }
+
             if (element.name == "Food") {
                 this.food = this.food + element.value;
-            };
+            }
+
             if (element.name == "Entertainment") {
                 this.entertainment = this.entertainment + element.value;
-            };
+            }
         });
 
         // adding income into incomeArray and calculating total incomeAmount
@@ -101,23 +109,25 @@ export class SummaryPage implements OnInit {
         this.budgetSummaryAmount = this.incomeAmount - this.fixedExpenseAmount - this.variableExpenseAmount;
 
 
-        //get data from database to show in accordian
-        this.getIncome().then(
-            () => {
-              this.getExpense().then(
-                () => {},
+        const userID = this.authService.getUserId();
+        // if (userID != null) {
+            // get data from database to show in accordian
+            this.getIncome(userID).then(
+                () => {
+                    this.getExpense(userID).then(
+                        () => {
+                        },
+                        error => {
+                            console.error('error : ' + error);
+                        }
+                    );
+                },
                 error => {
-                  console.error("error : "+error);
+                    console.error('error : ' + error);
                 }
-              );
-            },
-            error => {
-              console.error("error : "+error);
-            }
-          );
+            );
 
-
-
+        // }
         // Two Accordians to show Income and Expenses when expanded
         this.items = [
             {expanded: false, name: "Income", list: this.incomeArraySummary},
@@ -146,60 +156,61 @@ export class SummaryPage implements OnInit {
     //pie chart here
     ngOnInit() {
 
-	let chart = new CanvasJS.Chart("chartContainer", {
-        backgroundColor: "#ededed",
-		theme: "light2",
-		animationEnabled: true,
-        exportEnabled: true,
-        width:280,
-        toolbar: {
-            backgroundColor: "#ebebeb",
-            color: "#467fd7"
-        },
-        height: 300,
-		data: [{
-			type: "pie",
-			showInLegend: true,
-			toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-			//indexLabel: "{name} - #percent%",
-			dataPoints: [
-                { y: this.transportation, name: "Transportation" },
-                { y: this.food, name: "Food" },
-                { y: this.rent, name: "Rent" },
-                { y: this.entertainment, name: "Entertainment" },
-			]
-		}]
-	});
-		
-	chart.render();
+        let chart = new CanvasJS.Chart("chartContainer", {
+            backgroundColor: "#ededed",
+            theme: "light2",
+            animationEnabled: true,
+            exportEnabled: true,
+            width: 280,
+            toolbar: {
+                backgroundColor: "#ebebeb",
+                color: "#467fd7"
+            },
+            height: 300,
+            data: [{
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+                //indexLabel: "{name} - #percent%",
+                dataPoints: [
+                    {y: this.transportation, name: "Transportation"},
+                    {y: this.food, name: "Food"},
+                    {y: this.rent, name: "Rent"},
+                    {y: this.entertainment, name: "Entertainment"},
+                ]
+            }]
+        });
+
+        chart.render();
     }
 
-    //This function will get data from the firestore cloud database from Income Collection
-  async getIncome(){
-    this.firestoreService.getList('FixedIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
-        res.forEach((element) => {
-            this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name)
+    // This function will get data from the firestore cloud database from Income Collection
+    async getIncome(userID: string) {
+        this.firestoreService.getList(userID, 'FixedIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+            res.forEach((element) => {
+                this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name);
+            });
         });
-    });
-    this.firestoreService.getList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
-        res.forEach((element) => {
-            this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name)
+        this.firestoreService.getList(userID, 'VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+            res.forEach((element) => {
+                this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name);
+            });
         });
-    });
-  }
-  //This function will get data from the firestore cloud database from Fixed Expense Collection
-  async getExpense(){
-    this.firestoreService.getList('FixedExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
-        res.forEach((element) => {
-            this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name)
-        })
-    })
-    this.firestoreService.getList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
-        res.forEach((element) => {
-            this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name)
-        })
-    })
-  }
+    }
+
+    // This function will get data from the firestore cloud database from Fixed Expense Collection
+    async getExpense(userID: string) {
+        this.firestoreService.getList(userID, 'FixedExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
+            res.forEach((element) => {
+                this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name);
+            });
+        });
+        this.firestoreService.getList(userID, 'VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
+            res.forEach((element) => {
+                this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name);
+            });
+        });
+    }
 
     connectToDataBase() {
         console.log('Connect to Data base');

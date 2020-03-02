@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
                 public events: Events,
                 public authService: AuthService,
                 public formBuilder: FormBuilder) {
+
         this.events.subscribe('registration:closed', () => this.handleBackFromRegister());
 
         this.loginForm = this.formBuilder.group({
