@@ -13,5 +13,33 @@
 </ion-header>
 
 <ion-content>
-
+    <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
+        <ion-item>
+            <ion-label>Email *</ion-label>
+            <ion-input type="email" name="email" required [(ngModel)]="user.email" formControlName="email"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.email">
+                <div class="error-message" *ngIf="registrationForm.get('email').hasError(validation.type) && (registrationForm.get('email').dirty || registrationForm.get('email').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+        <ion-item>
+            <ion-label>Password *</ion-label>
+            <ion-input type="password" name="password" required [(ngModel)]="user.password" formControlName="password"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.password">
+                <div class="error-message" *ngIf="registrationForm.get('password').hasError(validation.type) && (registrationForm.get('password').dirty || registrationForm.get('password').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+<!--        <ion-item>-->
+<!--            <ion-label>Repeat Password</ion-label>-->
+<!--            <ion-input type="password" name="password_repeat" required [(ngModel)]="user.password_repeat" formControlName="repeat_password"></ion-input>-->
+<!--        </ion-item>-->
+        <button ion-button type="submit" block [disabled]="registrationForm.invalid">Register</button>
+    </form>
 </ion-content>
