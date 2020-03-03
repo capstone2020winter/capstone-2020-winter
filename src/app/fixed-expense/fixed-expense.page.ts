@@ -16,15 +16,16 @@ export class FixedExpensePage implements OnInit {
     budget: any = [];
     public budgetItemModel = [];
     collectionValue: string = 'FixedExpense';
+    userID = null;
 
     constructor(public firestoreService: FirestoreService,
                 public modalController: ModalController,
                 public authService: AuthService) {
 
-        const userID = this.authService.getUserId();
-        if (userID != null) {
+        this.userID = this.authService.getUserId();
+        if (this.userID != null) {
             // This code will add data into budgetItemModel Array on Pageload
-            this.getFixedExpense(userID).then(
+            this.getFixedExpense(this.userID).then(
                 () => {
                     this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
                 },
@@ -38,7 +39,7 @@ export class FixedExpensePage implements OnInit {
     ngOnInit() {
     }
 
-    //This function will get data from the firestore cloud database from Fixed Expense Collection
+    // This function will get data from the firestore cloud database from Fixed Expense Collection
 
     async presentModal(pageName: string) {
         const modal = await this.modalController.create({
@@ -75,6 +76,6 @@ export class FixedExpensePage implements OnInit {
         });
 
         // console.log(`ITEM ID ${passedItem.name}`)
-        this.firestoreService.deleteItem('FixedExpense', passedItem.autoId);
+        this.firestoreService.deleteItem(this.userID, 'FixedExpense', passedItem.autoId);
     }
 }

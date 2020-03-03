@@ -15,15 +15,16 @@ export class FixedIncomePage implements OnInit {
   budget:any = [];
   public budgetItemModel = [];
   collectionValue: string = 'FixedIncome';
+  userID = null;
 
   constructor(public firestoreService: FirestoreService,
               public modalController: ModalController,
               public authService: AuthService) {
 
-      const userID = this.authService.getUserId();
-      if (userID != null) {
+      this.userID = this.authService.getUserId();
+      if (this.userID != null) {
           // This code will add data into budgetItemModel Array on Pageload
-          this.getIncome(userID).then(
+          this.getIncome(this.userID).then(
               () => {
                   this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
               },
@@ -73,7 +74,7 @@ export class FixedIncomePage implements OnInit {
     });
 
     // deleting from database
-    this.firestoreService.deleteItem('FixedIncome', passedItem.autoId);
+    this.firestoreService.deleteItem(this.userID, 'FixedIncome', passedItem.autoId);
 }
 
 }

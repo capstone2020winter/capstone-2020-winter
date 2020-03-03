@@ -16,15 +16,15 @@ export class VariableExpensePage implements OnInit {
     budget: any = [];
     public budgetItemModel = [];
     collectionValue: string = 'VariableExpense';
-
+    userID = null;
     constructor(public firestoreService: FirestoreService,
                 public modalController: ModalController,
                 public authService: AuthService) {
 
-        const userID = this.authService.getUserId();
-        if (userID != null) {
+        this.userID = this.authService.getUserId();
+        if (this.userID != null) {
             // This code will add data into budgetItemModel Array on Pageload
-            this.getVariableExpense(userID).then(
+            this.getVariableExpense(this.userID).then(
                 () => {
                     this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
                 },
@@ -75,7 +75,7 @@ export class VariableExpensePage implements OnInit {
         });
 
         // console.log(`ITEM ID ${passedItem.name}`)
-        this.firestoreService.deleteItem('VariableExpense', passedItem.autoId);
+        this.firestoreService.deleteItem(this.userID, 'VariableExpense', passedItem.autoId);
     }
 
 }
