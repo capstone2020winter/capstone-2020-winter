@@ -3,6 +3,8 @@ import { BudgetItemComponent} from './budget-item/budget-item.component';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { StartComponent } from './start/start.component';
+import { SlidesComponent } from './slides/slides.component';
 
 @NgModule({
     imports: [
@@ -11,8 +13,8 @@ import { CommonModule } from '@angular/common';
         IonicModule
     ],
     exports: [
-        BudgetItemComponent
+        BudgetItemComponent,StartComponent,SlidesComponent
     ],
-    declarations: [BudgetItemComponent]
+    declarations: [BudgetItemComponent,StartComponent,SlidesComponent]
 })
 export class ComponentsModule {}

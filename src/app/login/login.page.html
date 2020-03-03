@@ -1,20 +1,23 @@
-<ion-header>
-    <ion-toolbar>
+<ion-header class ="header">
+    <ion-toolbar color="#C7EA46">
+        <!-- <img src="assets/images/logo.png" class="smallLogo"/> -->
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button  ></ion-back-button>
         </ion-buttons>
         <ion-title>Login</ion-title>
         <ion-buttons slot = "end">
-            <ion-button (click)="navigateToRegister()">
+            <ion-button (click)="navigateToRegister()" color="medium">
                 Register
             </ion-button>
         </ion-buttons>
+     
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="content" color="#FFFAFA">
+   
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-        <ion-item>
+        <ion-item color="#F5F5F5">
             <ion-label>Email *</ion-label>
             <ion-input type="email" name="email" required [(ngModel)]="user.email" formControlName="email"></ion-input>
         </ion-item>
@@ -25,8 +28,8 @@
                 </div>
             </ng-container>
         </div>
-        <ion-item>
-            <ion-label>Password *</ion-label>
+        <ion-item color="#F5F5F5">
+            <ion-label >Password *</ion-label>
             <ion-input type="password" name="password" required [(ngModel)]="user.password" formControlName="password"></ion-input>
         </ion-item>
         <div class="validation-errors">
@@ -36,9 +39,9 @@
                 </div>
             </ng-container>
         </div>
-        <button ion-button type="submit" block [disabled]="loginForm.invalid">Login</button>
+        <button color="danger" ion-button type="submit" block [disabled]="loginForm.invalid">Login</button>
     </form>
 
-    <ion-button (click)="checkIfLogged()">Check if logged in</ion-button>
-    <ion-button (click)="logout()">Log out</ion-button>
+    <ion-button (click)="checkIfLogged()" color="medium">Check if logged in</ion-button>
+    <ion-button (click)="logout()" color="medium">Log out</ion-button>
 </ion-content>
