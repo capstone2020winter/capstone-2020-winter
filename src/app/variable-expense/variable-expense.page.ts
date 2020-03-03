@@ -21,10 +21,9 @@ export class VariableExpensePage implements OnInit {
                 public modalController: ModalController,
                 public authService: AuthService) {
 
-        this.userID = this.authService.getUserId();
-        if (this.userID != null) {
+        
             // This code will add data into budgetItemModel Array on Pageload
-            this.getVariableExpense(this.userID).then(
+            this.getVariableExpense().then(
                 () => {
                     this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
                 },
@@ -32,18 +31,19 @@ export class VariableExpensePage implements OnInit {
                     console.error('error : ' + error);
                 }
             );
-        }
+        
     }
 
     ngOnInit() {
     }
 
     // This function will get data from the firestore cloud database from Variable Expense Collection
-    async getVariableExpense(userID: string) {
-        this.firestoreService.getList(userID, this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
+    async getVariableExpense() {
+        this.firestoreService.getVariableList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
             this.budgetItemModel = []
+            //console.log("userID=="+userID)
             res.forEach((item) => {
-                this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value, item.badge))
+                this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value, item.description,item.date))
             });
         });
         return true
@@ -75,7 +75,7 @@ export class VariableExpensePage implements OnInit {
         });
 
         // console.log(`ITEM ID ${passedItem.name}`)
-        this.firestoreService.deleteItem(this.userID, 'VariableExpense', passedItem.autoId);
+        this.firestoreService.deleteItem('VariableExpense', passedItem.autoId);
     }
 
 }

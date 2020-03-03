@@ -5,6 +5,8 @@ import { FirestoreService } from '../services/data/firestore.service';
 import { ModalController} from '@ionic/angular';
 import { AddpagePage} from '../addpage/addpage.page';
 import { AuthService } from '../services/auth/auth.service';
+import {FixedBudgetItemModel} from 'src/app/models/FixedBudgetItemModel';
+
 
 @Component({
   selector: 'app-fixed-income',
@@ -19,12 +21,10 @@ export class FixedIncomePage implements OnInit {
 
   constructor(public firestoreService: FirestoreService,
               public modalController: ModalController,
-              public authService: AuthService) {
+              public authService: AuthService) 
+      {
 
-      this.userID = this.authService.getUserId();
-      if (this.userID != null) {
-          // This code will add data into budgetItemModel Array on Pageload
-          this.getIncome(this.userID).then(
+          this.getIncome().then(
               () => {
                   this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
               },
@@ -33,16 +33,17 @@ export class FixedIncomePage implements OnInit {
               }
           );
       }
-  }
+  
 
   ngOnInit() {
   }
 
   // This function will get data from the firestore cloud database from Income Collection
-  async getIncome(userID: string) {
-    this.firestoreService.getList(userID, this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
+  async getIncome() {
+    this.firestoreService.getFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+      this.budgetItemModel = []
         res.forEach((item) => {
-            this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value,item.badge))
+            this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge))
         });
     });
     return true
@@ -74,7 +75,7 @@ export class FixedIncomePage implements OnInit {
     });
 
     // deleting from database
-    this.firestoreService.deleteItem(this.userID, 'FixedIncome', passedItem.autoId);
+    this.firestoreService.deleteItem( 'FixedIncome', passedItem.autoId);
 }
 
 }
