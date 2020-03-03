@@ -15,11 +15,17 @@
 <ion-content>
   <ion-card (click)="expandQuestion(question)" *ngFor="let question of questions">
     <ion-card-header  class="expand-header">
-    <ion-text class="question">{{question.name}}</ion-text>
+      <ion-text><h2>{{question.name}}</h2></ion-text>
     </ion-card-header>
      <ion-card-content  class="closed">
       <app-expandable class="faq-answer" expandHeight="450px" [expanded]="question.expanded" >
-          <ion-text class="answer">{{question.text}}</ion-text>
+            <ion-grid class="answer" >
+            <div>
+              <ion-row *ngFor="let text of question.text">
+                <ion-text>{{text}}</ion-text>
+              </ion-row>
+            </div>
+          </ion-grid>
       </app-expandable>
     </ion-card-content> 
   </ion-card>

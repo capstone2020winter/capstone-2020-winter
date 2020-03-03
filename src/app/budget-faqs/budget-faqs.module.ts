@@ -19,3 +19,4 @@ import { ExpandableComponent } from "../components/expandable/expandable.compone
   declarations: [BudgetFaqsPage,ExpandableComponent]
 })
 export class BudgetFaqsPageModule {}
+  
