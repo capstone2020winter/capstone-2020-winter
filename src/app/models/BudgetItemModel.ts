@@ -2,12 +2,14 @@ export class BudgetItemModel {
     autoId: string;
     name: string;
     value: number;
-    badge: string;
+    description: string;
+    date: string;
 
-    constructor(id: string, name: string, value: number, badge: string) {
+    constructor(id: string, name: string, value: number, description: string, date: string) {
         this.autoId = id;
         this.name = name;
         this.value = value;
-        this.badge = badge;
+        this.description = description;
+        this.date = date;
     }
 }

@@ -33,7 +33,7 @@ export class AddpagePage implements OnInit {
     this.duration = "O";
     switch (this.pageTitle) {
       case 'Fixed Expense':
-        this.type = "FE";
+        this.collectionValue = "FixedExpense"
         this.isFixed = true;
         this.categoryList = [
           "Bank Fee",
@@ -49,7 +49,7 @@ export class AddpagePage implements OnInit {
         ];  
         break;
       case 'Variable Expense':
-        this.type = "VE";
+        this.collectionValue = "VariableExpense"
         this.isFixed = false;
         this.categoryList = [
           "Clothing",
@@ -67,7 +67,7 @@ export class AddpagePage implements OnInit {
         ];  
         break;
       case 'Fixed Income':
-        this.type = "FI";
+        this.collectionValue = "FixedIncome"
         this.isFixed = true;
         this.categoryList = [
           "Part-Time Job",
@@ -77,7 +77,7 @@ export class AddpagePage implements OnInit {
         ];  
         break;
       case 'Variable Income':
-        this.type = "VI";
+        this.collectionValue = "VariableIncome"
         this.isFixed = false;
         this.categoryList = [
           "Family Support",
@@ -101,37 +101,36 @@ export class AddpagePage implements OnInit {
     translucent: true
   };
 
-  getCollectionValue(){
-    if(this.type == "FI"){
-      this.collectionValue = "FixedIncome"
-    } else if(this.type == "VI"){
-      this.collectionValue = "VariableIncome"
-    } else if(this.type == "FE"){
-      this.collectionValue = "FixedExpense"
-    } else if(this.type == "VE"){
-      this.collectionValue = "VariableExpense"
-    }
-  }
-
-  //This function will add data to firestore cloud
-  sendData() {
-      const userID = this.authService.getUserId();
-      if (userID != null) {
-          this.getCollectionValue();
-          this.firestoreService.create(userID, this.collectionValue, this.description, this.amount, this.duration)
-              .then(
-                  () => {
-                      this.modalController.dismiss({
-                          'dismissed': true
-                      });
-                  },
-                  error => {
-                      console.error("Error : " + error);
-                  }
-              );
+//This function will add data to firestore cloud
+sendData() {
+  if(this.isFixed) {
+    //fixed
+    this.firestoreService.createFixedCollection(this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
+    .then(
+      () => {
+        this.modalController.dismiss({
+          'dismissed': true
+        });
+      },
+      error => {
+        console.error("Error : "+error);
       }
+    );
+  } else {
+    //variable
+    this.firestoreService.createVariableCollection(this.collectionValue,this.category,this.amount,this.description,"11/1/1111")
+    .then(
+      () => {
+        this.modalController.dismiss({
+          'dismissed': true
+        });
+      },
+      error => {
+        console.error("Error : "+error);
+      }
+    );
   }
-
+}
     addItemToDataBase() {
         console.log('Add budget item to Data Base');
 
