@@ -12,11 +12,10 @@ import {AuthService} from '../auth/auth.service';
 export class FirestoreService {
 
     constructor(public firestore: AngularFirestore, public authService: AuthService) {
-        console.log("FirestoreService constructor")
     }
 
     //function to add Data to collection 
-   public createFixedCollection(collection: string, name: string, value:number, description: string, date: string, frequency: string): Promise<void> {
+   public createFixedCollection(collection: string, name: string, value:number, description: string, startDate: string, badge: string): Promise<void> {
     const autoId = this.firestore.createId();
 
     var result = this.firestore.doc(`users/${this.authService.getUserId()}/${collection}/${autoId}`).set({
@@ -24,8 +23,8 @@ export class FirestoreService {
      name,
      value,
      description,
-     date,
-     frequency
+     startDate,
+     badge
     });
     return result;
   } 

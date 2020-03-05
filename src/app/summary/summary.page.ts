@@ -5,6 +5,8 @@ import {BudgetItemModel} from '../models/BudgetItemModel';
 import {FirestoreService} from '../services/data/firestore.service';
 import {AuthService} from '../services/auth/auth.service';
 import {FixedBudgetItemModel} from 'src/app/models/FixedBudgetItemModel';
+import {DateLogic} from 'src/app/models/DateLogic';
+
 
 
 @Component({
@@ -55,14 +57,19 @@ export class SummaryPage implements OnInit {
     public food: number = 0;
     public entertainment: number = 0;
 
+    //temp variables
+    public dataPointsArray: any;
+    public dateLogic: DateLogic = new DateLogic();
+
     constructor(public firestoreService: FirestoreService, public authService: AuthService) {
 
-        // Income and Expenses Array which will come from the database in future
+
+        //this function is created to deal with latency in response coming from firebase and will be removed later
+        this.getIncomeDump();
 
         // adding fixed expenses into expenseArray and calculating total fixedExpenseAmount
         this.fixedExpensesArray.forEach((element) => {
-            this.expenseArray.push('$ ' + element.value + ' - ' + element.name);
-            this.fixedExpenseAmount += element.value;
+
             if (element.name == "Rent") {
                 this.rent = this.rent + element.value;
             }
@@ -83,8 +90,6 @@ export class SummaryPage implements OnInit {
 
         // adding variable expenses into expenseArray and calculating total variableExpenseAmount
         this.variableExpensesArray.forEach((element) => {
-            this.expenseArray.push('$ ' + element.value + ' - ' + element.name);
-            this.variableExpenseAmount += element.value;
             if (element.name == "Rent") {
                 this.rent = this.rent + element.value;
             }
@@ -102,18 +107,15 @@ export class SummaryPage implements OnInit {
             }
         });
 
-        // adding income into incomeArray and calculating total incomeAmount
-        this.addIncomeArray.forEach((element) => {
-            this.incomeArray.push('$ ' + element.value + ' - ' + element.name);
-            this.incomeAmount += element.value;
-        });
 
-        // calculating total budget for month
-        //this.budgetSummaryAmount = this.incomeAmount - this.fixedExpenseAmount - this.variableExpenseAmount;
-
-
+        this.dataPointsArray = [
+            {y: this.transportation, name: "Transportation"},
+            {y: this.food, name: "Food"},
+            {y: this.rent, name: "Rent"},
+            {y: this.entertainment, name: "Entertainment"},
+        ];
             // get data from database to show in accordian
-            this.getIncome()
+            //this.getIncome()
 
         // Two Accordians to show Income and Expenses when expanded
         this.items = [
@@ -142,7 +144,6 @@ export class SummaryPage implements OnInit {
 
     //pie chart here
     ngOnInit() {
-
         let chart = new CanvasJS.Chart("chartContainer", {
             backgroundColor: "#ededed",
             theme: "light2",
@@ -159,12 +160,7 @@ export class SummaryPage implements OnInit {
                 showInLegend: true,
                 toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
                 //indexLabel: "{name} - #percent%",
-                dataPoints: [
-                    {y: this.transportation, name: "Transportation"},
-                    {y: this.food, name: "Food"},
-                    {y: this.rent, name: "Rent"},
-                    {y: this.entertainment, name: "Entertainment"},
-                ]
+                dataPoints: this.dataPointsArray
             }]
         });
 
@@ -175,13 +171,18 @@ export class SummaryPage implements OnInit {
     getIncome() {
         this.firestoreService.getFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             res.forEach((element) => {
-                this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name);
-                this.budgetSummaryAmount += element.value
+
+                var count = this.dateLogic.getCount(element.badge,element.startDate)
+                this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.startDate);
+
+                for(var i=0;i<count;i++) {
+                    this.budgetSummaryAmount += element.value
+                }
             });
         });
         this.firestoreService.getVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
             res.forEach((element) => {
-                this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name);
+                this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.date);
                 this.budgetSummaryAmount += element.value
             });
             this.getExpense()
@@ -193,13 +194,18 @@ export class SummaryPage implements OnInit {
     getExpense() {
         this.firestoreService.getFixedList('FixedExpense').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             res.forEach((element) => {
-                this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name);
-                this.budgetSummaryAmount -= element.value
+                
+                var count = this.dateLogic.getCount(element.badge,element.startDate)
+                this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.startDate);
+
+                for(var i=0;i<count;i++) {
+                    this.budgetSummaryAmount -= element.value
+                }
             });
         });
         this.firestoreService.getVariableList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
             res.forEach((element) => {
-                this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name);
+                this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.date);
                 this.budgetSummaryAmount -= element.value
             });
         });
@@ -221,5 +227,18 @@ export class SummaryPage implements OnInit {
         console.log('Summing up all income');
 
         return -1;
+    }
+
+
+    getIncomeDump() {
+        this.firestoreService.getFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+            res.forEach((element) => {
+            });
+        });
+        this.firestoreService.getVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+            res.forEach((element) => {
+            });
+            this.getIncome();
+        });
     }
 }

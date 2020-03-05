@@ -8,7 +8,6 @@ import {AngularFireAuth} from 'angularfire2/auth';
 })
 export class AuthService {
 
-    userID: string;
 
     constructor(firebaseAuth: AngularFireAuth) {
         console.log("AuthService constructor")
@@ -29,8 +28,6 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             firebase.auth().signInWithEmailAndPassword(value.email, value.password)
                 .then(res => {
-                    this.userID = firebase.auth().currentUser.uid;
-                    console.log("login=="+this.userID)
                     resolve(res);
                 }, err => reject(err));
         });
@@ -58,7 +55,6 @@ export class AuthService {
     // Function return users ID if signed in, null if is not
     public getUserId(): any {
         if (this.isUserSigned()) {
-            console.log("getUserId=="+firebase.auth().currentUser.uid)
             return firebase.auth().currentUser.uid;
         } else {
             return null;
