@@ -49,7 +49,7 @@ export class BudgetFaqsPage implements OnInit {
     }
 
     navigateToLogin() {
-        this.navCtrl.navigateForward('login');
+        this.navCtrl.navigateForward('account');
     }
 
 

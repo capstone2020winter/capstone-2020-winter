@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button  ></ion-back-button>
+        </ion-buttons>
+        <ion-title>Account</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="updateEmailForm" (ngSubmit)="updateEmail()">
+        <ion-item color="#F5F5F5">
+            <ion-label>Email:</ion-label>
+            <ion-input type="email" name="email" required [(ngModel)]="userEmail" value="{{userEmail}}" formControlName="email"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.email">
+                <div class="error-message" *ngIf="updateEmailForm.get('email').hasError(validation.type) && (updateEmailForm.get('email').dirty || updateEmailForm.get('email').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+        <ion-row style="height: 10vh"></ion-row>
+        <ion-button expand="block" type="submit" [disabled]="updateEmailForm.invalid" color="medium">Update Email</ion-button>
+        <ion-button expand="block" (click)="resetPassword()" color="medium">Reset Password</ion-button>
+    </form>
+    <ion-grid>
+        <ion-row>
+            <ion-button (click)="register()" color="medium">Register</ion-button>
+        </ion-row>
+        <ion-row>
+            <ion-button (click)="login()" color="medium">Login</ion-button>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button expand="block" (click)="logout()" color="medium">Logout</ion-button>
+    </ion-toolbar>
+</ion-footer>

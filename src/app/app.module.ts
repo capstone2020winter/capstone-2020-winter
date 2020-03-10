@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppPreferences } from '@ionic-native/app-preferences/ngx';
 
 // firebase
 import { AngularFireModule } from 'angularfire2';
@@ -26,7 +27,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen, AppPreferences,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

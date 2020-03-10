@@ -3,6 +3,8 @@ import {NavController} from '@ionic/angular';
 import {Events} from '@ionic/angular';
 import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {AuthService} from '../services/auth/auth.service';
+import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -24,9 +26,9 @@ export class LoginPage implements OnInit {
     constructor(public navCtrl: NavController,
                 public events: Events,
                 public authService: AuthService,
-                public formBuilder: FormBuilder) {
-
-        this.events.subscribe('registration:closed', () => this.handleBackFromRegister());
+                private router: Router,
+                public formBuilder: FormBuilder,
+                public alertCtrl: AlertController) {
 
         this.loginForm = this.formBuilder.group({
             email: new FormControl('', Validators.required),
@@ -43,29 +45,27 @@ export class LoginPage implements OnInit {
         };
     }
 
-    handleBackFromRegister() {
-        console.log('Read event');
-        this.navCtrl.pop();
-    }
-
     ngOnInit() {
-    }
-
-    navigateToRegister() {
-        this.navCtrl.navigateForward('registration');
     }
 
     loginUser() {
         if (this.loginForm.valid) {
-            this.authService.login(this.user);
+            this.authService.login(this.user).then(
+                async () => {
+                    this.router.navigateByUrl('budget-balance');
+                },
+                async error => {
+                    const errorAlert = await this.alertCtrl.create({
+                        message: error.message,
+                        buttons: [{text: 'Ok', role: 'cancel'}],
+                    });
+                    await errorAlert.present();
+                }
+            );
         }
     }
 
     checkIfLogged() {
         console.log(this.authService.getUserId());
-    }
-
-    logout() {
-        this.authService.logout();
     }
 }

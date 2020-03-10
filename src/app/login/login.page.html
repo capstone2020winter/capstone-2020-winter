@@ -5,11 +5,6 @@
             <ion-back-button  ></ion-back-button>
         </ion-buttons>
         <ion-title>Login</ion-title>
-        <ion-buttons slot = "end">
-            <ion-button (click)="navigateToRegister()" color="medium">
-                Register
-            </ion-button>
-        </ion-buttons>
      
     </ion-toolbar>
 </ion-header>
@@ -39,9 +34,15 @@
                 </div>
             </ng-container>
         </div>
-        <button color="danger" ion-button type="submit" block [disabled]="loginForm.invalid">Login</button>
+        <ion-button expand="block" color="danger" ion-button type="submit" block [disabled]="loginForm.invalid">Login</ion-button>
     </form>
 
+    <ion-row>
+        <div text-center>
+            If you don't have an account, please <a routerLink='/registration'>
+            register</a> first!
+        </div>
+    </ion-row>
+
     <ion-button (click)="checkIfLogged()" color="medium">Check if logged in</ion-button>
-    <ion-button (click)="logout()" color="medium">Log out</ion-button>
 </ion-content>

@@ -56,18 +56,8 @@ export class RegistrationPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewWillLeave() {
-        if (this.backButtonPressed) {
-            this.events.publish('registration:closed');
-        }
-    }
-
     backToLogin() {
         this.backButtonPressed = true;
-    }
-
-    navigateToLogin() {
-        this.navCtrl.navigateBack('login');
     }
 
     registerUser() {

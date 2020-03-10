@@ -7,16 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { BudgetFaqsPageRoutingModule } from './budget-faqs-routing.module';
 
 import { BudgetFaqsPage } from './budget-faqs.page';
-import { ExpandableComponent } from "../components/expandable/expandable.component";
+import { ComponentsModule } from '../components/components.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BudgetFaqsPageRoutingModule
+    BudgetFaqsPageRoutingModule, ComponentsModule
   ],
-  declarations: [BudgetFaqsPage,ExpandableComponent]
+  declarations: [BudgetFaqsPage]
 })
 export class BudgetFaqsPageModule {}
-  

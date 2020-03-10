@@ -1,81 +1,80 @@
-import { Component, OnInit } from '@angular/core';
-import { BudgetItemModelList} from '../models/BudgetItemModelList';
-import { BudgetItemModel } from '../models/BudgetItemModel';
-import { FirestoreService } from '../services/data/firestore.service';
-import { ModalController} from '@ionic/angular';
-import { AddpagePage} from '../addpage/addpage.page';
-import { AuthService } from '../services/auth/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {BudgetItemModelList} from '../models/BudgetItemModelList';
+import {BudgetItemModel} from '../models/BudgetItemModel';
+import {FirestoreService} from '../services/data/firestore.service';
+import {ModalController} from '@ionic/angular';
+import {AddpagePage} from '../addpage/addpage.page';
+import {AuthService} from '../services/auth/auth.service';
 import {FixedBudgetItemModel} from 'src/app/models/FixedBudgetItemModel';
 
 
 @Component({
-  selector: 'app-fixed-income',
-  templateUrl: './fixed-income.page.html',
-  styleUrls: ['./fixed-income.page.scss'],
+    selector: 'app-fixed-income',
+    templateUrl: './fixed-income.page.html',
+    styleUrls: ['./fixed-income.page.scss'],
 })
 export class FixedIncomePage implements OnInit {
-  budget:any = [];
-  public budgetItemModel = [];
-  collectionValue: string = 'FixedIncome';
-  userID = null;
+    budget: any = [];
+    public budgetItemModel = [];
+    collectionValue: string = 'FixedIncome';
+    userID = null;
 
-  constructor(public firestoreService: FirestoreService,
-              public modalController: ModalController,
-              public authService: AuthService) 
-      {
+    constructor(public firestoreService: FirestoreService,
+                public modalController: ModalController,
+                public authService: AuthService) {
 
-          this.getIncome().then(
-              () => {
-                  this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
-              },
-              error => {
-                  console.error('error : ' + error);
-              }
-          );
-      }
-  
+        this.getIncome().then(
+            () => {
+                this.budget = new BudgetItemModelList(this.collectionValue, this.budgetItemModel);
+            },
+            error => {
+                console.error('error : ' + error);
+            }
+        );
+    }
 
-  ngOnInit() {
-  }
 
-  // This function will get data from the firestore cloud database from Income Collection
-  async getIncome() {
-    this.firestoreService.getFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
-      this.budgetItemModel = []
-        res.forEach((item) => {
-            this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge))
+    ngOnInit() {
+    }
+
+    // This function will get data from the firestore cloud database from Income Collection
+    async getIncome() {
+        this.firestoreService.getFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+            this.budgetItemModel = []
+            res.forEach((item) => {
+                this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge))
+            });
         });
-    });
-    return true
-  }
+        return true
+    }
 
-  async presentModal(pageName: string) {
-    const modal = await this.modalController.create({
-      component: AddpagePage,
-      componentProps: {
-        'pageTitle': pageName
-      }
-    });
-    return await modal.present();
-  }
+    async presentModal(pageName: string) {
+        const modal = await this.modalController.create({
+            component: AddpagePage,
+            componentProps: {
+                'pageTitle': pageName
+            }
+        });
+        return await modal.present();
+    }
 
-  dismiss() {
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-  }
+    dismiss() {
+        this.modalController.dismiss({
+            'dismissed': true
+        });
+    }
 
-  // This function will delete item from database and from local array
-  deleteItem(passedItem: BudgetItemModel) {
-    this.budgetItemModel = []
-    this.budget.items.forEach((item, index) => {
-        if (item === passedItem) {
-            this.budget.items.splice(index, 1);
-        }
-    });
+    // This function will delete item from database and from local array
+    deleteItem(passedItem: BudgetItemModel) {
+        this.budgetItemModel = []
+        this.budget.items.forEach((item, index) => {
+            if (item === passedItem) {
+                this.budget.items.splice(index, 1);
+            }
+        });
 
-    // deleting from database
-    this.firestoreService.deleteItem( 'FixedIncome', passedItem.autoId);
-}
+        // deleting from database
+        this.firestoreService.deleteItem('FixedIncome', passedItem.autoId);
+    }
 
 }

@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { StartComponent } from './start/start.component';
 import { SlidesComponent } from './slides/slides.component';
-
+import {ExpandableComponent} from './expandable/expandable.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -13,8 +13,8 @@ import { SlidesComponent } from './slides/slides.component';
         IonicModule
     ],
     exports: [
-        BudgetItemComponent,StartComponent,SlidesComponent
+        BudgetItemComponent, StartComponent, SlidesComponent, ExpandableComponent
     ],
-    declarations: [BudgetItemComponent,StartComponent,SlidesComponent]
+    declarations: [BudgetItemComponent, StartComponent, SlidesComponent, ExpandableComponent]
 })
 export class ComponentsModule {}

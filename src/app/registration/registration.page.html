@@ -4,11 +4,6 @@
             <ion-back-button (click)="backToLogin()"></ion-back-button>
         </ion-buttons>
         <ion-title>Register</ion-title>
-        <ion-buttons slot = "end">
-            <ion-button (click)="navigateToLogin()">
-                Login
-            </ion-button>
-        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -40,6 +35,6 @@
 <!--            <ion-label>Repeat Password</ion-label>-->
 <!--            <ion-input type="password" name="password_repeat" required [(ngModel)]="user.password_repeat" formControlName="repeat_password"></ion-input>-->
 <!--        </ion-item>-->
-        <button ion-button type="submit" block [disabled]="registrationForm.invalid">Register</button>
+        <ion-button expand="block" type="submit" block [disabled]="registrationForm.invalid">Register</ion-button>
     </form>
 </ion-content>
