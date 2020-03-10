@@ -9,6 +9,24 @@ export class DateLogic {
 
     }
 
+    getTotalCount(badge: string, date: string): number{
+      let firstOccurrenceDate = Number(date);
+      let currentDate: Date = new Date()
+      let numberOfDaysThisMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+      let duration = numberOfDaysThisMonth.getDate() - firstOccurrenceDate;
+      let count = 0;
+      switch(badge) { 
+         case "W" : 
+            count = Math.trunc(duration / 7) + 1;
+            return count;
+         case "B": 
+            count = Math.trunc(duration / 14) + 1;
+            return count;
+         default:
+            break;
+      }
+    }
+
     getCount(badge: string, date: string): number {
 
         this.count = 0
