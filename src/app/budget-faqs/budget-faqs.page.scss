@@ -1,20 +1,27 @@
 .header {
-  color: gray;
+  color: white;
   text-align: center;
   padding-top: 0.5vw;
   font-style: bold;
+  background:#467fd7;
   }
   .expand-header {
       height: auto;
       font-weight: 1000;
       font-size: large;
       font-style:bold; 
-      color:#2c2f33;
+      color:#467fd7;
     }
     .answer{
       font-weight: 500;
       font-size: 22px;
-      color:#2f4f4f;
+      color:black;
 
     }
-    
+    // .closed{
+    //   background-color: gainsboro;
+
+    // }
+    .content{
+      background-color:	#F5F5F5;
+    }
