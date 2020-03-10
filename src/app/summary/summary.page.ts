@@ -58,7 +58,7 @@ export class SummaryPage implements OnInit {
     public entertainment: number = 0;
 
     //temp variables
-    public dataPointsArray: any;
+    public dataPointsArray: any = [];
     public dateLogic: DateLogic = new DateLogic();
 
     constructor(public firestoreService: FirestoreService, public authService: AuthService) {
@@ -66,57 +66,7 @@ export class SummaryPage implements OnInit {
 
         //this function is created to deal with latency in response coming from firebase and will be removed later
         this.getIncomeDump();
-
-        // adding fixed expenses into expenseArray and calculating total fixedExpenseAmount
-        this.fixedExpensesArray.forEach((element) => {
-
-            if (element.name == "Rent") {
-                this.rent = this.rent + element.value;
-            }
-
-            if (element.name == "Transportation") {
-                this.transportation = this.transportation + element.value;
-            }
-
-            if (element.name == "Food") {
-                this.food = this.food + element.value;
-            }
-
-            if (element.name == "Entertainment") {
-                this.entertainment = this.entertainment + element.value;
-            }
-
-        });
-
-        // adding variable expenses into expenseArray and calculating total variableExpenseAmount
-        this.variableExpensesArray.forEach((element) => {
-            if (element.name == "Rent") {
-                this.rent = this.rent + element.value;
-            }
-
-            if (element.name == "Transportation") {
-                this.transportation = this.transportation + element.value;
-            }
-
-            if (element.name == "Food") {
-                this.food = this.food + element.value;
-            }
-
-            if (element.name == "Entertainment") {
-                this.entertainment = this.entertainment + element.value;
-            }
-        });
-
-
-        this.dataPointsArray = [
-            {y: this.transportation, name: "Transportation"},
-            {y: this.food, name: "Food"},
-            {y: this.rent, name: "Rent"},
-            {y: this.entertainment, name: "Entertainment"},
-        ];
-            // get data from database to show in accordian
-            //this.getIncome()
-
+    
         // Two Accordians to show Income and Expenses when expanded
         this.items = [
             {expanded: false, name: "Income", list: this.incomeArraySummary},
@@ -144,6 +94,9 @@ export class SummaryPage implements OnInit {
 
     //pie chart here
     ngOnInit() {
+    }
+
+    addPieChart(){
         let chart = new CanvasJS.Chart("chartContainer", {
             backgroundColor: "#ededed",
             theme: "light2",
@@ -174,17 +127,20 @@ export class SummaryPage implements OnInit {
 
                 var count = this.dateLogic.getCount(element.badge,element.startDate)
                 this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.startDate);
-
+                this.dataPointsArray.push({y: element.value, name: element.name})
                 for(var i=0;i<count;i++) {
                     this.budgetSummaryAmount += element.value
                 }
             });
+            this.addPieChart()
         });
         this.firestoreService.getVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
             res.forEach((element) => {
                 this.incomeArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.date);
                 this.budgetSummaryAmount += element.value
+                this.dataPointsArray.push({y: element.value, name: element.name})
             });
+            this.addPieChart()
             this.getExpense()
         });
        
@@ -197,17 +153,20 @@ export class SummaryPage implements OnInit {
                 
                 var count = this.dateLogic.getCount(element.badge,element.startDate)
                 this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.startDate);
-
+                this.dataPointsArray.push({y: element.value, name: element.name})
                 for(var i=0;i<count;i++) {
                     this.budgetSummaryAmount -= element.value
                 }
             });
+            this.addPieChart()
         });
         this.firestoreService.getVariableList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
             res.forEach((element) => {
                 this.expenseArraySummary.push('$ ' + element.value + ' - ' + element.name + '   Date: '+element.date);
                 this.budgetSummaryAmount -= element.value
+                this.dataPointsArray.push({y: element.value, name: element.name})
             });
+            this.addPieChart()
         });
     }
 
