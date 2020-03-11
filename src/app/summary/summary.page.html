@@ -6,24 +6,6 @@
     
   <!--  Please put code for pie chat here -->
   <div id="chartContainer" style="height:300px; width: 100%; margin-left:auto;margin-right:auto;"></div>
-  <!--
-    <ion-grid>
-        <ion-row>
-          <ion-col>
-              <ion-icon name="square" class="chart-icon"></ion-icon>
-              <ion-text class="chart-text">Fixed</ion-text>
-
-              <ion-icon name="square" class="chart-icon"></ion-icon>
-              <ion-text class="chart-text">Variable</ion-text>
-
-              <ion-icon name="square" class="chart-icon"></ion-icon>
-              <ion-text class="chart-text">others</ion-text>
-            </ion-col>
-        </ion-row>
-    </ion-grid> -->
-
-
-  <!--<ion-img src="Images/pie_percent.png"></ion-img>-->
 
   <!--displaying summary amount of current month budget and changing the color of text according to budget-->
     <ion-text class="summary-positive" [hidden] ="budgetSummaryAmount <= 0">
@@ -35,7 +17,7 @@
 
 
   <!-- Displaying possible solutions for managing budget-->
-    <ion-text class="suggestion-title">
+   <!-- <ion-text class="suggestion-title">
         You can reduce the deficit by :
     </ion-text>
 
@@ -46,17 +28,38 @@
             <ion-icon name="remove"></ion-icon><ion-text class="chart-text">{{suggestion}}</ion-text>
           </ion-row>
         </div>
-      </ion-grid>
+      </ion-grid> -->
     
-  <!-- Accordian to show Income and Expenses -->
-        <ion-card (click)="expandItem(item)" *ngFor="let item of items">
+        <!-- Accordian to show Income-->
+        <ion-card (click)="expandIncomeItem(item)" *ngFor="let item of incomeAccordian">
+          <ion-card-header class="expand-header">
+            <ion-text>{{item.name}}</ion-text>
+          </ion-card-header>
+
+          <ion-card-content>
+            <app-expandable expandHeight="120px" [expanded]="item.expanded" >
+              <p *ngFor="let showList of FixedIncomeArraySummary">
+                {{showList}}
+              </p>
+              <p *ngFor="let showList of VariableIncomeArraySummary">
+                {{showList}}
+              </p>
+            </app-expandable>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Accordian to show Income-->
+        <ion-card (click)="expandExpenseItem(item)" *ngFor="let item of expenseAccordian">
           <ion-card-header class="expand-header">
             <ion-text>{{item.name}}</ion-text>
           </ion-card-header>
       
           <ion-card-content>
             <app-expandable expandHeight="120px" [expanded]="item.expanded" >
-              <p *ngFor="let showList of item.list">
+              <p *ngFor="let showList of FixedExpenseArraySummary">
+                {{showList}}
+              </p>
+              <p *ngFor="let showList of VariableExpenseArraySummary">
                 {{showList}}
               </p>
             </app-expandable>
