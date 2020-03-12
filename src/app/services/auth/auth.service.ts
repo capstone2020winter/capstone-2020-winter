@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as firebase from 'firebase/app';
-import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFireAuth} from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { AppPreferences } from '@ionic-native/app-preferences/ngx';
