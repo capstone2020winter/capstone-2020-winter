@@ -1,9 +1,9 @@
-<ion-item lines="full" class="data-item progress-{{budgetItem.percentage}}">
+<ion-item lines="full" class="data-item">
     <ion-badge slot="start">{{ budgetItem.badge  }}</ion-badge>
-    <ion-label slot="start" class="ion-text-wrap">{{ budgetItem.name }}</ion-label>
+    <ion-label slot="start" class="ion-text-wrap">{{ budgetItem.name }}{{budgetItem.percentage}}</ion-label>
     <div class="dollar-input" slot="end">
         <ion-input type="number" value="{{ budgetItem.value }}"></ion-input>
         <ion-icon class="dollar-sign" name="logo-usd"></ion-icon>
     </div>
 </ion-item>
-<ion-item class="progress-bar progress-{{budgetItem.percentage}}"></ion-item>
+<ion-item *ngIf="budgetItem.percentage && budgetItem.percentage != ''" class="progress-bar progress-{{budgetItem.percentage}}"></ion-item>
