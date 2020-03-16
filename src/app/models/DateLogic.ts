@@ -11,7 +11,7 @@ export class DateLogic {
 
     getTotalCount(badge: string, date: string): number{
       let firstOccurrenceDate = Number(date);
-      let currentDate: Date = new Date()
+      let currentDate: Date = new Date();
       let numberOfDaysThisMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
       let duration = numberOfDaysThisMonth.getDate() - firstOccurrenceDate;
       let count = 0;
