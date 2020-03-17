@@ -28,8 +28,12 @@
     "@ionic/angular": "^4.7.1",
     "angularfire2": "^5.4.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "cordova": "^9.0.0",
     "cordova-android": "^6.4.0",
+=======
+    "cordova-android": "^8.1.0",
+>>>>>>> 4e99ee5ad24a8359cb632bc34e27e4d4f11bfc03
 =======
     "cordova-android": "^8.1.0",
 >>>>>>> 4e99ee5ad24a8359cb632bc34e27e4d4f11bfc03
