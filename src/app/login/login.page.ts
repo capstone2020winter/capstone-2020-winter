@@ -37,10 +37,10 @@ export class LoginPage implements OnInit {
 
         this.validationMessages = {
             'email': [
-                { type: 'required', message: 'Email is required.' }
+                {type: 'required', message: 'Email is required.'}
             ],
             'password': [
-                { type: 'required', message: 'Password is required.' }
+                {type: 'required', message: 'Password is required.'}
             ]
         };
     }
@@ -52,7 +52,18 @@ export class LoginPage implements OnInit {
         if (this.loginForm.valid) {
             this.authService.login(this.user).then(
                 async () => {
-                    this.router.navigateByUrl('budget-balance');
+                    // console.log('HERE!00');
+                    // if (this.authService.getAuthUser().emailVerified) {
+                    //     console.log('HERE!11');
+                    //     this.router.navigateByUrl('budget-balance');
+                    // } else {
+                    //     console.log('HERE!22');
+                    //     const errorAlert = await this.alertCtrl.create({
+                    //         message: "Email address is not verified",
+                    //         buttons: [{text: 'Ok', role: 'cancel'}],
+                    //     });
+                    //     await errorAlert.present();
+                    // }
                 },
                 async error => {
                     const errorAlert = await this.alertCtrl.create({
