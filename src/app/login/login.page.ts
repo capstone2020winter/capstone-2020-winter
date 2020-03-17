@@ -37,10 +37,10 @@ export class LoginPage implements OnInit {
 
         this.validationMessages = {
             'email': [
-                { type: 'required', message: 'Email is required.' }
+                {type: 'required', message: 'Email is required.'}
             ],
             'password': [
-                { type: 'required', message: 'Password is required.' }
+                {type: 'required', message: 'Password is required.'}
             ]
         };
     }
@@ -63,9 +63,5 @@ export class LoginPage implements OnInit {
                 }
             );
         }
-    }
-
-    checkIfLogged() {
-        console.log(this.authService.getUserId());
     }
 }

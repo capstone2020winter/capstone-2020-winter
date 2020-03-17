@@ -24,7 +24,8 @@
     </ion-item>
     <ion-item *ngIf="isFixed">
       <ion-label>START DATE</ion-label>
-      <ion-select [interfaceOptions]="SDATE" interface="popover" placeholder="Option" [(ngModel)]="sdate" >
+      <ion-input [(ngModel)]="sdate" (click)="pickDate()" type="text"></ion-input>
+      <!-- <ion-select [interfaceOptions]="SDATE" interface="popover" placeholder="Option" [(ngModel)]="sdate" >
         <ion-select-option value=1>1st</ion-select-option>
         <ion-select-option value=2>2nd</ion-select-option>
         <ion-select-option value=3>3rd</ion-select-option>
@@ -56,7 +57,7 @@
         <ion-select-option value=29>29th</ion-select-option>
         <ion-select-option value=30>30th</ion-select-option>
         <ion-select-option value=31>31st</ion-select-option>
-      </ion-select>
+      </ion-select> -->
     </ion-item>
     <ion-item id="CATEGORY">
       <ion-label>CATEGORY</ion-label>

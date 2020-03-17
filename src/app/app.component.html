@@ -1,34 +1,44 @@
 <ion-app>
-  <ion-menu content-id="menu">
-    <ion-header>
-      <ion-toolbar >
-        <ion-title>Budget Information</ion-title>
-      </ion-toolbar> 
-      </ion-header>
-      <ion-content>
-    <ion-list lines="yes">
-      <ion-item [href]="'./budget-balance'" routerDirection="forward">
-        <ion-icon  detail="true" slot="start" color="grey" name="calculator"></ion-icon>
-        <ion-label>Budget Balance</ion-label>
-      </ion-item>
-    <ion-item href="./budget-faqs" routerDirection="forward">
-      <ion-icon  detail="true" slot="start" color="grey" name="help-circle"></ion-icon>
-      <ion-label>Budget FAQs</ion-label>
-    </ion-item>
-    <ion-item href="./budget-history" routerDirection="forward">
-      <ion-icon detail="true" slot="start" color="grey" name="paper"></ion-icon>
-      <ion-label>Budget History</ion-label>
-    </ion-item>
-    <ion-item href="./about-us" routerDirection="forward">
-      <ion-icon detail="true" slot="start" color="grey" name="people"></ion-icon>
-      <ion-label>About Us</ion-label>
-    </ion-item>
-    <ion-item href="./welcome" routerDirection="forward">
-      <ion-icon detail="true" slot="start" color="grey" name="people"></ion-icon>
-      <ion-label>welcome</ion-label>
-    </ion-item>
-  </ion-list>
-</ion-content>
-  </ion-menu>
-  <ion-router-outlet id="menu"></ion-router-outlet>
+    <ion-menu content-id="menu">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Budget Information</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list lines="yes">
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item [routerLink]="'./budget-balance'" routerDirection="forward">
+                        <ion-icon detail="true" slot="start" color="grey" name="calculator"></ion-icon>
+                        <ion-label>Budget Balance</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item [routerLink]="'./budget-faqs'" routerDirection="forward">
+                        <ion-icon detail="true" slot="start" color="grey" name="help-circle"></ion-icon>
+                        <ion-label>Budget FAQs</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+                <ion-menu-toggle>
+                    <ion-item [routerLink]="'./budget-history'" routerDirection="forward">
+                        <ion-icon detail="true" slot="start" color="grey" name="paper"></ion-icon>
+                        <ion-label>Budget History</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+                <ion-menu-toggle>
+                    <ion-item [routerLink]="'./about-us'" routerDirection="forward">
+                        <ion-icon detail="true" slot="start" color="grey" name="people"></ion-icon>
+                        <ion-label>About Us</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+                <ion-menu-toggle>
+                    <ion-item [routerLink]="'./welcome'" routerDirection="forward">
+                        <ion-icon detail="true" slot="start" color="grey" name="people"></ion-icon>
+                        <ion-label>welcome</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="menu"></ion-router-outlet>
 </ion-app>

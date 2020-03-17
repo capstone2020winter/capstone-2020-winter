@@ -3,6 +3,11 @@ import { FirestoreService } from '../services/data/firestore.service';
 import { ModalController, NavParams} from '@ionic/angular';
 import { AuthService } from '../services/auth/auth.service';
 
+// Date Picker
+import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { DatePipe } from '@angular/common';
+import { Platform } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-addpage',
@@ -16,7 +21,7 @@ export class AddpagePage implements OnInit {
   type: string;
   duration: string;
   collectionValue: string;
-  sdate: number;
+  sdate: string;
   // this value is not used for now
   category: string;
   // Data passed from the opening page
@@ -28,9 +33,15 @@ export class AddpagePage implements OnInit {
   constructor(public firestoreService: FirestoreService,
               public modalController: ModalController,
               navParams: NavParams,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public datePicker: DatePicker,
+              public datePipe: DatePipe,
+              public platform: Platform) {
     this.pageTitle = navParams.get("pageTitle");
     this.duration = "O";
+    this.platform.ready().then(() => {
+      this.sdate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+    })
     switch (this.pageTitle) {
       case 'Fixed Expense':
         this.collectionValue = "FixedExpense"
@@ -141,6 +152,47 @@ sendData() {
       this.modalController.dismiss({
         'dismissed': true
       });
+    }
+
+    pickDate(){
+      let currentDate: Date = new Date()
+      let lastDayOfNextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 0);
+      let firstDayOfThisMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+      if (this.platform.is("android")){
+        let options = {
+          date: new Date(),
+          mode: 'date',
+          androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+          minDate: firstDayOfThisMonth.valueOf(),
+          maxDate: lastDayOfNextMonth.valueOf()
+        }
+        this.datePicker.show(options).then((date) =>{
+          this.sdate = this.datePipe.transform(date, "yyyy-MM-dd");
+        })
+      }
+      else if (this.platform.is("ios")){
+        let options = {
+          date: new Date(),
+          mode: 'date',
+          minDate: firstDayOfThisMonth,
+          maxDate: lastDayOfNextMonth
+        }
+        this.datePicker.show(options).then((date) =>{
+          this.sdate = this.datePipe.transform(date, "yyyy-MM-dd");
+        })
+      }
+      else{
+        let options = {
+          date: new Date(),
+          mode: 'date',
+          minDate: firstDayOfThisMonth.valueOf(),
+          maxDate: lastDayOfNextMonth.valueOf()
+        }
+        this.datePicker.show(options).then((date) =>{
+          this.sdate = this.datePipe.transform(date, "yyyy-MM-dd");
+        })
+      }
     }
 }
 

@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import * as firebase from 'firebase/app';
-import {AngularFireAuth} from 'angularfire2/auth';
-import { BehaviorSubject } from 'rxjs';
-import { Platform } from '@ionic/angular';
-import { AppPreferences } from '@ionic-native/app-preferences/ngx';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {BehaviorSubject} from 'rxjs';
+import {Platform} from '@ionic/angular';
+import {AppPreferences} from '@ionic-native/app-preferences/ngx';
+import {AlertController} from '@ionic/angular';
+
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +18,8 @@ export class AuthService {
 
     constructor(firebaseAuth: AngularFireAuth,
                 private platform: Platform,
-            private appPreferences: AppPreferences) {
+                private appPreferences: AppPreferences,
+                public alertCtrl: AlertController) {
         console.log("AuthService constructor");
 
         this.platform.ready().then(async () => {
@@ -37,6 +40,8 @@ export class AuthService {
             firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
                 .then(res => {
                     resolve(res);
+                    let user = firebase.auth().currentUser;
+                    user.sendEmailVerification();
                 }, err => reject(err));
         });
     }
@@ -46,11 +51,24 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             firebase.auth().signInWithEmailAndPassword(value.email, value.password)
                 .then(res => {
-                    this.authenticationState.next(true);
-                    this.appPreferences.store('login', this.LOGIN_STATUS, true);
-                    resolve(res);
+                    let user = firebase.auth().currentUser;
+                    if (user.emailVerified) {
+                        this.authenticationState.next(true);
+                        this.appPreferences.store('login', this.LOGIN_STATUS, true);
+                        resolve(res);
+                    } else {
+                        this.presentAlert('Email address is not verified');
+                    }
                 }, err => reject(err));
         });
+    }
+
+    async presentAlert(mes: string) {
+        const errorAlert = await this.alertCtrl.create({
+            message: mes,
+            buttons: [{text: 'Ok', role: 'cancel'}],
+        });
+        await errorAlert.present();
     }
 
     // Function to check if user is logged in
@@ -100,5 +118,9 @@ export class AuthService {
 
     public resetPassword(email: string): any {
         return firebase.auth().sendPasswordResetEmail(email);
+    }
+
+    public getAuthUser(): any {
+        return firebase.auth().currentUser;
     }
 }

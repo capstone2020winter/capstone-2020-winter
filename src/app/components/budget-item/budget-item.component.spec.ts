@@ -16,7 +16,7 @@ describe('BudgetItemComponent', () => {
 
         fixture = TestBed.createComponent(BudgetItemComponent);
         component = fixture.componentInstance;
-        component.budgetItem = new BudgetItemModel('0', 'Entertainment', 100.00, '-');
+        component.budgetItem = new BudgetItemModel('0', 'Entertainment', 100.00, '-', '05.02.2020');
 
         fixture.detectChanges();
     }));
