@@ -18,6 +18,10 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/auth';
 
+// Date Picker
+import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { DatePipe } from '@angular/common';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -27,9 +31,10 @@ import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/auth';
     FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
-    SplashScreen, AppPreferences, AngularFireModule,
-      AngularFireAuthModule,
-      AngularFireAuth,
+    SplashScreen, AppPreferences,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    DatePicker,
+    DatePipe, AngularFireModule, AngularFireAuthModule, AngularFireAuth,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

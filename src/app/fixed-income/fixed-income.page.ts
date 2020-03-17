@@ -45,10 +45,16 @@ export class FixedIncomePage implements OnInit {
     this.firestoreService.getFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
       this.budgetItemModel = []
         res.forEach((item) => {
-            let count = this.dateLogic.getCount(item.badge, item.startDate);
-            let totalCount = this.dateLogic.getTotalCount(item.badge, item.startDate);
-            let percentage = count + "-" + totalCount;
-            this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge, percentage))
+          let sdate = new Date(item.startDate);
+          let currentDate = new Date();
+          var percentage = "";
+          if (sdate.getMonth() == currentDate.getMonth() && sdate.getFullYear() == currentDate.getFullYear()){
+              let date = sdate.getDate() + "";
+              let count = this.dateLogic.getCount(item.badge, date);
+              let totalCount = this.dateLogic.getTotalCount(item.badge, date);
+              percentage = count + "-" + totalCount;
+          }    
+          this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge, percentage)) 
         });
     });
     return true
