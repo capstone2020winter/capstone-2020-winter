@@ -1,10 +1,15 @@
-.header {
-  color: white;
-  text-align: center;
-  padding-top: 0.5vw;
-  font-style: bold;
-  background:#467fd7;
+ion-header{
+  background: #ededed !important;
+  ion-toolbar{
+      --background: #2b59a2;
+      border-bottom-left-radius: 1em;
+      border-bottom-right-radius: 1em;
+      height:6em;
+      ion-buttons, ion-title{
+          color: white
+      }
   }
+}
   .expand-header {
       height: auto;
       font-weight: 1000;
