@@ -4,14 +4,43 @@
 //     display: block;
   
 // }  
-.header{ 
-    background-color:#467fd7;
-    color: white;
+ion-header{
+    background: #ededed !important;
+    height:5em !important;
+    ion-toolbar{
+        --background: #2b59a2;
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+        height:6em;
+        ion-buttons, ion-title{
+            color: white
+        }
+    }
 }
-.content{
+.balance-toolbar{
+    --background: transparent;
+    position: absolute;
+    z-index:10;
+    top:6em;
+    height: calc(100% - 4.5em);
+}
+.card{
+    height: 15em;
     background-color:	#F5F5F5;
+    color:  #2b59a2;
+}
+ion-label{
+margin-left: 1em;
+color: #2b59a2;
 }
 
+ion-content{
+    
+    --background: #D3D3D3;
+   
+
+
+}
 // img
 // {
 //     height: 100px;
