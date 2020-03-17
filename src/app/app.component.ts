@@ -19,6 +19,7 @@ export class AppComponent {
         public navCtrl: NavController,
     ) {
         this.initializeApp();
+        console.log('AppComponent constractor');
     }
 
     initializeApp() {

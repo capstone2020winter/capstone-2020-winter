@@ -52,18 +52,7 @@ export class LoginPage implements OnInit {
         if (this.loginForm.valid) {
             this.authService.login(this.user).then(
                 async () => {
-                    // console.log('HERE!00');
-                    // if (this.authService.getAuthUser().emailVerified) {
-                    //     console.log('HERE!11');
-                    //     this.router.navigateByUrl('budget-balance');
-                    // } else {
-                    //     console.log('HERE!22');
-                    //     const errorAlert = await this.alertCtrl.create({
-                    //         message: "Email address is not verified",
-                    //         buttons: [{text: 'Ok', role: 'cancel'}],
-                    //     });
-                    //     await errorAlert.present();
-                    // }
+                    this.router.navigateByUrl('budget-balance');
                 },
                 async error => {
                     const errorAlert = await this.alertCtrl.create({
@@ -74,9 +63,5 @@ export class LoginPage implements OnInit {
                 }
             );
         }
-    }
-
-    checkIfLogged() {
-        console.log(this.authService.getUserId());
     }
 }

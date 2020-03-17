@@ -1,25 +1,47 @@
-.income-view{
+.income-view {
+  --background: transparent;
+
+  ion-tab-bar {
     --background: transparent;
-    ion-tab-bar{
-        --background: transparent;
-        border: none;
-        height: 5em;
-        ion-tab-button{
-            background: white;
-            border-radius: 1em;
-            max-width:10em;
-            margin:1em;
-            ion-icon, ion-label{
-                font-size: 1.8em;
-                font-weight: bold;
-                color: #467fd7;
-            }
-        }
-        ion-tab-button.tab-selected{
-            background: #467fd7;
-            ion-icon, ion-label{
-                color: white;
-            }
-        }
+    border: none;
+    height: 5em;
+
+    ion-tab-button {
+      border-radius: 1em;
+      max-width: 10em;
+      margin: 1em;
+
+      .content {
+        width: 70%;
+        height: 70%;
+        border-radius: 1em;
+        background: #467fd7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: width 100ms ease-in-out, height 100ms ease-in-out;
+      }
+
+      ion-icon, ion-label {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: white;
+      }
     }
+
+    ion-tab-button.tab-selected {
+      .content {
+        background: white;
+        width: 100%;
+        height: 100%;
+        transition: width 100ms ease-in-out, height 100ms ease-in-out;
+      }
+
+      ion-icon, ion-label {
+        color: #467fd7;
+        font-size: 1.8em;
+      }
+    }
+  }
 }
