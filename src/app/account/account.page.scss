@@ -1,0 +1,32 @@
+ion-header{
+    background: #ededed !important;
+    height:6em !important;
+    ion-toolbar{
+        --background: #2b59a2;
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+        height:6em;
+        ion-buttons, ion-title{
+            color: white
+        }
+    }
+}
+.balance-toolbar{
+    --background: transparent;
+    position: absolute;
+    z-index:10;
+    top:4.5em;
+    height: calc(100% - 4.5em);
+}
+
+ion-content{
+    
+    --background: #D3D3D3;
+   
+
+
+}
+ion-label{
+    margin-left: 1em;
+    color: #2b59a2;
+    }

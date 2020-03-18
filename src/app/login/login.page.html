@@ -1,5 +1,5 @@
 <ion-header class ="header">
-    <ion-toolbar color="#467fd7">
+    <ion-toolbar>
         <!-- <img src="assets/images/logo.png" class="smallLogo"/> -->
         <ion-buttons slot="start">
             <ion-back-button  ></ion-back-button>
@@ -9,10 +9,12 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="content" color="#FFFAFA">
+<ion-content >
+<ion-card class="card" color="#FFFAFA">
    
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
         <ion-item color="#F5F5F5">
+            <ion-icon name="mail"></ion-icon>
             <ion-label>Email *</ion-label>
             <ion-input type="email" name="email" required [(ngModel)]="user.email" formControlName="email"></ion-input>
         </ion-item>
@@ -24,6 +26,7 @@
             </ng-container>
         </div>
         <ion-item color="#F5F5F5">
+            <ion-icon name="key"></ion-icon>
             <ion-label >Password *</ion-label>
             <ion-input type="password" name="password" required [(ngModel)]="user.password" formControlName="password"></ion-input>
         </ion-item>
@@ -34,7 +37,7 @@
                 </div>
             </ng-container>
         </div>
-        <ion-button expand="block" color="danger" type="submit" block [disabled]="loginForm.invalid">Login</ion-button>
+        <ion-button expand="block" type="submit" block [disabled]="loginForm.invalid">Login</ion-button>
     </form>
 
     <ion-row>
@@ -43,4 +46,10 @@
             register</a> first!
         </div>
     </ion-row>
+<<<<<<< HEAD
+
+</ion-card>
+=======
+>>>>>>> 4e99ee5ad24a8359cb632bc34e27e4d4f11bfc03
 </ion-content>
+
