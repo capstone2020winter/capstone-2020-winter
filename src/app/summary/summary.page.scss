@@ -19,16 +19,16 @@
       padding-left: 2vw;
   }
 
-  .suggestion-text{
+  .suggestion-text {
     padding-left: 10vw;
   }
 
-  .suggestion-title{
+  .suggestion-title {
       color: gray;
       margin-left: 10vw;
   }
 
-  .expand-header{
+  .expand-header {
     height: 15px;
     color: white;
     margin-bottom:0.8em;
@@ -44,5 +44,13 @@
   ion-card{
     --background: #467fd7;
     color: white;
+  }
+
+  .chartContainer {
+    height:300px;
+    width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    display: block;
   }
 }

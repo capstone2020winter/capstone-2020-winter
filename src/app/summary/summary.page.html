@@ -1,11 +1,7 @@
 <ion-content class="summary-view">
-    <div class="header">
-        <ion-text><h3>Budget Summary</h3></ion-text>
-    </div>
-
     
   <!--  Please put code for pie chat here -->
-  <div id="chartContainer" style="height:300px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+  <div id="chartContainer" class="chartContainer"></div>
 
   <!--displaying summary amount of current month budget and changing the color of text according to budget-->
     <ion-text class="summary-positive" [hidden] ="budgetSummaryAmount <= 0">

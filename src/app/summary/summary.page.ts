@@ -106,7 +106,7 @@ export class SummaryPage implements OnInit {
             backgroundColor: "#ededed",
             theme: "light2",
             animationEnabled: true,
-            exportEnabled: true,
+            exportEnabled: false,
             width: 280,
             toolbar: {
                 backgroundColor: "#ebebeb",
