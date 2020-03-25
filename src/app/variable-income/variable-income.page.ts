@@ -40,7 +40,7 @@ export class VariableIncomePage implements OnInit {
 
     // This function will get data from the firestore cloud database from Income Collection
     async getIncome() {
-        this.firestoreService.getVariableList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
+        this.firestoreService.getCurrentVariableList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
             this.budgetItemModel = [];
             res.forEach((item) => {
                 this.budgetItemModel.push(new BudgetItemModel(item.autoId, item.name, item.value, item.description,item.date))

@@ -42,7 +42,7 @@ export class FixedIncomePage implements OnInit {
 
   // This function will get data from the firestore cloud database from Income Collection
   async getIncome() {
-    this.firestoreService.getFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+    this.firestoreService.getCurrentFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
       this.budgetItemModel = []
         res.forEach((item) => {
           let sdate = new Date(item.startDate);

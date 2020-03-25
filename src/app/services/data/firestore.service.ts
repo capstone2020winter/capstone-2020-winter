@@ -2,23 +2,28 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BudgetItemModel} from 'src/app/models/BudgetItemModel';
+import {DateLogic} from 'src/app/models/DateLogic';
 import {FixedBudgetItemModel} from 'src/app/models/FixedBudgetItemModel';
 import {AuthService} from '../auth/auth.service';
+import { DatePipe } from '@angular/common';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirestoreService {
+    dateLogic: DateLogic;
 
-    constructor(public firestore: AngularFirestore, public authService: AuthService) {
+    constructor(public firestore: AngularFirestore, public authService: AuthService, public datePipe: DatePipe) {
+        this.dateLogic = new DateLogic()
     }
 
     //function to add Data to collection 
    public createFixedCollection(collection: string, name: string, value:number, description: string, startDate: string, badge: string): Promise<void> {
     const autoId = this.firestore.createId();
-
-    var result = this.firestore.doc(`users/${this.authService.getUserId()}/${collection}/${autoId}`).set({
+    const month = this.dateLogic.getMonth(startDate)
+    const year = this.dateLogic.getYear(startDate)
+    var result = this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${autoId}`).set({
      autoId,
      name,
      value,
@@ -32,8 +37,9 @@ export class FirestoreService {
   //function to add Data to collection 
   public createVariableCollection(collection: string, name: string, value:number, description: string, date: string): Promise<void> {
    const autoId = this.firestore.createId();
-
-   var result = this.firestore.doc(`users/${this.authService.getUserId()}/${collection}/${autoId}`).set({
+   const month = this.dateLogic.getMonth(date)
+   const year = this.dateLogic.getYear(date)
+   var result = this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${autoId}`).set({
     autoId,
     name,
     value,
@@ -45,17 +51,26 @@ export class FirestoreService {
  
     // function to delete an item from the passed collection
     public deleteItem(collection: string, id: string) {
-        this.firestore.doc('users/' + this.authService.getUserId() + '/' +  collection + '/' + id).delete();
+        let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+        const month = this.dateLogic.getMonth(currentDate)
+        const year = this.dateLogic.getYear(currentDate)
+        this.firestore.doc('users/' + this.authService.getUserId() + '/' + year + '/' + month + '/' +  collection + '/' + id).delete();
     }
 
     // function to receive data from the database according to collection
-    getVariableList(collection: string): AngularFirestoreCollection<BudgetItemModel> {
-        return this.firestore.collection(`users/${this.authService.getUserId()}/${collection}`);
+    getCurrentVariableList(collection: string): AngularFirestoreCollection<BudgetItemModel> {
+        let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+        const month = this.dateLogic.getMonth(currentDate)
+        const year = this.dateLogic.getYear(currentDate)
+        return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
     }
 
     // function to receive data from the database according to collection
-    getFixedList(collection: string): AngularFirestoreCollection<FixedBudgetItemModel> {
-        return this.firestore.collection(`users/${this.authService.getUserId()}/${collection}`);
+    getCurrentFixedList(collection: string): AngularFirestoreCollection<FixedBudgetItemModel> {
+        let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+        const month = this.dateLogic.getMonth(currentDate)
+        const year = this.dateLogic.getYear(currentDate)
+        return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
     }
 
     

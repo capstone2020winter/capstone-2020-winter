@@ -8,6 +8,9 @@ import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { DatePipe } from '@angular/common';
 import { Platform } from '@ionic/angular';
 
+import { ToastController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-addpage',
@@ -36,7 +39,8 @@ export class AddpagePage implements OnInit {
               public authService: AuthService,
               public datePicker: DatePicker,
               public datePipe: DatePipe,
-              public platform: Platform) {
+              public platform: Platform,
+              public toastController: ToastController) {
     this.pageTitle = navParams.get("pageTitle");
     this.duration = "O";
     this.platform.ready().then(() => {
@@ -119,6 +123,7 @@ sendData() {
     this.firestoreService.createFixedCollection(this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
     .then(
       () => {
+        this.presentToast()
         this.modalController.dismiss({
           'dismissed': true
         });
@@ -129,9 +134,10 @@ sendData() {
     );
   } else {
     //variable
-    this.firestoreService.createVariableCollection(this.collectionValue,this.category,this.amount,this.description,"11/1/1111")
+    this.firestoreService.createVariableCollection(this.collectionValue,this.category,this.amount,this.description,this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
     .then(
       () => {
+        this.presentToast()
         this.modalController.dismiss({
           'dismissed': true
         });
@@ -152,6 +158,16 @@ sendData() {
       this.modalController.dismiss({
         'dismissed': true
       });
+    }
+
+    async presentToast() {
+      const toast = await this.toastController.create({
+        message: 'Data Added Successfully',
+        position: 'bottom',
+        color: 'success',
+        duration: 2000
+      });
+      toast.present();
     }
 
     pickDate(){

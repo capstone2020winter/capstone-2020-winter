@@ -127,7 +127,7 @@ export class SummaryPage implements OnInit {
 
     // This function will get data from the firestore cloud database from Fixed Income Collection
     getFixedIncome() {
-        this.firestoreService.getFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+        this.firestoreService.getCurrentFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             this.FixedIncomeArraySummary = []
             this.fixedIncomeAmount = 0
 
@@ -136,6 +136,7 @@ export class SummaryPage implements OnInit {
                 for(var i=0;i<count;i++) {
                     this.fixedIncomeAmount += element.value
                 }
+                console.log("count=="+count)
                 element.value = element.value * count
                 this.FixedIncomeArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
             });
@@ -147,7 +148,7 @@ export class SummaryPage implements OnInit {
 
     // This function will get data from the firestore cloud database from Variable Income Collection
     getVariableIncome() {
-        this.firestoreService.getVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+        this.firestoreService.getCurrentVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
             this.variableIncomeAmount = 0
             this.VariableIncomeArraySummary = []
 
@@ -161,7 +162,7 @@ export class SummaryPage implements OnInit {
 
     // This function will get data from the firestore cloud database from Fixed Expense Collection
     getFixedExpense() {
-        this.firestoreService.getFixedList('FixedExpense').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+        this.firestoreService.getCurrentFixedList('FixedExpense').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             this.FixedExpenseArraySummary = []
             this.fixedDataPointsArray = []
             this.fixedExpenseAmount = 0
@@ -182,7 +183,7 @@ export class SummaryPage implements OnInit {
 
     // This function will get data from the firestore cloud database from Variable Expense Collection
     getVariableExpense() {
-        this.firestoreService.getVariableList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
+        this.firestoreService.getCurrentVariableList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
             this.VariableExpenseArraySummary = []
             this.variableDataPointsArray = []
             this.budgetSummaryAmount = 0
@@ -221,11 +222,11 @@ export class SummaryPage implements OnInit {
 
 
     getIncomeDump() {
-        this.firestoreService.getFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+        this.firestoreService.getCurrentFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             res.forEach((element) => {
             });
         });
-        this.firestoreService.getVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+        this.firestoreService.getCurrentVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
             res.forEach((element) => {
             });
             this.getFixedIncome();

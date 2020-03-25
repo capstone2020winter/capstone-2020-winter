@@ -61,7 +61,7 @@ export class FixedExpensePage implements OnInit {
     }
 
     async getFixedExpense() {
-        this.firestoreService.getFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+        this.firestoreService.getCurrentFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             this.budgetItemModel = [];
             res.forEach((item) => {
                 let sdate = new Date(item.startDate);

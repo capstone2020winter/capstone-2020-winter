@@ -9,8 +9,22 @@ export class DateLogic {
 
     }
 
+    getDate(date: string){
+      let day = Number(date.substr(8, 2));
+      return day;
+    }
+    getMonth(date: string){
+      let month = Number(date.substr(5, 2));
+      return month;
+      
+    }
+    getYear(date: string){
+      let year = Number(date.substr(0, 4));
+      return year;
+    }
+    
     getTotalCount(badge: string, date: string): number{
-      let firstOccurrenceDate = Number(date);
+      let firstOccurrenceDate = this.getDate(date);
       let currentDate: Date = new Date();
       let numberOfDaysThisMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
       let duration = numberOfDaysThisMonth.getDate() - firstOccurrenceDate;
@@ -28,10 +42,10 @@ export class DateLogic {
     }
 
     getCount(badge: string, date: string): number {
-
         this.count = 0
-        let currentDate: Date = new Date()
-        this.duration = currentDate.getDate() - Number(date)  
+        let currentDate: number = new Date().getDate()
+        var itemDate: number = this.getDate(date)
+        this.duration = currentDate - itemDate
         
         switch(badge) { 
             case "W" : {
@@ -57,7 +71,7 @@ export class DateLogic {
                return this.count
             }
             case "M" : { 
-               if(Number(date) <= currentDate.getDate()){
+               if(itemDate <= currentDate){
                   this.count++
                   return this.count
                } else {

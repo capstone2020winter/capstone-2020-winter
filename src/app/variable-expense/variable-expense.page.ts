@@ -39,7 +39,7 @@ export class VariableExpensePage implements OnInit {
 
     // This function will get data from the firestore cloud database from Variable Expense Collection
     async getVariableExpense() {
-        this.firestoreService.getVariableList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
+        this.firestoreService.getCurrentVariableList(this.collectionValue).valueChanges().subscribe((res: BudgetItemModel[]) => {
             this.budgetItemModel = []
             //console.log("userID=="+userID)
             res.forEach((item) => {
