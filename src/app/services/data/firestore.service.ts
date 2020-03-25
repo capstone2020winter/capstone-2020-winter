@@ -57,7 +57,7 @@ export class FirestoreService {
         this.firestore.doc('users/' + this.authService.getUserId() + '/' + year + '/' + month + '/' +  collection + '/' + id).delete();
     }
 
-    // function to receive data from the database according to collection
+    // function to receive current month data from the database
     getCurrentVariableList(collection: string): AngularFirestoreCollection<BudgetItemModel> {
         let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
         const month = this.dateLogic.getMonth(currentDate)
@@ -65,11 +65,21 @@ export class FirestoreService {
         return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
     }
 
-    // function to receive data from the database according to collection
+    // function to receive current month data from the database
     getCurrentFixedList(collection: string): AngularFirestoreCollection<FixedBudgetItemModel> {
         let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
         const month = this.dateLogic.getMonth(currentDate)
         const year = this.dateLogic.getYear(currentDate)
+        return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
+    }
+
+    // function to receive data from the database according to collection, year, month
+    getVariableList(collection: string, year: number, month: number): AngularFirestoreCollection<BudgetItemModel> {
+        return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
+    }
+
+    // function to receive data from the database according to collection, year, month
+    getFixedList(collection: string, year: number, month: number): AngularFirestoreCollection<FixedBudgetItemModel> {
         return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
     }
 
