@@ -1,32 +1,56 @@
-ion-header{
+ion-header {
   background: #ededed !important;
-  ion-toolbar{
-      --background: #2b59a2;
-      border-bottom-left-radius: 1em;
-      border-bottom-right-radius: 1em;
-      height:6em;
-      ion-buttons, ion-title{
-          color: white
-      }
+
+  ion-toolbar {
+    --background: #2b59a2;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    height: 6em;
+
+    ion-buttons, ion-title {
+      color: white
+    }
   }
 }
-  .expand-header {
-      height: auto;
-      font-weight: 1000;
-      font-size: large;
-      font-style:bold; 
-      color:#467fd7;
-    }
-    .answer{
-      font-weight: 500;
-      font-size: 22px;
-      color:black;
 
-    }
-    // .closed{
-    //   background-color: gainsboro;
+.expand-header {
+  height: auto;
+  font-weight: 900;
+  color: #467fd7;
 
-    // }
-    .content{
-      background-color:	#F5F5F5;
-    }
+  h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.answer {
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
+  line-height: 1.4;
+
+  ion-text {
+    white-space: pre-wrap
+  }
+
+}
+
+ion-card-header {
+  padding-bottom: 0;
+}
+
+ion-card-content {
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+
+ion-grid {
+  margin-bottom: 0;
+}
+
+ion
+
+.content {
+  background-color: #F5F5F5;
+}

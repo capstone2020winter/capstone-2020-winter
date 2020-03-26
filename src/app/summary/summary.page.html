@@ -37,7 +37,8 @@
           </ion-card-header>
 
           <ion-card-content>
-            <app-expandable expandHeight="120px" [expanded]="item.expanded" >
+            <app-expandable expandHeight="400px" [expanded]="item.expanded" >
+                <br>
               <p *ngFor="let showList of FixedIncomeArraySummary">
                 {{showList}}
               </p>
@@ -55,7 +56,8 @@
           </ion-card-header>
       
           <ion-card-content>
-            <app-expandable expandHeight="120px" [expanded]="item.expanded" >
+            <app-expandable expandHeight="400px" [expanded]="item.expanded" >
+                <br>
               <p *ngFor="let showList of FixedExpenseArraySummary">
                 {{showList}}
               </p>
@@ -68,4 +70,3 @@
 
 </ion-content>
 
- 

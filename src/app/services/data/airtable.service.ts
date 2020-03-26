@@ -12,7 +12,7 @@ interface AirtableResponse {
 })
 export class AirtableService {
 
-    private apiKey = '';
+    private apiKey = 'key4ujIGAAMldLh54';
 
     constructor(private http: HttpClient) {
         console.log('AirtableService');

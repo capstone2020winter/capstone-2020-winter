@@ -8,6 +8,7 @@ import { BudgetFaqsPageRoutingModule } from './budget-faqs-routing.module';
 
 import { BudgetFaqsPage } from './budget-faqs.page';
 import { ComponentsModule } from '../components/components.module';
+import { AirtableService } from '../services/data/airtable.service';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ComponentsModule } from '../components/components.module';
     IonicModule,
     BudgetFaqsPageRoutingModule, ComponentsModule
   ],
-  declarations: [BudgetFaqsPage]
+  declarations: [BudgetFaqsPage],
+    providers: [AirtableService]
 })
 export class BudgetFaqsPageModule {}

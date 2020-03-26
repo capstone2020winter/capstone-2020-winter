@@ -21,6 +21,7 @@ import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/auth';
 // Date Picker
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { DatePipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,7 @@ import { DatePipe } from '@angular/common';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, AngularFireAuthModule,
-    FormsModule, ReactiveFormsModule],
+    FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen, AppPreferences,
