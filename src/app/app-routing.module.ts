@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
+  },
+  {
+    path: 'history-summary',
+    loadChildren: () => import('./history-summary/history-summary.module').then( m => m.HistorySummaryPageModule)
   }
 ];
 

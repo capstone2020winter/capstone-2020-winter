@@ -13,4 +13,5 @@
     <ion-label>Select a month:</ion-label>
     <ion-datetime displayFormat="MMMM YYYY" min="2020" max="2030" value="2020-01-01T00:00Z" [(ngModel)]="myDate" (ionChange)="dateChanged($event)"></ion-datetime>
   </ion-item>
+  <ion-button expand="block" shape="round" (click)="presentModal()">Check</ion-button>
 </ion-content>

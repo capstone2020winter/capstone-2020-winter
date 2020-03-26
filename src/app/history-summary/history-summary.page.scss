@@ -1,0 +1,97 @@
+.modal-header{ 
+    background: #ededed !important;
+    ion-toolbar{
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+        --background: #2b59a2;
+        color: white;
+    }
+}
+.modal-title {
+    text-align: center;
+}
+.modal-content{
+    --background: #ededed;
+    ion-list{
+        background: transparent;
+    }
+    ion-item{
+        --background: #ededed;
+    }
+    ion-button{
+        max-width: 15em;
+        margin: 1em auto;
+    }
+}
+
+.summary-view{
+    --offset-top:-1.5em !important;
+    --background: #ededed;
+    top: -30px;
+    
+    
+    .header {
+      color: gray;
+      text-align: center;
+      padding-top: 0.5vw;
+      font-style: bold;
+    }
+    .total-balance {
+      text-align: center;
+    }
+    .chart-text {
+        padding-left: 2vw;
+        color: gray;
+    }
+    .chart-icon {
+        padding-left: 2vw;
+    }
+  
+    .suggestion-text {
+      padding-left: 10vw;
+    }
+  
+    .suggestion-title {
+        color: gray;
+        margin-left: 10vw;
+    }
+  
+    .expand-header {
+      color: white;
+      padding-bottom: 0px;
+      font-weight: 600;
+    }
+  
+    ion-card-content {
+      padding-top: 0px;
+      padding-bottom: 20px;
+    }
+  
+    .summary-positive {
+      color: green;
+    }
+  
+    .summary-negative {
+      color: red;
+    }
+  
+    ion-card{
+      --background: #467fd7;
+      color: white;
+    }
+  
+    .chartContainer {
+      height:300px;
+      width: 100%;
+      margin-left:auto;
+      margin-right:auto;
+      display: block;
+    }
+    .backbtn {
+        position: fixed;
+        left: 0;
+        bottom: 0px;
+        right: 0;
+    }
+  }
+  
