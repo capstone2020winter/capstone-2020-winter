@@ -29,9 +29,14 @@
   }
 
   .expand-header {
-    height: 15px;
     color: white;
-    margin-bottom:0.8em;
+    padding-bottom: 0px;
+    font-weight: 600;
+  }
+
+  ion-card-content {
+    padding-top: 0px;
+    padding-bottom: 20px;
   }
 
   .summary-positive {
@@ -41,6 +46,7 @@
   .summary-negative {
     color: red;
   }
+
   ion-card{
     --background: #467fd7;
     color: white;

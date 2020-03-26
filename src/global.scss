@@ -22,6 +22,7 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
 //converts px values to rem, with base 16
 @function rem-calc($size) {
   $remSize: $size / 16;

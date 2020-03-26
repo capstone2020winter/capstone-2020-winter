@@ -32,7 +32,7 @@ export class RegistrationPage implements OnInit {
         this.registrationForm = this.formBuilder.group({
             email: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.pattern('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')
+                Validators.pattern('^([a-zA-Z0-9_\\-\\.\\+]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$')
             ])),
             password: new FormControl('', Validators.compose([
                 Validators.required,
