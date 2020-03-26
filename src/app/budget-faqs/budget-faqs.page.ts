@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AirtableService } from '../services/data/airtable.service';
 
+
 @Component({
     selector: 'app-budget-faqs',
     templateUrl: './budget-faqs.page.html',
