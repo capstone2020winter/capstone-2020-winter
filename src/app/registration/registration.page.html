@@ -8,10 +8,11 @@
 </ion-header>
 
 <ion-content>
+    <ion-card class="card" color="#FFFAFA">
     <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
-        <ion-item>
-            <ion-label>Email *</ion-label>
-            <ion-input type="email" name="email" required [(ngModel)]="user.email" formControlName="email"></ion-input>
+        <ion-item color="#F5F5F5" lines="full" no-margin no-padding>
+            <ion-icon name="mail"></ion-icon>
+            <ion-input placeholder="Email *" type="email" name="email" required [(ngModel)]="user.email" formControlName="email" clearInput></ion-input>
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validationMessages.email">
@@ -20,9 +21,9 @@
                 </div>
             </ng-container>
         </div>
-        <ion-item>
-            <ion-label>Password *</ion-label>
-            <ion-input type="password" name="password" required [(ngModel)]="user.password" formControlName="password"></ion-input>
+        <ion-item color="#F5F5F5" lines="full" no-margin no-padding>
+            <ion-icon name="key"></ion-icon>
+            <ion-input placeholder="Password *" type="password" name="password" required [(ngModel)]="user.password" formControlName="password" clearInput></ion-input>
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validationMessages.password">
@@ -35,6 +36,7 @@
 <!--            <ion-label>Repeat Password</ion-label>-->
 <!--            <ion-input type="password" name="password_repeat" required [(ngModel)]="user.password_repeat" formControlName="repeat_password"></ion-input>-->
 <!--        </ion-item>-->
-        <ion-button expand="block" type="submit" block [disabled]="registrationForm.invalid">Register</ion-button>
+        <ion-button expand="block" type="submit" block [disabled]="registrationForm.invalid">REGISTER</ion-button>
     </form>
+    </ion-card>
 </ion-content>

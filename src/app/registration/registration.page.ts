@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {NavController} from '@ionic/angular';
 import {Events} from '@ionic/angular';
-import { AuthService } from '../services/auth/auth.service';
+import {AuthService} from '../services/auth/auth.service';
 import {AlertController} from '@ionic/angular';
 
 
@@ -45,16 +45,16 @@ export class RegistrationPage implements OnInit {
 
         this.validationMessages = {
             'email': [
-                { type: 'required', message: 'Email is required.' },
-                { type: 'pattern', message: 'Email is wrong formatted.' }
+                {type: 'required', message: 'Email is required.'},
+                {type: 'pattern', message: 'Email is wrong formatted.'}
             ],
             'password': [
-                { type: 'required', message: 'Password is required.' },
-                { type: 'minlength', message: 'Password must be at least 6 characters long.' },
+                {type: 'required', message: 'Password is required.'},
+                {type: 'minlength', message: 'Password must be at least 6 characters long.'},
             ]
         };
 
-   }
+    }
 
     ngOnInit() {
     }
@@ -67,7 +67,19 @@ export class RegistrationPage implements OnInit {
         if (this.registrationForm.valid) {
             this.authService.register(this.user).then(
                 async () => {
-                    this.navCtrl.back();
+
+                    const alert = await this.alertCtrl.create({
+                        message: 'Verification email sent',
+                        buttons: [
+                            {
+                                text: 'Ok',
+                                role: 'cancel',
+                                handler: () => {
+                                    this.navCtrl.back();
+                                }
+                            }],
+                    });
+                    await alert.present();
                 },
                 async error => {
                     const errorAlert = await this.alertCtrl.create({

@@ -1,33 +1,36 @@
-<ion-header>
+<ion-header class ="header">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button  ></ion-back-button>
+            <ion-back-button></ion-back-button>
         </ion-buttons>
         <ion-title>Account</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <form [formGroup]="updateEmailForm" (ngSubmit)="updateEmail()">
-        <ion-item color="#F5F5F5">
-            <ion-icon name="mail"></ion-icon>
-            <ion-label>Email:</ion-label>
-            <ion-input type="email" name="email" required [(ngModel)]="userEmail" value="{{userEmail}}" formControlName="email"></ion-input>
-        </ion-item>
-        <div class="validation-errors">
-            <ng-container *ngFor="let validation of validationMessages.email">
-                <div class="error-message" *ngIf="updateEmailForm.get('email').hasError(validation.type) && (updateEmailForm.get('email').dirty || updateEmailForm.get('email').touched)">
-                    {{ validation.message }}
-                </div>
-            </ng-container>
-        </div>
-        <ion-row style="height: 10vh"></ion-row>
-        <ion-button expand="block" type="submit" [disabled]="updateEmailForm.invalid"  color="dark">Update Email</ion-button>
-        <ion-button expand="block" (click)="resetPassword()" color="dark">Reset Password</ion-button>
-    </form>
+    <ion-card class="card" color="#FFFAFA">
+        <form [formGroup]="updateEmailForm" (ngSubmit)="updateEmail()">
+            <ion-item color="#F5F5F5" lines="full" no-margin no-padding>
+                <ion-icon name="mail"></ion-icon>
+                <ion-input type="email" name="email" required [(ngModel)]="userEmail" value="{{userEmail}}" formControlName="email"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validationMessages.email">
+                    <div class="error-message" *ngIf="updateEmailForm.get('email').hasError(validation.type) && (updateEmailForm.get('email').dirty || updateEmailForm.get('email').touched)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
+<!--            <ion-row style="height: 10vh"></ion-row>-->
+            <div class="buttons-wrapper">
+            <ion-button expand="block" type="submit" [disabled]="updateEmailForm.invalid">Update Email</ion-button>
+            <ion-button expand="block" (click)="resetPassword()">Reset Password</ion-button>
+            </div>
+        </form>
+    </ion-card>
 </ion-content>
 <ion-footer>
     <ion-toolbar>
-        <ion-button expand="block" (click)="logout()" color="dark">Logout</ion-button>
+        <ion-button color="secondary-button" class="logout-button" expand="block" (click)="logout()">Logout</ion-button>
     </ion-toolbar>
 </ion-footer>

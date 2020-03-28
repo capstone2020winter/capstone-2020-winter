@@ -28,13 +28,13 @@ export class AccountPage implements OnInit {
         this.updateEmailForm = this.formBuilder.group({
             email: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.pattern('^(?!' + this.userEmail + ')\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')
+                Validators.pattern('^(?!' + this.userEmail + ')\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$'),
             ]))
         });
 
         this.validationMessages = {
             'email': [
-                { type: 'required', message: 'Email is required for update.' }
+                {type: 'required', message: 'Email is required for update.'}
             ]
         };
     }
@@ -56,8 +56,44 @@ export class AccountPage implements OnInit {
 
     updateEmail() {
         if (this.updateEmailForm.valid) {
-            this.authService.updateEmail(this.updateEmailForm.get('email').value);
+            this.m_updateEmail();
         }
+    }
+
+    async m_updateEmail() {
+
+        const alert = await this.alertCtrl.create({
+            message: 'Are you sure you want to update your email to ' + this.userEmail + ' ?',
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: () => {
+                        this.authService.updateEmail(this.updateEmailForm.get('email').value).then(
+                            async () => {
+
+                                const successAlert = await this.alertCtrl.create({
+                                    message: 'Verification email sent',
+                                    buttons: [
+                                        {
+                                            text: 'Ok',
+                                            role: 'cancel'
+                                        },
+                                    ],
+                                });
+                                await successAlert.present();
+
+                                this.router.navigateByUrl('login');
+                            });
+                    },
+                },
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                }
+            ],
+        });
+
+        await alert.present();
     }
 
     resetPassword(): void {

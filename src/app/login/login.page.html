@@ -1,22 +1,20 @@
-<ion-header class ="header">
+<ion-header class="header">
     <ion-toolbar>
-        <!-- <img src="assets/images/logo.png" class="smallLogo"/> -->
         <ion-buttons slot="start">
-            <ion-back-button  ></ion-back-button>
+            <ion-back-button></ion-back-button>
         </ion-buttons>
         <ion-title>Login</ion-title>
-     
+
     </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
 <ion-card class="card" color="#FFFAFA">
-   
+
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-        <ion-item color="#F5F5F5">
+        <ion-item color="#F5F5F5" lines="full" no-margin no-padding>
             <ion-icon name="mail"></ion-icon>
-            <ion-label>Email *</ion-label>
-            <ion-input type="email" name="email" required [(ngModel)]="user.email" formControlName="email"></ion-input>
+            <ion-input placeholder="Email *" type="email" name="email" required [(ngModel)]="user.email" formControlName="email" clearInput></ion-input>
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validationMessages.email">
@@ -25,10 +23,9 @@
                 </div>
             </ng-container>
         </div>
-        <ion-item color="#F5F5F5">
+        <ion-item color="#F5F5F5" lines="full" lines="full" no-margin no-padding>
             <ion-icon name="key"></ion-icon>
-            <ion-label >Password *</ion-label>
-            <ion-input type="password" name="password" required [(ngModel)]="user.password" formControlName="password"></ion-input>
+            <ion-input placeholder="Password *" type="password" name="password" required [(ngModel)]="user.password" formControlName="password" clearInput></ion-input>
         </ion-item>
         <div class="validation-errors">
             <ng-container *ngFor="let validation of validationMessages.password">
@@ -37,11 +34,11 @@
                 </div>
             </ng-container>
         </div>
-        <ion-button expand="block" type="submit" block [disabled]="loginForm.invalid">Login</ion-button>
+        <ion-button expand="block" type="submit" block [disabled]="loginForm.invalid">LOGIN</ion-button>
     </form>
 
     <ion-row>
-        <div text-center>
+        <div text-center class="register">
             If you don't have an account, please <a routerLink='/registration'>
             register</a> first!
         </div>

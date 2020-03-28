@@ -55,13 +55,54 @@ export class LoginPage implements OnInit {
                     this.router.navigateByUrl('budget-balance');
                 },
                 async error => {
-                    const errorAlert = await this.alertCtrl.create({
-                        message: error.message,
-                        buttons: [{text: 'Ok', role: 'cancel'}],
-                    });
-                    await errorAlert.present();
+                    if (error.code == 'auth/wrong-password') {
+                        const errorAlert = await this.alertCtrl.create({
+                            message: error.message,
+                            buttons: [
+                                {text: 'Cancel', role: 'cancel'},
+                                {
+                                    text: 'Reset Password',
+                                    handler: () => {
+                                        this.resetPassword();
+                                    }
+                                }
+                            ]
+                        });
+                        await errorAlert.present();
+                    } else {
+                        const errorAlert = await this.alertCtrl.create({
+                            message: error.message,
+                            buttons: [{text: 'Ok', role: 'cancel'}],
+                        });
+                        await errorAlert.present();
+                    }
                 }
             );
         }
+    }
+
+    resetPassword(): void {
+
+        this.authService.resetPassword(this.user.email).then(
+            async () => {
+                const alert = await this.alertCtrl.create({
+                    message: 'Check ' + this.user.email + ' for a password reset link',
+                    buttons: [
+                        {
+                            text: 'Ok',
+                            role: 'cancel'
+                        },
+                    ],
+                });
+                await alert.present();
+            },
+            async error => {
+                const errorAlert = await this.alertCtrl.create({
+                    message: error.message,
+                    buttons: [{text: 'Ok', role: 'cancel'}],
+                });
+                await errorAlert.present();
+            }
+        );
     }
 }
