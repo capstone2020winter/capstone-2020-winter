@@ -30,7 +30,9 @@ export class AuthService {
     private checkUserLogin() {
         this.appPreferences.fetch('login', this.LOGIN_STATUS).then((res) => {
             console.log('checkUserLogin ' + res);
-            this.authenticationState.next(true);
+            if (res != null) {
+                this.authenticationState.next(true);
+            }
         });
     }
 
@@ -128,17 +130,17 @@ export class AuthService {
     // Function to update user email
     public updateEmail(email: string) {
         return new Promise<any>((resolve, reject) => {
-          //  if (this.isUserSigned()) {
-                firebase.auth().currentUser.updateEmail(email).then(
-                    res => {
-                        let user = firebase.auth().currentUser;
-                        user.sendEmailVerification();
-                        resolve(res);
-                    },
-                    err => {
-                        this.presentAlert(err.message);
-                    });
-           // }
+            //  if (this.isUserSigned()) {
+            firebase.auth().currentUser.updateEmail(email).then(
+                res => {
+                    let user = firebase.auth().currentUser;
+                    user.sendEmailVerification();
+                    resolve(res);
+                },
+                err => {
+                    this.presentAlert(err.message);
+                });
+            // }
         });
     }
 
