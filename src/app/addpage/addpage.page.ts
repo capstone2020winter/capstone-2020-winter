@@ -25,6 +25,8 @@ export class AddpagePage implements OnInit {
   duration: string;
   collectionValue: string;
   sdate: string;
+  id: string;
+  date: string;
   // this value is not used for now
   category: string;
   // Data passed from the opening page
@@ -44,7 +46,11 @@ export class AddpagePage implements OnInit {
     this.pageTitle = navParams.get("pageTitle");
     this.duration = "O";
     this.platform.ready().then(() => {
-      this.sdate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+      if (navParams.get("id") != "" && navParams.get("id") != undefined && navParams.get("id") != null){
+        this.sdate = this.datePipe.transform(new Date(navParams.get("sdate")), "yyyy-MM-dd");
+      }else{
+        this.sdate = this.datePipe.transform(new Date(), "yyyy-MM-dd");
+      }
     })
     switch (this.pageTitle) {
       case 'Fixed Expense':
@@ -105,6 +111,17 @@ export class AddpagePage implements OnInit {
       default:
         break;
     }
+    if (navParams.get("id") != "" && navParams.get("id") != undefined && navParams.get("id") != null){
+      this.id = navParams.get("id");
+      this.amount = navParams.get("amount");
+      this.duration = navParams.get("frequency");
+      this.category = navParams.get("category");
+      this.description = navParams.get("description");
+      this.date = navParams.get("date");
+    }
+    else{
+      this.id = "";
+    }
   }
 
   ngOnInit() {
@@ -118,12 +135,15 @@ export class AddpagePage implements OnInit {
 
 //This function will add data to firestore cloud
 sendData() {
+  if (!this.description || this.description == undefined || this.description == null){
+    this.description = "";
+  }
   if(this.isFixed) {
     //fixed
     this.firestoreService.createFixedCollection(this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
     .then(
       () => {
-        this.presentToast()
+        this.presentToast("Data Added Successfully")
         this.modalController.dismiss({
           'dismissed': true
         });
@@ -137,7 +157,7 @@ sendData() {
     this.firestoreService.createVariableCollection(this.collectionValue,this.category,this.amount,this.description,this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
     .then(
       () => {
-        this.presentToast()
+        this.presentToast("Data Added Successfully")
         this.modalController.dismiss({
           'dismissed': true
         });
@@ -148,6 +168,42 @@ sendData() {
     );
   }
 }
+
+updateData() {
+  if (!this.description || this.description == undefined || this.description == null){
+    this.description = "";
+  }
+  if(this.isFixed) {
+    //fixed
+    this.firestoreService.updateFixedCollection(this.id, this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
+    .then(
+      () => {
+        this.presentToast("Data Updated Successfully")
+        this.modalController.dismiss({
+          'dismissed': true
+        });
+      },
+      error => {
+        console.error("Error : "+error);
+      }
+    );
+  } else {
+    //variable
+    this.firestoreService.updateVariableCollection(this.id, this.collectionValue,this.category,this.amount,this.description, this.date)
+    .then(
+      () => {
+        this.presentToast("Data Updated Successfully")
+        this.modalController.dismiss({
+          'dismissed': true
+        });
+      },
+      error => {
+        console.error("Error : "+error);
+      }
+    );
+  }
+}
+
     addItemToDataBase() {
         console.log('Add budget item to Data Base');
 
@@ -160,9 +216,9 @@ sendData() {
       });
     }
 
-    async presentToast() {
+    async presentToast(message: string) {
       const toast = await this.toastController.create({
-        message: 'Data Added Successfully',
+        message: message,
         position: 'bottom',
         color: 'success',
         duration: 2000
