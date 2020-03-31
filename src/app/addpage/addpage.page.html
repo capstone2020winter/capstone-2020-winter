@@ -1,6 +1,6 @@
 <ion-header class="modal-header" id="modalTitle" no-border>
   <ion-toolbar>
-    <ion-title>Add {{pageTitle}}</ion-title>
+    <ion-title>{{pageTitle}}</ion-title>
   </ion-toolbar>
   
 </ion-header>
@@ -67,10 +67,11 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">DESCRIPTION (OPTIONAL)</ion-label>
-      <ion-textarea type="text" [(ngModel)]="description"></ion-textarea>
+      <ion-input type="text" [(ngModel)]="description"></ion-input>
     </ion-item>
     <br>
-    <ion-button expand="block" shape="round" (click)="sendData()">Submit</ion-button>
+    <ion-button *ngIf="id == ''" expand="block" shape="round" (click)="sendData()">Submit</ion-button>
+    <ion-button *ngIf="id != ''" expand="block" shape="round" (click)="updateData()">Update</ion-button>
     <ion-button expand="block" shape="round" (click)="dismiss()" color="medium">Back</ion-button>
   </ion-list>
 </ion-content>

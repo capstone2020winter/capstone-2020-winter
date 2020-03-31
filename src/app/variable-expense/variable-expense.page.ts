@@ -78,5 +78,21 @@ export class VariableExpensePage implements OnInit {
         this.firestoreService.deleteItem('VariableExpense', passedItem.autoId);
     }
 
+    async editItem(pageName: string, passedItem: BudgetItemModel) {
+        const modal = await this.modalController.create({
+            component: AddpagePage,
+            componentProps: {
+                'pageTitle': pageName,
+                'id': passedItem.autoId,
+                'amount': passedItem.value,
+                'category': passedItem.name,
+                'description': passedItem.description,
+                'date': passedItem.date
+            }
+        });
+
+        return await modal.present();
+    }
+
 }
 

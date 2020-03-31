@@ -89,4 +89,21 @@ export class FixedExpensePage implements OnInit {
         // console.log(`ITEM ID ${passedItem.name}`)
         this.firestoreService.deleteItem('FixedExpense', passedItem.autoId);
     }
+
+    async editItem(pageName: string, passedItem: FixedBudgetItemModel) {
+        const modal = await this.modalController.create({
+            component: AddpagePage,
+            componentProps: {
+                'pageTitle': pageName,
+                'id': passedItem.autoId,
+                'amount': passedItem.value,
+                'frequency': passedItem.badge,
+                'sdate': passedItem.startDate,
+                'category': passedItem.name,
+                'description': passedItem.description
+            }
+        });
+
+        return await modal.present();
+    }
 }

@@ -1,6 +1,9 @@
 <ion-content color="light" class="data-table" class="variable-income-view">
     <ion-list class="data-list">
         <ion-item-sliding *ngFor="let item of budgetItemModel">
+            <ion-item-options side="start">
+                <ion-item-option color="warning" (click)="editItem('Variable Income', item)"><ion-icon name="create"></ion-icon></ion-item-option>
+            </ion-item-options>
             <app-budget-item [theItem]=item></app-budget-item>
             <ion-item-options side="end">
                 <ion-item-option color="danger" (click)="deleteItem(item)">DELETE</ion-item-option>

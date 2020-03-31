@@ -48,6 +48,33 @@ export class FirestoreService {
    });
    return result;
  } 
+
+  //function to add Data to collection 
+  public updateFixedCollection(autoId: string, collection: string, name: string, value:number, description: string, startDate: string, badge: string): Promise<void> {
+    var result = this.firestore.doc(`users/${this.authService.getUserId()}/${collection}/${autoId}`).set({
+     autoId,
+     name,
+     value,
+     description,
+     startDate,
+     badge
+    });
+    return result;
+  } 
+
+  //function to add Data to collection 
+  public updateVariableCollection(autoId: string, collection: string, name: string, value:number, description: string, date: string): Promise<void> {
+   const month = this.dateLogic.getMonth(date)
+   const year = this.dateLogic.getYear(date)
+   var result = this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${autoId}`).set({
+    autoId,
+    name,
+    value,
+    description,
+    date
+   });
+   return result;
+ } 
  
     // function to delete an item from the passed collection
     public deleteItem(collection: string, id: string) {

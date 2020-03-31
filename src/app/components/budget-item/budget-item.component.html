@@ -1,8 +1,8 @@
 <ion-item lines="full" class="data-item">
     <ion-badge slot="start">{{ budgetItem.badge  }}</ion-badge>
-    <ion-label slot="start" class="ion-text-wrap">{{ budgetItem.name }}{{budgetItem.percentage}}</ion-label>
+    <ion-label slot="start" class="ion-text-wrap">{{ budgetItem.name }}</ion-label>
     <div class="dollar-input" slot="end">
-        <ion-input type="number" value="{{ budgetItem.value }}"></ion-input>
+        <ion-label class="amount">{{ budgetItem.value }}</ion-label>
         <ion-icon class="dollar-sign" name="logo-usd"></ion-icon>
     </div>
 </ion-item>
