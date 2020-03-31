@@ -174,19 +174,23 @@ updateData() {
     this.description = "";
   }
   if(this.isFixed) {
-    //fixed
-    this.firestoreService.updateFixedCollection(this.id, this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
-    .then(
-      () => {
-        this.presentToast("Data Updated Successfully")
-        this.modalController.dismiss({
-          'dismissed': true
-        });
-      },
-      error => {
-        console.error("Error : "+error);
-      }
-    );
+    //fixed (this feature is coming next sprint)
+    // this.firestoreService.updateFixedCollection(this.id, this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
+    // .then(
+    //   () => {
+    //     this.presentToast("Data Updated Successfully")
+    //     this.modalController.dismiss({
+    //       'dismissed': true
+    //     });
+    //   },
+    //   error => {
+    //     console.error("Error : "+error);
+    //   }
+    // );
+    this.presentToast("Database Under Construction")
+    this.modalController.dismiss({
+      'dismissed': true
+    });
   } else {
     //variable
     this.firestoreService.updateVariableCollection(this.id, this.collectionValue,this.category,this.amount,this.description, this.date)
