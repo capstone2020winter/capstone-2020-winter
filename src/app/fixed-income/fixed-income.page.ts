@@ -54,7 +54,7 @@ export class FixedIncomePage implements OnInit {
               let totalCount = this.dateLogic.getTotalCount(item.badge, date);
               percentage = count + "-" + totalCount;
           }    
-          this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge, percentage)) 
+          this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge, percentage, item.parentId, item.isDeleted)) 
         });
     });
     return true
@@ -77,7 +77,7 @@ export class FixedIncomePage implements OnInit {
   }
 
   // This function will delete item from database and from local array
-  deleteItem(passedItem: BudgetItemModel) {
+  deleteItem(passedItem: FixedBudgetItemModel) {
     this.budgetItemModel = []
     this.budget.items.forEach((item, index) => {
         if (item === passedItem) {
@@ -86,7 +86,7 @@ export class FixedIncomePage implements OnInit {
     });
 
     // deleting from database
-    this.firestoreService.deleteItem( 'FixedIncome', passedItem.autoId);
+    this.firestoreService.deleteFixedItem( 'FixedIncome', passedItem);
 }
 
 }
