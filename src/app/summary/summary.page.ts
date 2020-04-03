@@ -169,12 +169,12 @@ export class SummaryPage implements OnInit {
 
             res.forEach((element) => {                
                 var count = this.dateLogic.getCount(element.badge,element.startDate)
-                this.fixedDataPointsArray.push({y: element.value, name: element.name})
                 for(var i=0;i<count;i++) {
                     this.fixedExpenseAmount += element.value
                 }
                 element.value = element.value * count
-                this.FixedExpenseArraySummary.push({"badge" : count+element.badge,"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.startDate });
+                this.fixedDataPointsArray.push({y: element.value, name: element.name})
+                this.FixedExpenseArraySummary.push({"badge" : count+element.badge, "name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.startDate });
             });
             this.getVariableExpense()
         });
