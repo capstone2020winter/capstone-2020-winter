@@ -138,7 +138,7 @@ export class SummaryPage implements OnInit {
                 }
                 console.log("count=="+count)
                 element.value = element.value * count
-                this.FixedIncomeArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
+                this.FixedIncomeArraySummary.push({"badge" : count+element.badge,"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.startDate });
             });
             this.getVariableIncome()
         });
@@ -153,7 +153,7 @@ export class SummaryPage implements OnInit {
             this.VariableIncomeArraySummary = []
 
             res.forEach((element) => {
-                this.VariableIncomeArraySummary.push('$ ' + element.value + ' - ' + element.name + '  ('+element.date+')');
+                this.VariableIncomeArraySummary.push({"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.date });
                 this.variableIncomeAmount += element.value
             });
             this.getFixedExpense()
@@ -174,7 +174,7 @@ export class SummaryPage implements OnInit {
                     this.fixedExpenseAmount += element.value
                 }
                 element.value = element.value * count
-                this.FixedExpenseArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
+                this.FixedExpenseArraySummary.push({"badge" : count+element.badge,"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.startDate });
             });
             this.getVariableExpense()
         });
@@ -187,10 +187,10 @@ export class SummaryPage implements OnInit {
             this.VariableExpenseArraySummary = []
             this.variableDataPointsArray = []
             this.budgetSummaryAmount = 0
-            this,this.variableExpenseAmount = 0
+            this.variableExpenseAmount = 0
 
             res.forEach((element) => {
-                this.VariableExpenseArraySummary.push('$ ' + element.value + ' - ' + element.name + '  ('+element.date+')');
+                this.VariableExpenseArraySummary.push({"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.date });
                 this.variableExpenseAmount += element.value
                 this.variableDataPointsArray.push({y: element.value, name: element.name})
             });
