@@ -45,7 +45,7 @@ export class FirestoreService {
     //function to add Data to collection 
    public createNewFixedCollection(collection: string, name: string, value:number, description: string, startDate: string, badge: string, parentId: string): Promise<void> 
    {
-    const autoId = this.firestore.createId();
+    const autoId = this.firestore.createId()
     const month = this.dateLogic.getMonth(startDate)
     const year = this.dateLogic.getYear(startDate)
     const isDeleted = false
@@ -60,6 +60,7 @@ export class FirestoreService {
      isDeleted,
      parentId
     });
+    this.checkForUpdate(collection)
     return result;
     }
 

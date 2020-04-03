@@ -16,10 +16,13 @@ var hmonth;
   styleUrls: ['./history-summary.page.scss'],
 })
 export class HistorySummaryPage implements OnInit {
-  @Input() year: string;
-  @Input() month: string;
+  //@Input() year: number;
+  //@Input() month: number;
 
   yearmonth: string;
+
+  public getYear: number
+  public getMonth: number
 
   
   // Variables
@@ -63,7 +66,7 @@ export class HistorySummaryPage implements OnInit {
 
 
       //this function is created to deal with latency in response coming from firebase and will be removed later
-      this.getIncomeDump();
+      this.getFixedIncome();
   
       // Two Accordians to show Income and Expenses when expanded
       this.incomeAccordian = [{expanded: false, name: "Income"}]
@@ -77,6 +80,9 @@ export class HistorySummaryPage implements OnInit {
       console.log("year and month ")
       console.log(hyear)
       console.log(hmonth)
+
+      this.getYear = Number(hyear)
+      this.getMonth = Number(hmonth) 
 
   }
 
@@ -142,7 +148,7 @@ export class HistorySummaryPage implements OnInit {
 
   // This function will get data from the firestore cloud database from Fixed Income Collection
   getFixedIncome() {
-      this.firestoreService.getCurrentFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+      this.firestoreService.getFixedList('FixedIncome', this.getYear, this.getMonth).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
           this.FixedIncomeArraySummary = []
           this.fixedIncomeAmount = 0
 
@@ -163,7 +169,7 @@ export class HistorySummaryPage implements OnInit {
 
   // This function will get data from the firestore cloud database from Variable Income Collection
   getVariableIncome() {
-      this.firestoreService.getCurrentVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+      this.firestoreService.getVariableList('VariableIncome', this.getYear, this.getMonth).valueChanges().subscribe((res: BudgetItemModel[]) => {
           this.variableIncomeAmount = 0
           this.VariableIncomeArraySummary = []
 
@@ -177,7 +183,7 @@ export class HistorySummaryPage implements OnInit {
 
   // This function will get data from the firestore cloud database from Fixed Expense Collection
   getFixedExpense() {
-      this.firestoreService.getCurrentFixedList('FixedExpense').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+      this.firestoreService.getFixedList('FixedExpense', this.getYear, this.getMonth).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
           this.FixedExpenseArraySummary = []
           this.fixedDataPointsArray = []
           this.fixedExpenseAmount = 0
@@ -198,7 +204,7 @@ export class HistorySummaryPage implements OnInit {
 
   // This function will get data from the firestore cloud database from Variable Expense Collection
   getVariableExpense() {
-      this.firestoreService.getCurrentVariableList('VariableExpense').valueChanges().subscribe((res: BudgetItemModel[]) => {
+      this.firestoreService.getVariableList('VariableExpense', this.getYear, this.getMonth).valueChanges().subscribe((res: BudgetItemModel[]) => {
           this.VariableExpenseArraySummary = []
           this.variableDataPointsArray = []
           this.budgetSummaryAmount = 0
@@ -235,18 +241,6 @@ export class HistorySummaryPage implements OnInit {
       return -1;
   }
 
-
-  getIncomeDump() {
-      this.firestoreService.getCurrentFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
-          res.forEach((element) => {
-          });
-      });
-      this.firestoreService.getCurrentVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
-          res.forEach((element) => {
-          });
-          this.getFixedIncome();
-      });
-  }
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
