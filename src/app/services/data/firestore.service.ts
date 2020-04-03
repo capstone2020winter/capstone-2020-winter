@@ -139,7 +139,8 @@ export class FirestoreService {
         const month = this.dateLogic.getMonth(currentDate)
         const year = this.dateLogic.getYear(currentDate)
         
-        this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${item.autoId}`).update({"isDeleted" : "true"})
+        this.deleteItem(collection,item.autoId)
+        //this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${item.autoId}`).update({"isDeleted" : "true"})
         this.deleteGlobalFixedItem(collection,item.parentId)
     }
 
