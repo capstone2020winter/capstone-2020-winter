@@ -191,11 +191,13 @@ export class HistorySummaryPage implements OnInit {
           res.forEach((element) => {                
               var count = this.dateLogic.getCount(element.badge,element.startDate)
               this.fixedDataPointsArray.push({y: element.value, name: element.name})
-              for(var i=0;i<count;i++) {
-                  this.fixedExpenseAmount += element.value
-              }
-              element.value = element.value * count
-              this.FixedExpenseArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
+            //   for(var i=0;i<count;i++) {
+            //       this.fixedExpenseAmount += element.value
+            //   }
+              //element.value = element.value * count
+              //this.FixedExpenseArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
+              this.FixedExpenseArraySummary.push(' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
+              this.fixedExpenseAmount += element.value
           });
           this.getVariableExpense()
       });

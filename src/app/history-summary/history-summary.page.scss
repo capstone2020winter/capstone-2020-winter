@@ -87,11 +87,13 @@
       margin-right:auto;
       display: block;
     }
-    .backbtn {
-        position: fixed;
-        left: 0;
-        bottom: 0px;
-        right: 0;
-    }
+
   }
+  .backbtn {
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+    --background: #ededed;
+}
   
