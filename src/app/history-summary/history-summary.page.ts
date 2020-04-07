@@ -65,8 +65,8 @@ export class HistorySummaryPage implements OnInit {
   constructor(navParams: NavParams, public firestoreService: FirestoreService, public authService: AuthService, public modalController: ModalController) {
 
 
-      //this function is created to deal with latency in response coming from firebase and will be removed later
-      this.getFixedIncome();
+     //this function is created to deal with latency in response coming from firebase and will be removed later
+     this.getIncomeDump();
   
       // Two Accordians to show Income and Expenses when expanded
       this.incomeAccordian = [{expanded: false, name: "Income"}]
@@ -149,82 +149,81 @@ export class HistorySummaryPage implements OnInit {
   // This function will get data from the firestore cloud database from Fixed Income Collection
   getFixedIncome() {
       this.firestoreService.getFixedList('FixedIncome', this.getYear, this.getMonth).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
-          this.FixedIncomeArraySummary = []
-          this.fixedIncomeAmount = 0
+            this.FixedIncomeArraySummary = []
+            this.fixedIncomeAmount = 0
 
-          res.forEach((element) => {
-              var count = this.dateLogic.getCount(element.badge,element.startDate)
-              for(var i=0;i<count;i++) {
-                  this.fixedIncomeAmount += element.value
-              }
-              console.log("count=="+count)
-              element.value = element.value * count
-              this.FixedIncomeArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
-          });
-          this.getVariableIncome()
-      });
-      
-     
-  }
+            res.forEach((element) => {
+                var count = this.dateLogic.getCountForHistory(element.badge,element.startDate)
+                for(var i=0;i<count;i++) {
+                    this.fixedIncomeAmount += element.value
+                }
+                console.log("count=="+count)
+                element.value = element.value * count
+                this.FixedIncomeArraySummary.push({"badge" : count+element.badge,"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.startDate });
+            });
+            this.getVariableIncome()
+        });
+        
+       
+    }
 
-  // This function will get data from the firestore cloud database from Variable Income Collection
-  getVariableIncome() {
-      this.firestoreService.getVariableList('VariableIncome', this.getYear, this.getMonth).valueChanges().subscribe((res: BudgetItemModel[]) => {
-          this.variableIncomeAmount = 0
-          this.VariableIncomeArraySummary = []
+    // This function will get data from the firestore cloud database from Variable Income Collection
+    getVariableIncome() {
+        this.firestoreService.getVariableList('VariableIncome', this.getYear, this.getMonth).valueChanges().subscribe((res: BudgetItemModel[]) => {
+            this.variableIncomeAmount = 0
+            this.VariableIncomeArraySummary = []
 
-          res.forEach((element) => {
-              this.VariableIncomeArraySummary.push('$ ' + element.value + ' - ' + element.name + '  ('+element.date+')');
-              this.variableIncomeAmount += element.value
-          });
-          this.getFixedExpense()
-      });
-  }
+            res.forEach((element) => {
+                this.VariableIncomeArraySummary.push({"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.date });
+                this.variableIncomeAmount += element.value
+            });
+            this.getFixedExpense()
+        });
+    }
 
-  // This function will get data from the firestore cloud database from Fixed Expense Collection
-  getFixedExpense() {
-      this.firestoreService.getFixedList('FixedExpense', this.getYear, this.getMonth).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
-          this.FixedExpenseArraySummary = []
-          this.fixedDataPointsArray = []
-          this.fixedExpenseAmount = 0
+    // This function will get data from the firestore cloud database from Fixed Expense Collection
+    getFixedExpense() {
+        this.firestoreService.getFixedList('FixedExpense', this.getYear, this.getMonth).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+            this.FixedExpenseArraySummary = []
+            this.fixedDataPointsArray = []
+            this.fixedExpenseAmount = 0
 
-          res.forEach((element) => {                
-              var count = this.dateLogic.getCount(element.badge,element.startDate)
-              this.fixedDataPointsArray.push({y: element.value, name: element.name})
-            //   for(var i=0;i<count;i++) {
-            //       this.fixedExpenseAmount += element.value
-            //   }
-              //element.value = element.value * count
-              //this.FixedExpenseArraySummary.push("C : "+count+' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
-              this.FixedExpenseArraySummary.push(' $ ' + element.value + ' - ' + element.name + '  ('+element.startDate+')');
-              this.fixedExpenseAmount += element.value
-          });
-          this.getVariableExpense()
-      });
-      
-  }
+            res.forEach((element) => {                
+                var count = this.dateLogic.getCountForHistory(element.badge,element.startDate)
+                for(var i=0;i<count;i++) {
+                    this.fixedExpenseAmount += element.value
+                }
+                element.value = element.value * count
+                this.fixedDataPointsArray.push({y: element.value, name: element.name})
+                this.FixedExpenseArraySummary.push({"badge" : count+element.badge, "name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.startDate });
+            });
+            this.getVariableExpense()
+        });
+        
+    }
 
-  // This function will get data from the firestore cloud database from Variable Expense Collection
-  getVariableExpense() {
-      this.firestoreService.getVariableList('VariableExpense', this.getYear, this.getMonth).valueChanges().subscribe((res: BudgetItemModel[]) => {
-          this.VariableExpenseArraySummary = []
-          this.variableDataPointsArray = []
-          this.budgetSummaryAmount = 0
-          this,this.variableExpenseAmount = 0
+    // This function will get data from the firestore cloud database from Variable Expense Collection
+    getVariableExpense() {
+        this.firestoreService.getVariableList('VariableExpense', this.getYear, this.getMonth).valueChanges().subscribe((res: BudgetItemModel[]) => {
+            this.VariableExpenseArraySummary = []
+            this.variableDataPointsArray = []
+            this.budgetSummaryAmount = 0
+            this.variableExpenseAmount = 0
 
-          res.forEach((element) => {
-              this.VariableExpenseArraySummary.push('$ ' + element.value + ' - ' + element.name + '  ('+element.date+')');
-              this.variableExpenseAmount += element.value
-              this.variableDataPointsArray.push({y: element.value, name: element.name})
-          });
+            res.forEach((element) => {
+                this.VariableExpenseArraySummary.push({"name" : ' $ ' + element.value + ' - ' + element.name , "date" :  element.date });
+                this.variableExpenseAmount += element.value
+                this.variableDataPointsArray.push({y: element.value, name: element.name})
+            });
 
-          this.budgetSummaryAmount = this.fixedIncomeAmount + this.variableIncomeAmount - this.fixedExpenseAmount - this.variableExpenseAmount
-          this.dataPointsArray = this.fixedDataPointsArray.concat(this.variableDataPointsArray)
-          this.addPieChart()
-      });
+            this.budgetSummaryAmount = this.fixedIncomeAmount + this.variableIncomeAmount - this.fixedExpenseAmount - this.variableExpenseAmount
+            this.dataPointsArray = this.fixedDataPointsArray.concat(this.variableDataPointsArray)
+            this.addPieChart()
+        });
 
-  }
+    }
 
+ 
   connectToDataBase() {
       console.log('Connect to Data base');
 
@@ -250,4 +249,16 @@ export class HistorySummaryPage implements OnInit {
       'dismissed': true
     });
   }
+
+  getIncomeDump() {
+    this.firestoreService.getCurrentFixedList('FixedIncome').valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
+        res.forEach((element) => {
+        });
+    });
+    this.firestoreService.getCurrentVariableList('VariableIncome').valueChanges().subscribe((res: BudgetItemModel[]) => {
+        res.forEach((element) => {
+        });
+        this.getFixedIncome();
+    });
+}
 }

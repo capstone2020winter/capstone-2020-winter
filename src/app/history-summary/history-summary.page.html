@@ -33,42 +33,42 @@
         </div>
       </ion-grid> -->
     
-        <!-- Accordian to show Income-->
-        <ion-card (click)="expandIncomeItem(item)" *ngFor="let item of incomeAccordian">
-          <ion-card-header class="expand-header">
-            <ion-text>{{item.name}}</ion-text>
-          </ion-card-header>
+   <!-- Accordian to show Income-->
+   <ion-card (click)="expandIncomeItem(item)" *ngFor="let item of incomeAccordian">
+    <ion-card-header class="expand-header">
+      <ion-text>{{item.name}}</ion-text>
+    </ion-card-header>
 
-          <ion-card-content>
-            <app-expandable expandHeight="400px" [expanded]="item.expanded" >
-                <br>
-              <p *ngFor="let showList of FixedIncomeArraySummary">
-                {{showList}}
-              </p>
-              <p *ngFor="let showList of VariableIncomeArraySummary">
-                {{showList}}
-              </p>
-            </app-expandable>
-          </ion-card-content>
-        </ion-card>
+    <ion-card-content>
+      <app-expandable expandHeight="400px" [expanded]="item.expanded" >
+          <br>
+        <p *ngFor="let showList of FixedIncomeArraySummary">
+          <ion-badge color="dark" >{{showList.badge}}</ion-badge><ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+        </p>
+        <p *ngFor="let showList of VariableIncomeArraySummary">
+          <ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+        </p>
+      </app-expandable>
+    </ion-card-content>
+  </ion-card>
 
-        <!-- Accordian to show Income-->
-        <ion-card (click)="expandExpenseItem(item)" *ngFor="let item of expenseAccordian">
-          <ion-card-header class="expand-header">
-            <ion-text>{{item.name}}</ion-text>
-          </ion-card-header>
-      
-          <ion-card-content>
-            <app-expandable expandHeight="400px" [expanded]="item.expanded" >
-                <br>
-              <p *ngFor="let showList of FixedExpenseArraySummary">
-                {{showList}}
-              </p>
-              <p *ngFor="let showList of VariableExpenseArraySummary">
-                {{showList}}
-              </p>
-            </app-expandable>
-          </ion-card-content>
-        </ion-card>
+  <!-- Accordian to show Income-->
+  <ion-card (click)="expandExpenseItem(item)" *ngFor="let item of expenseAccordian">
+    <ion-card-header class="expand-header">
+      <ion-text>{{item.name}}</ion-text>
+    </ion-card-header>
+
+    <ion-card-content>
+      <app-expandable expandHeight="400px" [expanded]="item.expanded" >
+          <br>
+        <p *ngFor="let showList of FixedExpenseArraySummary">
+          <ion-badge color="dark" >{{showList.badge}}</ion-badge><ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+        </p>
+        <p *ngFor="let showList of VariableExpenseArraySummary">
+          <ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+        </p>
+      </app-expandable>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 <ion-button class="backbtn" expand="block" shape="round" (click)="dismiss()" color="medium">Back</ion-button>
