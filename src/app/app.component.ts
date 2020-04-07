@@ -28,15 +28,15 @@ export class AppComponent {
 
             setTimeout(() => {
                 this.splashScreen.hide();
-            }, 2000);
+            }, 1000);
 
             this.authService.authenticationState.subscribe(state => {
                 if (state) {
-                    console.log("user is logged in");
+                   //user is logged in"
                     this.navCtrl.navigateRoot(['budget-balance']);
 
                 } else if (!state) {
-                    console.log("user is NOT logged in");
+                    //user is NOT logged in
                     this.navCtrl.navigateRoot('budget-balance');
 
                 }

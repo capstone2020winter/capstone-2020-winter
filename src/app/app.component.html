@@ -2,7 +2,7 @@
     <ion-menu content-id="menu">
         <ion-header>
             <ion-toolbar>
-                <ion-title>Budget Information</ion-title>
+                <ion-title size="small">Budget</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>
@@ -16,19 +16,13 @@
                 <ion-menu-toggle auto-hide="true">
                     <ion-item [routerLink]="'./budget-faqs'" routerDirection="forward">
                         <ion-icon detail="true" slot="start" color="grey" name="help-circle"></ion-icon>
-                        <ion-label>Budget FAQs</ion-label>
+                        <ion-label>FAQs</ion-label>
                     </ion-item>
                 </ion-menu-toggle>
                 <ion-menu-toggle>
                     <ion-item [routerLink]="'./budget-history'" routerDirection="forward">
                         <ion-icon detail="true" slot="start" color="grey" name="paper"></ion-icon>
                         <ion-label>Budget History</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle>
-                    <ion-item [routerLink]="'./about-us'" routerDirection="forward">
-                        <ion-icon detail="true" slot="start" color="grey" name="people"></ion-icon>
-                        <ion-label>About Us</ion-label>
                     </ion-item>
                 </ion-menu-toggle>
                 <ion-menu-toggle>

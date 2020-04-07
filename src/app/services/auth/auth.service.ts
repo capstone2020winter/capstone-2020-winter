@@ -29,7 +29,6 @@ export class AuthService {
 
     private checkUserLogin() {
         this.appPreferences.fetch('login', this.LOGIN_STATUS).then((res) => {
-            console.log('checkUserLogin ' + res);
             if (res != null) {
                 this.authenticationState.next(true);
             }
