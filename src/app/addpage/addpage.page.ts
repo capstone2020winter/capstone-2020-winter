@@ -34,6 +34,10 @@ export class AddpagePage implements OnInit {
   // Page set up properties
   isFixed: boolean;
   categoryList: string[];
+  // Date range
+  currentDate: Date;
+  lastDayOfNextMonth: Date;
+  firstDayOfThisMonth: Date;
 
   constructor(public firestoreService: FirestoreService,
               public modalController: ModalController,
@@ -122,6 +126,10 @@ export class AddpagePage implements OnInit {
     else{
       this.id = "";
     }
+    this.currentDate =  new Date()
+    this.lastDayOfNextMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 2, 0);
+    this.firstDayOfThisMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+
   }
 
   ngOnInit() {
@@ -231,17 +239,14 @@ updateData() {
     }
 
     pickDate(){
-      let currentDate: Date = new Date()
-      let lastDayOfNextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 0);
-      let firstDayOfThisMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-
+      
       if (this.platform.is("android")){
         let options = {
           date: new Date(),
           mode: 'date',
           androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
-          minDate: firstDayOfThisMonth.valueOf(),
-          maxDate: lastDayOfNextMonth.valueOf()
+          minDate: this.firstDayOfThisMonth.valueOf(),
+          maxDate: this.lastDayOfNextMonth.valueOf()
         }
         this.datePicker.show(options).then((date) =>{
           this.sdate = this.datePipe.transform(date, "yyyy-MM-dd");
@@ -251,8 +256,8 @@ updateData() {
         let options = {
           date: new Date(),
           mode: 'date',
-          minDate: firstDayOfThisMonth,
-          maxDate: lastDayOfNextMonth
+          minDate: this.firstDayOfThisMonth,
+          maxDate: this.lastDayOfNextMonth
         }
         this.datePicker.show(options).then((date) =>{
           this.sdate = this.datePipe.transform(date, "yyyy-MM-dd");
@@ -262,12 +267,38 @@ updateData() {
         let options = {
           date: new Date(),
           mode: 'date',
-          minDate: firstDayOfThisMonth.valueOf(),
-          maxDate: lastDayOfNextMonth.valueOf()
+          minDate: this.firstDayOfThisMonth.valueOf(),
+          maxDate: this.lastDayOfNextMonth.valueOf()
         }
         this.datePicker.show(options).then((date) =>{
           this.sdate = this.datePipe.transform(date, "yyyy-MM-dd");
         })
+      }
+    }
+
+    validateAmount(amountModel: any){
+      let newAmount = amountModel.target.value.valueOf();
+      if (newAmount == ""){
+        this.amount = 0;
+      }
+      else if (newAmount < 0) {  
+        this.amount = Math.abs(newAmount);
+      }
+    }
+
+    validateDate(dateModel: any){
+      let newDate = new Date(dateModel.target.value);
+      if (isNaN(newDate.getTime())) {  
+        this.sdate = this.datePipe.transform(this.currentDate, "yyyy-MM-dd");
+      }
+      else{
+        if (newDate.getTime() < this.firstDayOfThisMonth.getTime()){
+          newDate = this.firstDayOfThisMonth;
+        }
+        else if (newDate.getTime() > this.lastDayOfNextMonth.getTime()){
+          newDate = this.lastDayOfNextMonth;
+        }
+        this.sdate = this.datePipe.transform(newDate, "yyyy-MM-dd");
       }
     }
 }

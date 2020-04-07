@@ -9,7 +9,7 @@
   <ion-list>
     <ion-item>
       <ion-label>Amount:($)</ion-label>
-      <ion-input type="number" [(ngModel)]="amount"></ion-input>
+      <ion-input type="number" [(ngModel)]="amount" min="0" (change)="validateAmount($event)" (input)="validateAmount($event)"></ion-input>
     </ion-item>
     <ion-item *ngIf="isFixed">
       <ion-label>FREQUENCY</ion-label>
@@ -24,7 +24,7 @@
     </ion-item>
     <ion-item *ngIf="isFixed">
       <ion-label>START DATE</ion-label>
-      <ion-input [(ngModel)]="sdate" (click)="pickDate()" type="text"></ion-input>
+      <ion-input [(ngModel)]="sdate" (click)="pickDate()" type="text" (change)="validateDate($event)" (input)="validateDate($event)"></ion-input>
       <!-- <ion-select [interfaceOptions]="SDATE" interface="popover" placeholder="Option" [(ngModel)]="sdate" >
         <ion-select-option value=1>1st</ion-select-option>
         <ion-select-option value=2>2nd</ion-select-option>
