@@ -79,14 +79,17 @@
       --background: #467fd7;
       color: white;
     }
-  
-    .chartContainer {
-      height:300px;
-      width: 100%;
-      margin-left:auto;
-      margin-right:auto;
-      display: block;
-    }
+
+  .chart-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chartContainer {
+    height:300px;
+    width: 280px;
+  }
 
   }
   .backbtn {
@@ -96,4 +99,3 @@
     right: 0;
     --background: #ededed;
 }
-  
