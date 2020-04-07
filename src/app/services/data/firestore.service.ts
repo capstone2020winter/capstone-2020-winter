@@ -9,6 +9,7 @@ import {BudgetItemModel} from 'src/app/models/BudgetItemModel';
 import {FixedBudgetItemModel} from 'src/app/models/FixedBudgetItemModel';
 import {FixedGlobalBudgetItemModel} from 'src/app/models/FixedGlobalBudgetItemModel';
 import { take } from 'rxjs/operators';
+import { format } from 'url';
 
 
 @Injectable({
@@ -38,7 +39,29 @@ export class FirestoreService {
      lastAddDate,
      badge
     });
-    this.createNewFixedCollection(collection,name,value,description,startDate,badge,autoId)
+    this.createNewFixedCollectionPlus(collection,name,value,description,startDate,badge,autoId)
+    return result;
+    }
+
+    //function to add Data to collection 
+   public createNewFixedCollectionPlus(collection: string, name: string, value:number, description: string, startDate: string, badge: string, parentId: string): Promise<void> 
+   {
+    const autoId = this.firestore.createId()
+    const month = this.dateLogic.getMonth(startDate)
+    const year = this.dateLogic.getYear(startDate)
+    const isDeleted = false
+
+    var result = this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${autoId}`).set({
+     autoId,
+     name,
+     value,
+     description,
+     startDate,
+     badge,
+     isDeleted,
+     parentId
+    });
+    this.checkForUpdate(collection)
     return result;
     }
 
@@ -60,7 +83,7 @@ export class FirestoreService {
      isDeleted,
      parentId
     });
-    this.checkForUpdate(collection)
+    //this.checkForUpdate(collection)
     return result;
     }
 
@@ -191,68 +214,100 @@ export class FirestoreService {
         this.getGlobleFixedList(collection).valueChanges().pipe(take(1)).subscribe((res: FixedGlobalBudgetItemModel[]) => {
             res.forEach((item) => {   
                 
-                if(item.lastAddDate < currentDate && this.dateLogic.getMonth(item.lastAddDate) != this.dateLogic.getMonth(currentDate))
+                if(item.lastAddDate < currentDate)
                 {
-                    var addDateString = this.datePipe.transform(new Date(item.lastAddDate), 'yyyy-MM-dd')
-                    var tempDateString = this.datePipe.transform(new Date(item.lastAddDate), 'yyyy-MM-dd')
-                    var addDate = new Date(addDateString)
-                    var count =  this.dateLogic.getMonth(currentDate) - this.dateLogic.getMonth(item.lastAddDate)
-                    var i = 1;
-                    var j = 0;
+                    var count = Number(((Date.parse(currentDate)-Date.parse(item.lastAddDate))/86450000).toFixed(0))
+                    var addDateString = this.datePipe.transform(new Date(item.lastAddDate + " 20:00:00 GMT-0400"), 'yyyy-MM-dd')
+                    var tempDateString = this.datePipe.transform(new Date(item.lastAddDate + " 20:00:00 GMT-0400"), 'yyyy-MM-dd')
+                    var addDate = new Date(addDateString + " 20:00:00 GMT-0400")
+
+
+                    var x = 1;
                     switch(item.badge) { 
-                        case "W" : 
-                        for(j=0;j<count;j++)
-                        {
-                            for(i=1;i<=6;i++)
+                        case "W" :
+                        var counter = count/7
+                        
+                        while (x <= counter) {
+                            x = x + 1
+                            addDate.setDate(addDate.getDate() + 7);
+                            addDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd')
+                            if(this.dateLogic.getMonth(tempDateString) != this.dateLogic.getMonth(addDateString))
                             {
-                                addDate.setDate(addDate.getDate() + 7);
-                                addDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd')
-                            if(this.dateLogic.getMonth(addDateString) != this.dateLogic.getMonth(tempDateString))
-                            {   
+                               
                                 let newDate = this.datePipe.transform(addDate, 'yyyy-MM-dd')
+                                tempDateString = newDate
                                 this.createNewFixedCollection(collection,item.name,item.value,item.description,newDate,item.badge,item.autoId)
                                 this.updateFixedGlobalCollection(collection,item.name,item.value,item.description,item.startDate,item.badge,newDate,item.autoId)
-                                tempDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd');
                             }
-                            }
-                        
                         }
-                        break
+                        x = 0
+                        break;
 
                         case "B": 
-                        alert("in check 4 count== " + count)
-                        for(j=0;j<count;j++)
-                        {
-                            for(i=1;i<=4;i++)
+                        var counter = count/14
+
+                        while (x <= counter) {
+                            x = x + 1
+                            addDate.setDate(addDate.getDate() + 14);
+                            addDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd')
+                            if(this.dateLogic.getMonth(tempDateString) != this.dateLogic.getMonth(addDateString))
                             {
-                                addDate.setDate(addDate.getDate() + 14);
-                                addDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd')
-                            if(this.dateLogic.getMonth(addDateString) != this.dateLogic.getMonth(tempDateString))
-                            {   
+                               
                                 let newDate = this.datePipe.transform(addDate, 'yyyy-MM-dd')
+                                tempDateString = newDate
                                 this.createNewFixedCollection(collection,item.name,item.value,item.description,newDate,item.badge,item.autoId)
                                 this.updateFixedGlobalCollection(collection,item.name,item.value,item.description,item.startDate,item.badge,newDate,item.autoId)
-                                tempDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd');
                             }
-                            }
-                        
                         }
-                        break
+                        x = 0
+                        break;
 
                         case "M":
-                        for(j=0;j<count;j++)
-                        {
                             
-                            addDate.setDate(addDate.getDate() + 32);
-                            addDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd')
-                            if(this.dateLogic.getMonth(addDateString) != this.dateLogic.getMonth(tempDateString))
-                            {   
+                            var y = this.datePipe.transform(addDate, 'yyyy-MM-dd').substring(0,4)
+                            var m = this.datePipe.transform(addDate, 'yyyy-MM-dd').substring(5,7)
+                            var d = this.datePipe.transform(addDate, 'yyyy-MM-dd').substring(8,10)
+                            if (Number(d) <= (Number(currentDate.substring(8,10))) ){
+                                var counter = ((Number(currentDate.substring(0,4))- Number(y))*12) + ((Number(currentDate.substring(5,7))-Number(m)))
+                            } else if ((Number(currentDate.substring(8,10))) < Number(d)) {
+                                var counter = ((Number(currentDate.substring(0,4))- Number(y))*12) + ((Number(currentDate.substring(5,7))-Number(m))) - 1
+                            }
+                            var newmonth = Number(m)+ counter
+                            var newyear = Number(y)
+                            while (newmonth > 12) {
+                                newmonth = newmonth - 12
+                                newyear = newyear + 1
+                            }
+                            
+
+                            if (counter > 0) {
+                                switch (m){
+                                    case "01": 
+                                    case "03":
+                                    case "05":
+                                    case "07":
+                                    case "08":
+                                    case "10":
+                                    case "12":
+                                        if (d == "31") {
+                                            
+                                        }
+    
+                                        break;
+                                }
+                            }
+
+                             
+                        
+                            console.log("counter:"+counter)
+                            
+                            while (x <= counter) {
+                                x = x + 1
+                                addDate.setDate(addDate.getDate() + 7);
                                 let newDate = this.datePipe.transform(addDate, 'yyyy-MM-dd')
                                 this.createNewFixedCollection(collection,item.name,item.value,item.description,newDate,item.badge,item.autoId)
-                                this.updateFixedGlobalCollection(collection,item.name,item.value,item.description,item.startDate,item.badge,newDate,item.autoId)
-                                tempDateString = this.datePipe.transform(addDate, 'yyyy-MM-dd');
                             }
-                        }
+                            x = 0
                         break
 
                         default:

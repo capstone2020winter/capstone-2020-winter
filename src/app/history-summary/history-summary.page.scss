@@ -64,7 +64,7 @@
   
     ion-card-content {
       padding-top: 0px;
-      padding-bottom: 0px;
+      padding-bottom: 20px;
     }
   
     .summary-positive {
@@ -87,11 +87,13 @@
       margin-right:auto;
       display: block;
     }
-    .backbtn {
-        position: fixed;
-        left: 0;
-        bottom: 0px;
-        right: 0;
-    }
+
   }
+  .backbtn {
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+    --background: #ededed;
+}
   
