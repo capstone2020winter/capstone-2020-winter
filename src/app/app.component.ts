@@ -37,7 +37,7 @@ export class AppComponent {
 
                 } else if (!state) {
                     //user is NOT logged in
-                    this.navCtrl.navigateRoot('budget-balance');
+                    this.navCtrl.navigateRoot('login');
 
                 }
             });
