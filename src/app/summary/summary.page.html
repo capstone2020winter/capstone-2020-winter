@@ -39,10 +39,10 @@
             <app-expandable expandHeight="400px" [expanded]="item.expanded" >
                 <br>
               <p *ngFor="let showList of FixedIncomeArraySummary">
-                <ion-badge color="dark" >{{showList.badge}}</ion-badge><ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+                <ion-badge color="dark" >{{showList.badge}}</ion-badge>&nbsp;<ion-badge color="light" >{{showList.name}}</ion-badge>&nbsp;<ion-badge color="light" >{{showList.date}}</ion-badge>
               </p>
               <p *ngFor="let showList of VariableIncomeArraySummary">
-                <ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+                <ion-badge color="light" >{{showList.name}}</ion-badge>&nbsp;<ion-badge color="light" >{{showList.date}}</ion-badge>
               </p>
             </app-expandable>
           </ion-card-content>
@@ -58,10 +58,10 @@
             <app-expandable expandHeight="400px" [expanded]="item.expanded" >
                 <br>
               <p *ngFor="let showList of FixedExpenseArraySummary">
-                <ion-badge color="dark" >{{showList.badge}}</ion-badge><ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+                <ion-badge color="dark" >{{showList.badge}}</ion-badge>&nbsp;<ion-badge color="light" >{{showList.name}}</ion-badge>&nbsp;<ion-badge color="light" >{{showList.date}}</ion-badge>
               </p>
               <p *ngFor="let showList of VariableExpenseArraySummary">
-                <ion-badge color="light" >{{showList.name}}</ion-badge><ion-badge color="light" >{{showList.date}}</ion-badge>
+                <ion-badge color="light" >{{showList.name}}</ion-badge>&nbsp;<ion-badge color="light" >{{showList.date}}</ion-badge>
               </p>
             </app-expandable>
           </ion-card-content>
