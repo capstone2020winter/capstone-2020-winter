@@ -79,7 +79,7 @@
 </ion-content>
 <ion-footer>
     <ion-toolbar>
-        <ion-button *ngIf="id == ''" expand="block" size="large" block (click)="sendData()">Submit</ion-button>
-        <ion-button *ngIf="id != ''" expand="block" size="large" block (click)="updateData()">Update</ion-button>
+        <ion-button *ngIf="id == ''" expand="block" block (click)="sendData()">Submit</ion-button>
+        <ion-button *ngIf="id != ''" expand="block" block (click)="updateData()">Update</ion-button>
     </ion-toolbar>
 </ion-footer>

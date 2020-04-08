@@ -1,23 +1,21 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button color="light"></ion-menu-button>
-        </ion-buttons>
-        <ion-buttons slot="end">
-            <ion-button shape="round" size="large" (click)="navigateToLogin()">
-                <ion-icon name="person" color="light"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>Budget History</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot = "start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+      <ion-buttons slot = "end">
+          <ion-button shape="round" size="large" (click)="navigateToLogin()">
+              <ion-icon name="person" color="light"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    <ion-title>Budget History</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="card" color="#FFFAFA">
-        <ion-item color="medium">
-            <ion-label>Select a month:</ion-label>
-            <ion-datetime displayFormat="MMMM YYYY" min="2020" max="2030" value="2020-01-01T00:00Z" [(ngModel)]="myDate" (ionChange)="dateChanged($event)"></ion-datetime>
-        </ion-item>
-        <ion-button expand="block" block (click)="presentModal()">CHECK</ion-button>
-    </ion-card>
+  <ion-item>
+    <ion-label>Select a month:</ion-label>
+    <ion-datetime displayFormat="MMMM YYYY" min="2020" max="2030" value="2020-01-01T00:00Z" [(ngModel)]="myDate" (ionChange)="dateChanged($event)"></ion-datetime>
+  </ion-item>
+  <ion-button expand="block" block (click)="presentModal()">Check</ion-button>
 </ion-content>
