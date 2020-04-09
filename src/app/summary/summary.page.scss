@@ -37,7 +37,7 @@
 
   ion-card-content {
     padding-top: 0px;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
   }
 
   .summary-positive {
@@ -53,12 +53,14 @@
     color: white;
   }
 
-  .chartContainer {
-    height:300px;
+  .chart-wrapper{
     width: 100%;
-    margin-left:auto;
-    margin-right:auto;
     display: flex;
     justify-content: center;
+  }
+
+  .chartContainer {
+    height:300px;
+    width: 280px;
   }
 }
