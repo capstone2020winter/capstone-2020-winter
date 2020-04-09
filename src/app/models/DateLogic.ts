@@ -100,7 +100,11 @@ export class DateLogic {
     getCountForHistory(badge: string, date: string): number {
       this.count = 0
       var itemDate: number = this.getDate(date)
-      this.duration = 30 - itemDate
+      if(itemDate == 31){
+         this.duration = 31 - itemDate
+      } else {
+         this.duration = 30 - itemDate
+      }
      
       switch(badge) { 
           case "W" : {
