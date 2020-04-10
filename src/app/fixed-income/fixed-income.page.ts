@@ -100,7 +100,8 @@ async editItem(pageName: string, passedItem: FixedBudgetItemModel) {
           'frequency': passedItem.badge,
           'sdate': passedItem.startDate,
           'category': passedItem.name,
-          'description': passedItem.description
+          'description': passedItem.description,
+          'parentId': passedItem.parentId
       }
   });
 

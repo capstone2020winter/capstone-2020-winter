@@ -101,7 +101,8 @@ export class FixedExpensePage implements OnInit {
                 'frequency': passedItem.badge,
                 'sdate': passedItem.startDate,
                 'category': passedItem.name,
-                'description': passedItem.description
+                'description': passedItem.description,
+                'parentId': passedItem.parentId
             }
         });
 

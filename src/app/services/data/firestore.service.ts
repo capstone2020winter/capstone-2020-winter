@@ -11,6 +11,8 @@ import {FixedGlobalBudgetItemModel} from 'src/app/models/FixedGlobalBudgetItemMo
 import { take } from 'rxjs/operators';
 import { format } from 'url';
 
+import * as moment from 'moment';
+
 
 @Injectable({
     providedIn: 'root'
@@ -105,13 +107,19 @@ export class FirestoreService {
 /**************************************************** Update *****************************************************/
 
   //function to add Data to collection 
-  public updateFixedCollection(autoId: string, collection: string, name: string, value:number, description: string, startDate: string, badge: string, parentId: string): Promise<void> {
-    var result = this.firestore.doc(`users/${this.authService.getUserId()}/${collection}/${autoId}`).update({
-     autoId,
+  public updateFixedCollection(autoId: string, collection: string, name: string, value:number, description: string, sdate: string, badge: string, parentId: string): Promise<void> {
+    const month = this.dateLogic.getMonth(sdate);
+    const year = this.dateLogic.getYear(sdate);
+    var result = this.firestore.doc(`users/${this.authService.getUserId()}/${collection}/${parentId}`).update({
+        name,
+        value,
+        description,
+        badge
+    });
+    result = this.firestore.doc(`users/${this.authService.getUserId()}/${year}/${month}/${collection}/${autoId}`).update({
      name,
      value,
      description,
-     startDate,
      badge
     });
     return result;
@@ -176,7 +184,7 @@ export class FirestoreService {
 
     // function to receive current month data from the database
     getCurrentVariableList(collection: string): AngularFirestoreCollection<BudgetItemModel> {
-        let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+        let currentDate = this.datePipe.transform(moment(), 'yyyy-MM-dd')
         const month = this.dateLogic.getMonth(currentDate)
         const year = this.dateLogic.getYear(currentDate)
         return this.firestore.collection(`users/${this.authService.getUserId()}/${year}/${month}/${collection}`);
@@ -184,7 +192,7 @@ export class FirestoreService {
 
     // function to receive current month data from the database
     getCurrentFixedList(collection: string): AngularFirestoreCollection<FixedBudgetItemModel> {
-        let currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+        let currentDate = this.datePipe.transform(moment(), 'yyyy-MM-dd')
         const month = this.dateLogic.getMonth(currentDate)
         const year = this.dateLogic.getYear(currentDate)
         this.checkForUpdate(collection)

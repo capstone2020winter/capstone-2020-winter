@@ -27,7 +27,11 @@
                 <ion-select-option value="A">Annually</ion-select-option>
             </ion-select>
         </ion-item>
-        <ion-item *ngIf="isFixed">
+        <ion-item *ngIf="isFixed && id!=''">
+          <ion-label>START DATE</ion-label>
+          <ion-input [(ngModel)]="sdate" type="text" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isFixed && id==''">
             <ion-label>START DATE</ion-label>
             <ion-input [(ngModel)]="sdate" (click)="pickDate()" type="text" (change)="validateDate($event)" (input)="validateDate($event)"></ion-input>
             <!-- <ion-select [interfaceOptions]="SDATE" interface="popover" placeholder="Option" [(ngModel)]="sdate" >

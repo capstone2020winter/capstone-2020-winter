@@ -1,4 +1,7 @@
 <ion-content color="light" class="data-table" class="fixed-expense-view">
+    <ion-item *ngIf="budgetItemModel.length <= 0" class="reminder-item">
+        <ion-label class="reminder" text-wrap>Add a New Fixed Expense By Clicking The Add Button Below</ion-label>
+    </ion-item>
     <ion-list class="data-list">
         <ion-item-sliding *ngFor="let item of budgetItemModel">
             <ion-item-options side="start">

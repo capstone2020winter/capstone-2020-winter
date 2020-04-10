@@ -27,6 +27,7 @@ export class AddpagePage implements OnInit {
   sdate: string;
   id: string;
   date: string;
+  parentId: string;
   // this value is not used for now
   category: string;
   // Data passed from the opening page
@@ -122,6 +123,7 @@ export class AddpagePage implements OnInit {
       this.category = navParams.get("category");
       this.description = navParams.get("description");
       this.date = navParams.get("date");
+      this.parentId = navParams.get("parentId");
     }
     else{
       this.id = "";
@@ -182,23 +184,18 @@ updateData() {
     this.description = "";
   }
   if(this.isFixed) {
-    //fixed (this feature is coming next sprint)
-    // this.firestoreService.updateFixedCollection(this.id, this.collectionValue, this.category, this.amount, this.description, ''+this.sdate+'' , this.duration)
-    // .then(
-    //   () => {
-    //     this.presentToast("Data Updated Successfully")
-    //     this.modalController.dismiss({
-    //       'dismissed': true
-    //     });
-    //   },
-    //   error => {
-    //     console.error("Error : "+error);
-    //   }
-    // );
-    this.presentToast("Database Under Construction")
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    this.firestoreService.updateFixedCollection(this.id, this.collectionValue, this.category, this.amount, this.description, this.sdate , this.duration, this.parentId)
+    .then(
+      () => {
+        this.presentToast("Data Updated Successfully")
+        this.modalController.dismiss({
+          'dismissed': true
+        });
+      },
+      error => {
+        console.error("Error : "+error);
+      }
+    );
   } else {
     //variable
     this.firestoreService.updateVariableCollection(this.id, this.collectionValue,this.category,this.amount,this.description, this.date)
