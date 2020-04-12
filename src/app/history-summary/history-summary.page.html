@@ -11,7 +11,9 @@
 </ion-header>
 
 <ion-content class="summary-view">
-
+    <ion-item *ngIf="budgetSummaryAmount >= 0" class="reminder-item">
+        <ion-label class="reminder" text-wrap>Sorry, no data for this month.</ion-label>
+    </ion-item>
     <!--  Please put code for pie chat here -->
     <div class="chart-wrapper">
         <div id="chartContainer1" class="chartContainer"></div>
@@ -21,7 +23,7 @@
     <ion-text class="summary-positive" [hidden]="budgetSummaryAmount <= 0">
         <p class="total-balance">Budget-Balance:- ${{budgetSummaryAmount}}</p>
     </ion-text>
-    <ion-text class="summary-negative" [hidden]="budgetSummaryAmount > 0">
+    <ion-text class="summary-negative" [hidden]="budgetSummaryAmount == 0">
         <p class="total-balance">Budget-Balance:- ${{budgetSummaryAmount}}</p>
     </ion-text>
 
@@ -41,7 +43,7 @@
        </ion-grid> -->
 
     <!-- Accordian to show Income-->
-    <ion-card (click)="expandIncomeItem(item)" *ngFor="let item of incomeAccordian">
+    <ion-card (click)="expandIncomeItem(item)" *ngFor="let item of incomeAccordian" [hidden]="budgetSummaryAmount == 0">
         <ion-card-header class="expand-header">
             <ion-text>{{item.name}}</ion-text>
         </ion-card-header>
@@ -63,7 +65,7 @@
     </ion-card>
 
     <!-- Accordian to show Income-->
-    <ion-card (click)="expandExpenseItem(item)" *ngFor="let item of expenseAccordian">
+    <ion-card (click)="expandExpenseItem(item)" *ngFor="let item of expenseAccordian" [hidden]="budgetSummaryAmount == 0">
         <ion-card-header class="expand-header">
             <ion-text>{{item.name}}</ion-text>
         </ion-card-header>
