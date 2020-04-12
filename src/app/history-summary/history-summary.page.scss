@@ -25,10 +25,19 @@
 }
 
 .summary-view{
-    --offset-top:-1.5em !important;
+    //--offset-top:-1.5em !important;
     --background: #ededed;
-    top: -30px;
-    
+    //top: -30px;
+    .reminder-item{
+      margin-top:1em;
+      width: 100%;
+      text-align: center;
+      --background:#c1d4f1;
+      .reminder{
+          font-weight: bold;
+          font-size: 1em;
+      }
+  }
     
     .header {
       color: gray;
@@ -58,13 +67,11 @@
   
     .expand-header {
       color: white;
-      padding-bottom: 0px;
       font-weight: 600;
     }
   
     ion-card-content {
       padding-top: 0px;
-      padding-bottom: 20px;
     }
   
     .summary-positive {
@@ -92,10 +99,3 @@
   }
 
   }
-  .backbtn {
-    position: fixed;
-    left: 0;
-    bottom: 0px;
-    right: 0;
-    --background: #ededed;
-}
