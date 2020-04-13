@@ -1,6 +1,17 @@
 .summary-view{
   --offset-top:-1.5em !important;
   --background: #ededed;
+
+  .reminder-item{
+    margin-top:7em;
+    width: 100%;
+    text-align: center;
+    background-color:#c1d4f1;
+    .reminder{
+        font-weight: bold;
+        font-size: 1em;
+    }
+  }
   
   .header {
     color: gray;

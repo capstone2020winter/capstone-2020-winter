@@ -197,7 +197,9 @@ export class SummaryPage implements OnInit {
 
             this.budgetSummaryAmount = this.fixedIncomeAmount + this.variableIncomeAmount - this.fixedExpenseAmount - this.variableExpenseAmount
             this.dataPointsArray = this.fixedDataPointsArray.concat(this.variableDataPointsArray)
-            this.addPieChart()
+            if(this.dataPointsArray.length != 0){
+                this.addPieChart()
+            }
         });
 
     }
