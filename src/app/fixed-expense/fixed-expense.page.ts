@@ -69,7 +69,7 @@ export class FixedExpensePage implements OnInit {
                 let currentDate = moment();
                 var percentage = "";
                 if (sdate.format("MM") == currentDate.format('MM') && sdate.format('YYYY') == currentDate.format('YYYY')){
-                    let date = sdate + "";
+                    let date = item.startDate;
                     let count = this.dateLogic.getCount(item.badge, date);
                     let totalCount = this.dateLogic.getTotalCount(item.badge, date);
                     percentage = count + "-" + totalCount;
