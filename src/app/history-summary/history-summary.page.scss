@@ -1,0 +1,101 @@
+.modal-header{ 
+    background: #ededed !important;
+    ion-toolbar{
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+        --background: #2b59a2;
+        color: white;
+    }
+}
+.modal-title {
+    text-align: center;
+}
+.modal-content{
+    --background: #ededed;
+    ion-list{
+        background: transparent;
+    }
+    ion-item{
+        --background: #ededed;
+    }
+    ion-button{
+        max-width: 15em;
+        margin: 1em auto;
+    }
+}
+
+.summary-view{
+    //--offset-top:-1.5em !important;
+    --background: #ededed;
+    //top: -30px;
+    .reminder-item{
+      margin-top:1em;
+      width: 100%;
+      text-align: center;
+      --background:#c1d4f1;
+      .reminder{
+          font-weight: bold;
+          font-size: 1em;
+      }
+  }
+    
+    .header {
+      color: gray;
+      text-align: center;
+      padding-top: 0.5vw;
+      font-style: bold;
+    }
+    .total-balance {
+      text-align: center;
+    }
+    .chart-text {
+        padding-left: 2vw;
+        color: gray;
+    }
+    .chart-icon {
+        padding-left: 2vw;
+    }
+  
+    .suggestion-text {
+      padding-left: 10vw;
+    }
+  
+    .suggestion-title {
+        color: gray;
+        margin-left: 10vw;
+    }
+  
+    .expand-header {
+      color: white;
+      font-weight: 600;
+    }
+  
+    ion-card-content {
+      padding-top: 0px;
+    }
+  
+    .summary-positive {
+      color: green;
+    }
+  
+    .summary-negative {
+      color: red;
+    }
+  
+    ion-card{
+      --background: #467fd7;
+      color: white;
+    }
+
+  .chart-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chartContainer {
+    height:300px;
+    width: 280px;
+  }
+
+  }

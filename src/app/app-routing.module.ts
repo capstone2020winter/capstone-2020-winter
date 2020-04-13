@@ -16,10 +16,6 @@ const routes: Routes = [
     loadChildren: () => import('./budget-faqs/budget-faqs.module').then( m => m.BudgetFaqsPageModule)
   },
   {
-    path: 'about-us',
-    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
-  },
-  {
     path: 'registration',
     loadChildren: () => import('./registration/registration.module').then( m => m.RegistrationPageModule)
   },
@@ -38,6 +34,10 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
+  },
+  {
+    path: 'history-summary',
+    loadChildren: () => import('./history-summary/history-summary.module').then( m => m.HistorySummaryPageModule)
   }
 ];
 

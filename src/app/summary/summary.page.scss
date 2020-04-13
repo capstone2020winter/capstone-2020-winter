@@ -1,11 +1,23 @@
 .summary-view{
   --offset-top:-1.5em !important;
   --background: #ededed;
+
+  .reminder-item{
+    margin-top:7em;
+    width: 100%;
+    text-align: center;
+    background-color:#c1d4f1;
+    .reminder{
+        font-weight: bold;
+        font-size: 1em;
+    }
+  }
   
   .header {
     color: gray;
     text-align: center;
     padding-top: 0.5vw;
+    font-size: 18px;
     font-style: bold;
   }
   .total-balance {
@@ -36,7 +48,7 @@
 
   ion-card-content {
     padding-top: 0px;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
   }
 
   .summary-positive {
@@ -52,11 +64,14 @@
     color: white;
   }
 
+  .chart-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .chartContainer {
     height:300px;
-    width: 100%;
-    margin-left:auto;
-    margin-right:auto;
-    display: block;
+    width: 280px;
   }
 }

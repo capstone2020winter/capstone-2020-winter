@@ -1,9 +1,15 @@
 <ion-content color="light" class="data-table" class="fixed-expense-view">
+    <ion-item *ngIf="budgetItemModel.length <= 0" class="reminder-item">
+        <ion-label class="reminder" text-wrap>Add a New Fixed Expense By Clicking The Add Button Below</ion-label>
+    </ion-item>
     <ion-list class="data-list">
         <ion-item-sliding *ngFor="let item of budgetItemModel">
+            <ion-item-options side="start">
+                <ion-item-option color="warning" (click)="editItem('Fixed Expense', item)"><ion-icon name="create"></ion-icon></ion-item-option>
+            </ion-item-options>
             <app-budget-item [theItem]=item></app-budget-item>
             <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteItem(item)">DELETE</ion-item-option>
+                <ion-item-option color="danger" (click)="deleteItem(item)"><ion-icon name="trash"></ion-icon></ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>

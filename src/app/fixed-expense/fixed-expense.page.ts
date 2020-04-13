@@ -7,6 +7,7 @@ import {AddpagePage} from '../addpage/addpage.page';
 import {AuthService} from '../services/auth/auth.service';
 import {FixedBudgetItemModel} from 'src/app/models/FixedBudgetItemModel';
 import {DateLogic} from 'src/app/models/DateLogic';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-fixed-expense',
@@ -64,22 +65,22 @@ export class FixedExpensePage implements OnInit {
         this.firestoreService.getCurrentFixedList(this.collectionValue).valueChanges().subscribe((res: FixedBudgetItemModel[]) => {
             this.budgetItemModel = [];
             res.forEach((item) => {
-                let sdate = new Date(item.startDate);
-                let currentDate = new Date();
+                let sdate = moment(item.startDate);
+                let currentDate = moment();
                 var percentage = "";
-                if (sdate.getMonth() == currentDate.getMonth() && sdate.getFullYear() == currentDate.getFullYear()){
-                    let date = sdate.getDate() + "";
+                if (sdate.format("MM") == currentDate.format('MM') && sdate.format('YYYY') == currentDate.format('YYYY')){
+                    let date = item.startDate;
                     let count = this.dateLogic.getCount(item.badge, date);
                     let totalCount = this.dateLogic.getTotalCount(item.badge, date);
                     percentage = count + "-" + totalCount;
                 }            
-                this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge, percentage))
+                this.budgetItemModel.push(new FixedBudgetItemModel(item.autoId, item.name, item.value, item.description, item.startDate, item.badge, percentage,item.parentId,item.isDeleted))
             });
         });
     }
 
     // This function will delete item from database and from local array
-    deleteItem(passedItem: BudgetItemModel) {
+    deleteItem(passedItem: FixedBudgetItemModel) {
         this.budget.items.forEach((item, index) => {
             if (item === passedItem) {
                 this.budget.items.splice(index, 1);
@@ -87,6 +88,24 @@ export class FixedExpensePage implements OnInit {
         });
 
         // console.log(`ITEM ID ${passedItem.name}`)
-        this.firestoreService.deleteItem('FixedExpense', passedItem.autoId);
+        this.firestoreService.deleteFixedItem('FixedExpense', passedItem);
+    }
+
+    async editItem(pageName: string, passedItem: FixedBudgetItemModel) {
+        const modal = await this.modalController.create({
+            component: AddpagePage,
+            componentProps: {
+                'pageTitle': pageName,
+                'id': passedItem.autoId,
+                'amount': passedItem.value,
+                'frequency': passedItem.badge,
+                'sdate': passedItem.startDate,
+                'category': passedItem.name,
+                'description': passedItem.description,
+                'parentId': passedItem.parentId
+            }
+        });
+
+        return await modal.present();
     }
 }

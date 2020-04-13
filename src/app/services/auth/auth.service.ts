@@ -29,8 +29,9 @@ export class AuthService {
 
     private checkUserLogin() {
         this.appPreferences.fetch('login', this.LOGIN_STATUS).then((res) => {
-            console.log('checkUserLogin ' + res);
-            this.authenticationState.next(true);
+            if (res != null) {
+                this.authenticationState.next(true);
+            }
         });
     }
 
@@ -57,7 +58,7 @@ export class AuthService {
                         this.appPreferences.store('login', this.LOGIN_STATUS, true);
                         resolve(res);
                     } else {
-                        this.presentAlert('Email address is not verified');
+                        this.presentResetPasswordAlert('Email address is not verified');
                     }
                 }, err => reject(err));
         });
@@ -67,6 +68,21 @@ export class AuthService {
         const errorAlert = await this.alertCtrl.create({
             message: mes,
             buttons: [{text: 'Ok', role: 'cancel'}],
+        });
+        await errorAlert.present();
+    }
+
+    async presentResetPasswordAlert(mes: string) {
+        const errorAlert = await this.alertCtrl.create({
+            message: mes,
+            buttons: [{text: 'Ok', role: 'cancel'},
+                {
+                    text: 'Resend verification email',
+                    handler: () => {
+                        let user = firebase.auth().currentUser;
+                        user.sendEmailVerification();
+                    },
+                },],
         });
         await errorAlert.present();
     }
@@ -110,12 +126,24 @@ export class AuthService {
         }
     }
 
-    public updateEmail(email: string): any {
-        if (this.isUserSigned()) {
-            firebase.auth().currentUser.updateEmail(email);
-        }
+    // Function to update user email
+    public updateEmail(email: string) {
+        return new Promise<any>((resolve, reject) => {
+            //  if (this.isUserSigned()) {
+            firebase.auth().currentUser.updateEmail(email).then(
+                res => {
+                    let user = firebase.auth().currentUser;
+                    user.sendEmailVerification();
+                    resolve(res);
+                },
+                err => {
+                    this.presentAlert(err.message);
+                });
+            // }
+        });
     }
 
+    // Function to reset password
     public resetPassword(email: string): any {
         return firebase.auth().sendPasswordResetEmail(email);
     }

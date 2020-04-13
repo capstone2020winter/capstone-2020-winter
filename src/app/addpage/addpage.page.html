@@ -1,76 +1,89 @@
 <ion-header class="modal-header" id="modalTitle" no-border>
-  <ion-toolbar>
-    <ion-title>Add {{pageTitle}}</ion-title>
-  </ion-toolbar>
-  
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button shape="round" size="large" (click)="dismiss()">
+                <ion-icon name="arrow-back" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{pageTitle}}</ion-title>
+    </ion-toolbar>
+
 </ion-header>
 
 <ion-content class="modal-content">
-  <ion-list>
-    <ion-item>
-      <ion-label>Amount:($)</ion-label>
-      <ion-input type="number" [(ngModel)]="amount"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="isFixed">
-      <ion-label>FREQUENCY</ion-label>
-      <ion-select [interfaceOptions]="FREQUENCY" interface="popover" placeholder="Option" [(ngModel)]="duration" >
-        <ion-select-option value="W">Weekly</ion-select-option>
-        <ion-select-option value="B">Bi-Weekly</ion-select-option>
-        <ion-select-option value="M">Monthly</ion-select-option>
-        <ion-select-option value="Q">Quarterly</ion-select-option>
-        <ion-select-option value="S">Semi-Annually</ion-select-option>
-        <ion-select-option value="A">Annually</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item *ngIf="isFixed">
-      <ion-label>START DATE</ion-label>
-      <ion-input [(ngModel)]="sdate" (click)="pickDate()" type="text"></ion-input>
-      <!-- <ion-select [interfaceOptions]="SDATE" interface="popover" placeholder="Option" [(ngModel)]="sdate" >
-        <ion-select-option value=1>1st</ion-select-option>
-        <ion-select-option value=2>2nd</ion-select-option>
-        <ion-select-option value=3>3rd</ion-select-option>
-        <ion-select-option value=4>4th</ion-select-option>
-        <ion-select-option value=5>5th</ion-select-option>
-        <ion-select-option value=6>6th</ion-select-option>
-        <ion-select-option value=7>7th</ion-select-option>
-        <ion-select-option value=8>8th</ion-select-option>
-        <ion-select-option value=9>9th</ion-select-option>
-        <ion-select-option value=10>10th</ion-select-option>
-        <ion-select-option value=11>11th</ion-select-option>
-        <ion-select-option value=12>12th</ion-select-option>
-        <ion-select-option value=13>13th</ion-select-option>
-        <ion-select-option value=14>14th</ion-select-option>
-        <ion-select-option value=15>15th</ion-select-option>
-        <ion-select-option value=16>16th</ion-select-option>
-        <ion-select-option value=17>17th</ion-select-option>
-        <ion-select-option value=18>18th</ion-select-option>
-        <ion-select-option value=19>19th</ion-select-option>
-        <ion-select-option value=20>20th</ion-select-option>
-        <ion-select-option value=21>21st</ion-select-option>
-        <ion-select-option value=22>22nd</ion-select-option>
-        <ion-select-option value=23>23rd</ion-select-option>
-        <ion-select-option value=24>24th</ion-select-option>
-        <ion-select-option value=25>25th</ion-select-option>
-        <ion-select-option value=26>26th</ion-select-option>
-        <ion-select-option value=27>27th</ion-select-option>
-        <ion-select-option value=28>28th</ion-select-option>
-        <ion-select-option value=29>29th</ion-select-option>
-        <ion-select-option value=30>30th</ion-select-option>
-        <ion-select-option value=31>31st</ion-select-option>
-      </ion-select> -->
-    </ion-item>
-    <ion-item id="CATEGORY">
-      <ion-label>CATEGORY</ion-label>
-      <ion-select [interfaceOptions]="CATEGORY" interface="popover" placeholder="Option" [(ngModel)]="category">
-        <ion-select-option *ngFor="let categoryItem of categoryList">{{categoryItem}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">DESCRIPTION (OPTIONAL)</ion-label>
-      <ion-textarea type="text" [(ngModel)]="description"></ion-textarea>
-    </ion-item>
-    <br>
-    <ion-button expand="block" shape="round" (click)="sendData()">Submit</ion-button>
-    <ion-button expand="block" shape="round" (click)="dismiss()" color="medium">Back</ion-button>
-  </ion-list>
+    <ion-list>
+        <ion-item>
+            <ion-label>AMOUNT</ion-label>
+            <ion-input type="number" [(ngModel)]="amount" placeholder="$100" min="0" (change)="validateAmount($event)" (input)="validateAmount($event)"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isFixed">
+            <ion-label>FREQUENCY</ion-label>
+            <ion-select [interfaceOptions]="FREQUENCY" interface="popover" placeholder="Option" [(ngModel)]="duration">
+                <ion-select-option value="W">Weekly</ion-select-option>
+                <ion-select-option value="B">Bi-Weekly</ion-select-option>
+                <ion-select-option value="M">Monthly</ion-select-option>
+                <ion-select-option value="Q">Quarterly</ion-select-option>
+                <ion-select-option value="S">Semi-Annually</ion-select-option>
+                <ion-select-option value="A">Annually</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="isFixed && id!=''">
+          <ion-label>START DATE</ion-label>
+          <ion-input [(ngModel)]="sdate" type="text" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isFixed && id==''">
+            <ion-label>START DATE</ion-label>
+            <ion-input [(ngModel)]="sdate" (click)="pickDate()" type="text" (change)="validateDate($event)" (input)="validateDate($event)"></ion-input>
+            <!-- <ion-select [interfaceOptions]="SDATE" interface="popover" placeholder="Option" [(ngModel)]="sdate" >
+              <ion-select-option value=1>1st</ion-select-option>
+              <ion-select-option value=2>2nd</ion-select-option>
+              <ion-select-option value=3>3rd</ion-select-option>
+              <ion-select-option value=4>4th</ion-select-option>
+              <ion-select-option value=5>5th</ion-select-option>
+              <ion-select-option value=6>6th</ion-select-option>
+              <ion-select-option value=7>7th</ion-select-option>
+              <ion-select-option value=8>8th</ion-select-option>
+              <ion-select-option value=9>9th</ion-select-option>
+              <ion-select-option value=10>10th</ion-select-option>
+              <ion-select-option value=11>11th</ion-select-option>
+              <ion-select-option value=12>12th</ion-select-option>
+              <ion-select-option value=13>13th</ion-select-option>
+              <ion-select-option value=14>14th</ion-select-option>
+              <ion-select-option value=15>15th</ion-select-option>
+              <ion-select-option value=16>16th</ion-select-option>
+              <ion-select-option value=17>17th</ion-select-option>
+              <ion-select-option value=18>18th</ion-select-option>
+              <ion-select-option value=19>19th</ion-select-option>
+              <ion-select-option value=20>20th</ion-select-option>
+              <ion-select-option value=21>21st</ion-select-option>
+              <ion-select-option value=22>22nd</ion-select-option>
+              <ion-select-option value=23>23rd</ion-select-option>
+              <ion-select-option value=24>24th</ion-select-option>
+              <ion-select-option value=25>25th</ion-select-option>
+              <ion-select-option value=26>26th</ion-select-option>
+              <ion-select-option value=27>27th</ion-select-option>
+              <ion-select-option value=28>28th</ion-select-option>
+              <ion-select-option value=29>29th</ion-select-option>
+              <ion-select-option value=30>30th</ion-select-option>
+              <ion-select-option value=31>31st</ion-select-option>
+            </ion-select> -->
+        </ion-item>
+        <ion-item id="CATEGORY">
+            <ion-label>CATEGORY</ion-label>
+            <ion-select [interfaceOptions]="CATEGORY" interface="popover" placeholder="Option" [(ngModel)]="category">
+                <ion-select-option *ngFor="let categoryItem of categoryList">{{categoryItem}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">DESCRIPTION <span class="optional"> - Optional</span></ion-label>
+            <ion-input type="text" [(ngModel)]="description"></ion-input>
+        </ion-item>
+        <br>
+    </ion-list>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button *ngIf="id == ''" expand="block" size="large" block (click)="sendData()">Submit</ion-button>
+        <ion-button *ngIf="id != ''" expand="block" size="large" block (click)="updateData()">Update</ion-button>
+    </ion-toolbar>
+</ion-footer>

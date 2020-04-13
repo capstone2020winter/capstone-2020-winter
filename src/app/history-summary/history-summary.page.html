@@ -1,0 +1,88 @@
+<ion-header class="modal-header" id="modalTitle" no-border>
+    <ion-toolbar>
+        <ion-title class="modal-title">{{yearmonth}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-button shape="round" size="large" (click)="dismiss()">
+                <ion-icon name="arrow-back" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="summary-view">
+    <ion-item *ngIf="budgetSummaryAmount >= 0" class="reminder-item">
+        <ion-label class="reminder" text-wrap>Sorry, no data for this month.</ion-label>
+    </ion-item>
+    <!--  Please put code for pie chat here -->
+    <div class="chart-wrapper">
+        <div id="chartContainer1" class="chartContainer"></div>
+    </div>
+
+    <!--displaying summary amount of current month budget and changing the color of text according to budget-->
+    <ion-text class="summary-positive" [hidden]="budgetSummaryAmount <= 0">
+        <p class="total-balance">Budget-Balance:- ${{budgetSummaryAmount}}</p>
+    </ion-text>
+    <ion-text class="summary-negative" [hidden]="budgetSummaryAmount == 0">
+        <p class="total-balance">Budget-Balance:- ${{budgetSummaryAmount}}</p>
+    </ion-text>
+
+
+    <!-- Displaying possible solutions for managing budget-->
+    <!-- <ion-text class="suggestion-title">
+         You can reduce the deficit by :
+     </ion-text>
+
+
+       <ion-grid class="suggestion-text">
+         <div *ngFor="let suggestion of suggestionsArray">
+           <ion-row>
+             <ion-icon name="remove"></ion-icon><ion-text class="chart-text">{{suggestion}}</ion-text>
+           </ion-row>
+         </div>
+       </ion-grid> -->
+
+    <!-- Accordian to show Income-->
+    <ion-card (click)="expandIncomeItem(item)" *ngFor="let item of incomeAccordian" [hidden]="budgetSummaryAmount == 0">
+        <ion-card-header class="expand-header">
+            <ion-text>{{item.name}}</ion-text>
+        </ion-card-header>
+
+        <ion-card-content>
+            <app-expandable expandHeight="400px" [expanded]="item.expanded">
+                <br>
+                <p *ngFor="let showList of FixedIncomeArraySummary">
+                    <ion-badge color="dark">{{showList.badge}}</ion-badge>
+                    <ion-badge color="light">{{showList.name}}</ion-badge>
+                    <ion-badge color="light">{{showList.date}}</ion-badge>
+                </p>
+                <p *ngFor="let showList of VariableIncomeArraySummary">
+                    <ion-badge color="light">{{showList.name}}</ion-badge>
+                    <ion-badge color="light">{{showList.date}}</ion-badge>
+                </p>
+            </app-expandable>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Accordian to show Income-->
+    <ion-card (click)="expandExpenseItem(item)" *ngFor="let item of expenseAccordian" [hidden]="budgetSummaryAmount == 0">
+        <ion-card-header class="expand-header">
+            <ion-text>{{item.name}}</ion-text>
+        </ion-card-header>
+
+        <ion-card-content>
+            <app-expandable expandHeight="400px" [expanded]="item.expanded">
+                <br>
+                <p *ngFor="let showList of FixedExpenseArraySummary">
+                    <ion-badge color="dark">{{showList.badge}}</ion-badge>
+                    <ion-badge color="light">{{showList.name}}</ion-badge>
+                    <ion-badge color="light">{{showList.date}}</ion-badge>
+                </p>
+                <p *ngFor="let showList of VariableExpenseArraySummary">
+                    <ion-badge color="light">{{showList.name}}</ion-badge>
+                    <ion-badge color="light">{{showList.date}}</ion-badge>
+                </p>
+            </app-expandable>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

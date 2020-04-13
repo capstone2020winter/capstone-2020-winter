@@ -1,3 +1,4 @@
+
 export class DateLogic {
     month: string
     year: string
@@ -47,6 +48,7 @@ export class DateLogic {
         var itemDate: number = this.getDate(date)
         this.duration = currentDate - itemDate
         
+        
         switch(badge) { 
             case "W" : {
                if(this.duration>0){
@@ -95,23 +97,54 @@ export class DateLogic {
          } 
     }
 
-    getBiWeekly(){
-
-    }
-
-    getMonthly(){
-
-    }
-
-    getQuarterly(){
-
-    }
-
-    getHalfAnnually(){
-
-    }
-
-    getAnnually(){
-
-    }
+    getCountForHistory(badge: string, date: string): number {
+      this.count = 0
+      var itemDate: number = this.getDate(date)
+      if(itemDate == 31){
+         this.duration = 31 - itemDate
+      } else {
+         this.duration = 30 - itemDate
+      }
+     
+      switch(badge) { 
+          case "W" : {
+             if(this.duration>0){
+                this.count = (this.duration/7) + 1
+             } else if(this.duration == 0){
+                this.count = 1
+             } else if(this.duration<0) {
+                this.count = 0
+             }
+             this.count = Math.trunc(this.count)
+             return this.count
+          } 
+          case "B": { 
+             if(this.duration>0){
+                this.count = (this.duration/15) + 1
+             } else if(this.duration == 0){
+                this.count = 1
+             } else if(this.duration<0) {
+                this.count = 0
+             }
+             this.count = Math.trunc(this.count)
+             return this.count
+          }
+          case "M" : { 
+               return 1
+           } 
+           case "Q": { 
+              return this.temp
+           }
+           case "H" : { 
+              return this.temp 
+           } 
+           case "A": { 
+              return this.temp
+           }  
+          default: { 
+             console.log("didn't match any case") 
+             return this.temp
+          } 
+       } 
+  }
 }

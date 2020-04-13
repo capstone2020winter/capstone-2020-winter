@@ -41,11 +41,11 @@ describe('BudgetFaqsPage', () => {
             faqService.getFAQ().subscribe((posts) => {
 
                 questions = posts;
-                expect(questions.length).toBe(6);
+                expect(questions.length).toBe(10);
             });
         })));
 
-    it('first question should be What is a budget?', async(inject([AirtableService],
+    it('first question should be What does the letter in the badge mean?', async(inject([AirtableService],
         (faqService: AirtableService) => {
 
             let questions: any = [];
@@ -53,11 +53,11 @@ describe('BudgetFaqsPage', () => {
             faqService.getFAQ().subscribe((posts) => {
 
                 questions = posts;
-                expect(questions[0].fields.Question).toEqual('What is a budget?');
+                expect(questions[0].fields.Question).toEqual('What does the letter in the badge mean?');
             });
         })));
 
-    it('second question should be Importance of Managing your Income and Expenses.', async(inject([AirtableService],
+    it('second question should be What’s the difference between a fixed record and a variable record?', async(inject([AirtableService],
         (faqService: AirtableService) => {
 
             let questions: any = [];
@@ -65,7 +65,7 @@ describe('BudgetFaqsPage', () => {
             faqService.getFAQ().subscribe((posts) => {
 
                 questions = posts;
-                expect(questions[1].fields.Question).toEqual('Importance of Managing your Income and Expenses.');
+                expect(questions[1].fields.Question).toEqual('What’s the difference between a fixed record and a variable record?');
             });
 
         })));
